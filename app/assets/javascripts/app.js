@@ -1,1 +1,0 @@
-golyglot = angular.module("golyglot", []);

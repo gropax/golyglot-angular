@@ -12,5 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//
 //= require angular/angular
+//= require angular-ui-bootstrap-bower/ui-bootstrap
+//= require angular-xeditable/dist/js/xeditable
+//
 //= require_tree .

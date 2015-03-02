@@ -1,0 +1,52 @@
+<div class="container-fluid" ng-app="golyglot">
+
+  <h1>Test Graphical Pattern</h1>
+
+  <h2>[zhi]</h2>
+
+  <div ng-controller="TableCtrl">
+    <table class="table table-hover">
+      <tr ng-repeat="pattern in patterns">
+        <td>
+          <span>{{ pattern.graphic }}</span>
+        </td>
+        <td>
+          <span text-editable="pattern.phonetic" e-name="name" e-form="rowform">{{ pattern.phonetic || "unknown" }}</span>
+        </td>
+        <td>
+          <span>{{ pattern.grammaticalCategory }}</span>
+        </td>
+        <td>
+          <span>{{ pattern.meaning }}</span>
+        </td>
+
+        <td style="white-space: nowrap">
+          <!-- row form --> 
+          <form editable-form name="rowform" ng-show="rowformr.$visible" class="form-buttons form-inline" shown="inserted == pattern">
+            <!-- row form buttons -->
+            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+              save
+            </button>
+            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            </button>
+          </form>
+
+          <!-- row action buttons -->
+          <div class="buttons" ng-show="!rowform.$visible">
+            <button class="btn btn-primary" ng-click="rowform.$show()">
+              edit
+            </button>
+            <button class="btn btn-danger" ng-click="removeUser($index)">
+              del
+            </button>
+          </div>
+        </td>
+
+      </tr>
+    </table>
+
+    <button class="btn btn-default" ng-click="addUser()">Add row</button>
+
+  </div>
+
+</div>

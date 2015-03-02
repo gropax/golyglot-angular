@@ -16,3 +16,10 @@
 
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+@import "angular-xeditable/dist/css/xeditable";
+
+
+/* Fix compatibility problem between AngularJS & Bootstrap about `href`
+ * attribute in `a` tags.
+ */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

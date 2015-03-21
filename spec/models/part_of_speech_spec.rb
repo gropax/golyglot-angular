@@ -2,8 +2,14 @@ require 'rails_helper'
 
 RSpec.describe PartOfSpeech, :type => :model do
 
+  let(:pof) { FactoryGirl.create(:part_of_speech) }
+  let(:lexs) { FactoryGirl.create_list(:lexical_entry, 5, part_of_speech: pof) }
+
+  it "has many lexical entries" do
+    expect(pof.lexical_entries).to match_array(lexs)
+  end
+
   describe "validation" do
-    let(:pof) { FactoryGirl.create(:part_of_speech) }
 
     it "has a valid factory" do
       expect(pof).to be_valid

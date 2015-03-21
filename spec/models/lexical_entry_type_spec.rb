@@ -2,8 +2,15 @@ require 'rails_helper'
 
 RSpec.describe LexicalEntryType, :type => :model do
 
+  let(:lex_typ) { FactoryGirl.create(:lexical_entry_type) }
+  let(:lexs) { FactoryGirl.create_list(:lexical_entry, 5, type: lex_typ) }
+
+  it "has many lexical entries" do
+    expect(lex_typ.lexical_entries).to match_array(lexs)
+  end
+
+
   describe "validation" do
-    let(:lex_typ) { FactoryGirl.create(:lexical_entry_type) }
 
     it "has a valid factory" do
       expect(lex_typ).to be_valid

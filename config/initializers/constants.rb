@@ -3,3 +3,9 @@ LANGUAGE_CODES = [
   "eng",
   "fra"
 ]
+
+SCRIPT_CODES = [
+  "Latn",
+  "Hans",
+  "Hant"
+]

@@ -3,4 +3,5 @@ class Sense
 
   embedded_in :lexical_entry
   embeds_many :definitions
+  embeds_many :equivalents
 end

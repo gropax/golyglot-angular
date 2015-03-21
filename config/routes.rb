@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   get "graphical_pattern", to: "static#graphical_pattern"
 
+  resources "parts_of_speech"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

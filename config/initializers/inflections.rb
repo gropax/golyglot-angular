@@ -5,7 +5,8 @@
 # locales as you wish. All of these examples are active by default:
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
-  inflect.singular "axis", "axis"
+  inflect.singular "axis", "axis" # Not sure about this (plural: axes)
+  inflect.irregular "part of speech", "parts of speech"
 end
 
 # These inflection rules are supported but not enabled by default:

@@ -2,7 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Form, :type => :model do
 
-  let(:form) { FactoryGirl.create(:form) }
+  let(:lex) { FactoryGirl.create(:lexical_entry) }
+  let(:form) { FactoryGirl.create(:form, lexical_entry: lex) }
+
+  it "is embeded in a lexical entry" do
+    expect(lex.senses).to include(sense)
+  end
+
 
   describe "validation" do
 

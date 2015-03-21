@@ -3,7 +3,8 @@ class LexicalEntry
 
   field :language, type: String
 
-  embeds_one :lemma, class_name: "Form"
+  embeds_one :lemma
+  embeds_many :senses
 
   belongs_to :part_of_speech
   belongs_to :type, class_name: "LexicalEntryType"

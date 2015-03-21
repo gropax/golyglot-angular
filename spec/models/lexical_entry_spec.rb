@@ -14,6 +14,11 @@ RSpec.describe LexicalEntry, :type => :model do
     expect { lex.type = lex_typ }.not_to raise_error
   end
 
+  it "embeds many senses" do
+    senses = FactoryGirl.create_list(:sense, 4, lexical_entry: lex)
+    expect(lex.senses).to match_array(senses)
+  end
+
 
   describe "validation" do
 

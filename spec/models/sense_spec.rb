@@ -15,4 +15,15 @@ RSpec.describe Sense, :type => :model do
     expect(sense.definitions).to match_array(defs)
   end
 
+  it "embeds many equivalents" do
+    eqvs = FactoryGirl.create_list(:equivalent, 4, sense: sense)
+    expect(sense.equivalents).to match_array(eqvs)
+  end
+
+  it "references many contexts" do
+    sents = FactoryGirl.create_list(:sentence, 4)
+    sense.sentences = sents
+    expect(sense.sentences).to match_array(sents)
+  end
+
 end

@@ -6,10 +6,6 @@ var golyglot = angular.module('golyglot', [
 ]);
 
 
-golyglot.controller('HomeCtrl', function($scope) {
-    $scope.bougle = "bandu !";
-});
-
 golyglot.controller('LexicalEntriesCtrl', function($scope) {
     $scope.bougle = "bandu !";
 });
@@ -17,23 +13,18 @@ golyglot.controller('LexicalEntriesCtrl', function($scope) {
 
 golyglot.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider.
-        state('home', {
-            url: '/',
-            templateUrl: 'home.html',
-            controller: 'HomeCtrl'
-        }).
         state('lexical_entries', {
             url: '/lexical_entries',
-            templateUrl: 'templates/lexical_entries.html',
+            templateUrl: 'lexical_entries.html',
             controller: 'LexicalEntriesCtrl'
         }).
         state('lexical_entry', {
             url: '/lexical_entry/:id',
-            templateUrl: 'templates/lexical_entry.html',
+            templateUrl: 'lexical_entry.html',
             controller: 'LexicalEntryCtrl'
         });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/lexical_entries');
 
     // What is this ?
     //$locationProvider.html5Mode(true);

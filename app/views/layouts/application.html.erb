@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="golyglot">
+
 <head>
   <title>Golyglot</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="golyglot">
 
-<%= yield %>
+<body>
+
+<div class="main-view">
+
+  <header>
+    <div class="header-container">
+
+    </div>
+  </header>
+
+
+  <div class="main-view-wrapper">
+    <div class="main-view-container" ui-view>
+
+    </div>
+  </div>
+
+
+  <footer>
+
+  </footer>
+
+</div>
 
 </body>
 </html>

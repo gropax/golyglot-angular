@@ -1,6 +1,8 @@
 # vim: filetype=ruby
 
-asset "angular"
 asset "bootstrap-sass-official"
+asset "angular"
+asset "ui-router"
+
 asset "angular-ui-bootstrap-bower"
 asset "angular-xeditable"

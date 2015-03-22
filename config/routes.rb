@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  root "static#graphical_pattern"
+  root "application#index"
 
-  get "graphical_pattern", to: "static#graphical_pattern"
+  #root "static#graphical_pattern"
+  #get "graphical_pattern", to: "static#graphical_pattern"
 
   resources "parts_of_speech"
 

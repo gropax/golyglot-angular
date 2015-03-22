@@ -23,3 +23,7 @@
  * attribute in `a` tags.
  */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+/* Fix navbar overlapping page content when using `navbar-fixed-top` class
+ */
+body { padding-top: 70px; }

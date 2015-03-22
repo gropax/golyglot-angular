@@ -3,24 +3,46 @@
 
 <head>
   <title>Golyglot</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
 
-<div class="main-view">
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
 
-  <header>
-    <div class="header-container">
+      <div class="navbar-header">
+        <button class="navbar-toggle collapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">GolyGlot</a>
+      </div>
 
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active">
+            <a href="#">Home</a>
+          </li>
+          <li>
+            <a href="#about">About</a>
+          </li>
+          <li>
+            <a href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </header>
+  </nav>
 
 
-  <div class="main-view-wrapper">
-    <div class="main-view-container" ui-view>
+
+  <div class="main-view-wrapper container">
+    <div class="main-view-container starter-template" ui-view>
 
     </div>
   </div>
@@ -30,7 +52,8 @@
 
   </footer>
 
-</div>
 
 </body>
 </html>
+
+

@@ -1,1 +1,40 @@
-<h1>Hourra !</h1>
+<h2>Lexical Entry</h2>
+
+<dt>
+    <span class="lemma" ng-controller="lemmaCtrl" ng-include="lemmaTemplate">
+    </span>
+    <span class="badge">{{ partOfSpeech }}</span>
+</dt>
+<dd>
+    <ol class="senses">
+        <li class="sense" ng-repeat="sense in lexicalEntry.senses">
+            <div class="equivalents">
+                {{ sense.equivalents }}
+                {{ englishEquivalents(sense.equivalents) }}
+                Bite!
+            </div>
+            <ul class="definitions">
+                <li class="definition" rg-repeat="def in sense.definitions">
+                    {{ def }}
+                    {{ englishTranslation(def) }}
+                </li>
+            </ul>        
+            <ul class="sentences">
+                <li class="sentence" rg-repeat="sentence in sense.sentences">
+                    {{ sentence }}
+                    <span>
+                        <ruby>
+                            {{ simplified(sentence) }}
+                            <rp>(</rp>
+                            <rt>{{ pinyin(sentence) }}</rt>
+                            <rp>)</rp>
+                        </ruby>
+                    </span>
+                    <span>
+                        {{ englishTranslation(sentence) }}
+                    </span>
+                </li>
+            </ul>
+        </li>
+    </ol>
+</dd>

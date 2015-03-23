@@ -2,6 +2,8 @@
 
 asset "bootstrap-sass-official"
 asset "angular"
+asset "underscore"
+asset "angular-underscore-module"
 asset "ui-router"
 
 asset "angular-ui-bootstrap-bower"

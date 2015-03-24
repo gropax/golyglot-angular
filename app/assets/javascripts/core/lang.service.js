@@ -1,4 +1,4 @@
-angular.module('golyglot.lang').service('lang', lang);
+angular.module('golyglot.core').service('lang', lang);
 
 function lang(std, cmn, eng) {
     this.std = std;

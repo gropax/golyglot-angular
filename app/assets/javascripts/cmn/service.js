@@ -1,4 +1,4 @@
-angular.module('golyglot.lang.cmn').service('cmn', cmn);
+angular.module('golyglot.cmn').service('cmn', cmn);
 
 function cmn(std) {
 

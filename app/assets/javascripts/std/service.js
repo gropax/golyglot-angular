@@ -1,4 +1,4 @@
-angular.module('golyglot.lang.std').service('std', std);
+angular.module('golyglot.std').service('std', std);
 
 function std() {
 

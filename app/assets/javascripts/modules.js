@@ -4,7 +4,7 @@ var golyglot = angular.module('golyglot', [
     'ui.router',
     'ui.bootstrap',
 
-    'golyglot.lang',
+    'golyglot.core',
     //'xeditable'
 ]);
 

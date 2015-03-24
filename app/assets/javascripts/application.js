@@ -21,16 +21,16 @@
 //= require angular-ui-bootstrap-bower/ui-bootstrap
 //= require angular-xeditable/dist/js/xeditable
 //
-//= require lang/std/module
-//= require lang/std/service
-//= require lang/cmn/module
-//= require lang/cmn/service
-//= require lang/eng/module
-//= require lang/eng/service
-//= require lang/module
-//= require lang/service
+//= require std/module
+//= require std/service
+//= require cmn/module
+//= require cmn/service
+//= require cmn/lemma.controller
+//= require eng/module
+//= require eng/service
+//= require core/module
+//= require core/lang.service
 //
 //= require modules
 //= require_tree .
-//= require_tree ../templates
 //= require routes

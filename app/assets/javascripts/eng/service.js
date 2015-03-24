@@ -1,4 +1,4 @@
-angular.module('golyglot.lang.eng').service('eng', eng);
+angular.module('golyglot.eng').service('eng', eng);
 
 function eng(std) {
 

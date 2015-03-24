@@ -29,6 +29,7 @@
 //= require lang/eng/eng-service
 //= require lang/lang
 //= require lang/lang-service
+//= require lang/lang-lemma_directive
 //
 //= require modules
 //= require_tree ./controllers

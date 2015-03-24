@@ -1,7 +1,9 @@
 <h2>Lexical Entry</h2>
 
-<dt ng-include="lemmaTemplate">
-</dt>
+<lemma value="lexicalEntry.lemma" language="{{ lexicalEntry.language }}">
+</lemma>
+<span class="badge">{{ partOfSpeech }}</span>
+
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">

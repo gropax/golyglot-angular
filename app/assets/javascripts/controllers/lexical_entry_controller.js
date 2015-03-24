@@ -2,7 +2,6 @@ angular.module('golyglot').controller('LexicalEntryCtrl', LexicalEntryCtrl);
 
 
 function LexicalEntryCtrl($scope, _, lang) {
-    $scope.test = "Lexical Entry Controller";
 
     $scope.lexicalEntry = {
         "language": "cmn",

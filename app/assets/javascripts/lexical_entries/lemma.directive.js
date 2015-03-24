@@ -9,12 +9,11 @@ function lemma(lang) {
             value: "=",
         },
 
-        template: "<span ng-controller='lemmaCtrl' ng-include='lemmaTemplateUrl'></span>",
+        template: "<span ng-include='lemmaTemplateUrl'></span>",
 
         controller: function($scope, lang) {
             langMod = lang[$scope.language];
 
-            $scope.lemmaCtrl = langMod.LemmaCtrl;
             $scope.lemmaTemplateUrl = langMod.lemmaTemplateUrl;
         }
     };

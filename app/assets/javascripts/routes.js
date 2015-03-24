@@ -3,12 +3,12 @@ angular.module('golyglot').config(function($stateProvider, $urlRouterProvider, $
     $stateProvider.
         state('lexical_entries', {
             url: '/lexical_entries',
-            templateUrl: 'lexical_entries.html',
+            templateUrl: 'lexical_entries/lexical_entries.html',
             controller: 'LexicalEntriesCtrl'
         }).
         state('lexical_entry', {
             url: '/lexical_entry/:id',
-            templateUrl: 'lexical_entry.html',
+            templateUrl: 'lexical_entries/lexical_entry.html',
             controller: 'LexicalEntryCtrl'
         });
 

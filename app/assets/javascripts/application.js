@@ -21,17 +21,16 @@
 //= require angular-ui-bootstrap-bower/ui-bootstrap
 //= require angular-xeditable/dist/js/xeditable
 //
-//= require lang/std/std
-//= require lang/std/std-service
-//= require lang/cmn/cmn
-//= require lang/cmn/cmn-service
-//= require lang/eng/eng
-//= require lang/eng/eng-service
-//= require lang/lang
-//= require lang/lang-service
-//= require lang/lang-lemma_directive
+//= require lang/std/module
+//= require lang/std/service
+//= require lang/cmn/module
+//= require lang/cmn/service
+//= require lang/eng/module
+//= require lang/eng/service
+//= require lang/module
+//= require lang/service
 //
 //= require modules
-//= require_tree ./controllers
+//= require_tree .
 //= require_tree ../templates
 //= require routes

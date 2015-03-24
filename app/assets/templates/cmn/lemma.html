@@ -1,1 +1,6 @@
-{{ simplified(lemma) }} {{ traditional(lemma) }} {{ pinyin(lemma) }}  - 
+<span ng-controller="lang.cmn.LemmaCtrl">
+    {{ simplified(lemma) }}
+    {{ traditional(lemma) }}
+    {{ pinyin(lemma) }}
+</span>
+<span class="badge">{{ partOfSpeech }}</span>

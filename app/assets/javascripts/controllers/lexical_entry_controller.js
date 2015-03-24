@@ -142,7 +142,7 @@ function LexicalEntryCtrl($scope, _, lang) {
     var language = $scope.lexicalEntry.language;
     var langModule = lang[language] || lang.std;
 
-    $scope.lemmaCtrl = langModule.LemmaCtrl;
+    $scope.lang = lang;
     $scope.lemmaTemplate = langModule.lemmaTemplate;
 
 

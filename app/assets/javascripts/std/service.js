@@ -5,6 +5,7 @@ function std() {
     this.LemmaCtrl = LemmaCtrl;
     this.representation = representation;
 
+
     function representation(key, val) {
         var fn = function(form) {
             repr = _.detect(form.representations, function(r) {

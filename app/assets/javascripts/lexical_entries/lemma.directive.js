@@ -6,7 +6,7 @@ function lemma(lang) {
 
         scope: {
             language: "@",
-            value: "=",
+            lemma: "=value",
         },
 
         template: "<span ng-include='lemmaTemplateUrl'></span>",

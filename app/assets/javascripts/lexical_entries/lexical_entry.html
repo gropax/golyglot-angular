@@ -1,17 +1,18 @@
 <h2>Lexical Entry</h2>
 
-<lemma value="lexicalEntry.lemma" language="{{ lexicalEntry.language }}">
-</lemma>
-<span class="badge">{{ partOfSpeech }}</span>
-
+<dt>
+    <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
+    <span class="badge">{{ partOfSpeech }}</span>
+</dt>
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">
-            <div class="equivalents">
-                {{ sense.equivalents }}
-                {{ englishEquivalents(sense.equivalents) }}
-                Bite!
-            </div>
+
+            <span ng-repeat="eq in sense.equivalents">
+                <equivalent value="eq" lang="secondLanguage" />
+                <span ng-show="! $last">; </span>
+            </span>
+
             <ul class="definitions">
                 <li class="definition" rg-repeat="def in sense.definitions">
                     {{ def }}

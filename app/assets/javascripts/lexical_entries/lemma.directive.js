@@ -1,11 +1,11 @@
 angular.module('golyglot').directive('lemma', lemma);
 
-function lemma(lang) {
+function lemma() {
     return {
         restrict: 'E',
 
         scope: {
-            language: "@",
+            language: "=lang",
             lemma: "=value",
         },
 

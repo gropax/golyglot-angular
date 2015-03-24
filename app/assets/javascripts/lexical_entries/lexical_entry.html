@@ -8,31 +8,21 @@
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">
 
-            <span ng-repeat="eq in sense.equivalents">
-                <equivalent value="eq" lang="secondLanguage" />
-                <span ng-show="! $last">; </span>
-            </span>
+            <div class="equivalents">
+                <span ng-repeat="eq in sense.equivalents">
+                    <equivalent value="eq" lang="secondLanguage" />
+                    <span ng-show="! $last">; </span>
+                </span>
+            </div>
 
             <ul class="definitions">
-                <li class="definition" rg-repeat="def in sense.definitions">
-                    {{ def }}
-                    {{ englishTranslation(def) }}
+                <li class="definition" ng-repeat="def in sense.definitions">
                 </li>
             </ul>        
+
             <ul class="sentences">
-                <li class="sentence" rg-repeat="sentence in sense.sentences">
-                    {{ sentence }}
-                    <span>
-                        <ruby>
-                            {{ simplified(sentence) }}
-                            <rp>(</rp>
-                            <rt>{{ pinyin(sentence) }}</rt>
-                            <rp>)</rp>
-                        </ruby>
-                    </span>
-                    <span>
-                        {{ englishTranslation(sentence) }}
-                    </span>
+                <li ng-repeat="sentence in sense.sentences">
+                    <example value="sentence" lang="sentence.language" sec-lang="secondLanguage"/>
                 </li>
             </ul>
         </li>

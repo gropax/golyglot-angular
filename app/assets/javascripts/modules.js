@@ -8,6 +8,12 @@ var golyglot = angular.module('golyglot', [
     //'xeditable'
 ]);
 
+golyglot.constant('availableLanguages', [
+    {code: "cmn", name: "Mandarin"},
+    {code: "eng", name: "English"},
+    {code: "fra", name: "French"},
+]);
+
 
 /* Setup Theme for xeditable module
  */

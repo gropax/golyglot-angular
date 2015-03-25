@@ -1,11 +1,11 @@
 angular.module('golyglot').controller('LexicalEntryCtrl', LexicalEntryCtrl);
 
 
-function LexicalEntryCtrl($scope, _, lang) {
+function LexicalEntryCtrl($scope, _, lang, config) {
 
     /* To be replaced by a state service.
      */
-    $scope.secondLanguage = 'eng';
+    $scope.secondLanguage = config.secondLanguage;
 
 
     $scope.lexicalEntry = {

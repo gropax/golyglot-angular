@@ -1,9 +1,23 @@
 <h2>Lexical Entry</h2>
 
-<dt>
+<div id="options" class="panel panel-default" style="float: right;">
+    <div class="panel-heading">
+        <h3 class="panel-title">Configuration</h3>
+    </div>
+    <div class="panel-body">
+        <p>{{ secondLanguage }}</p>
+        <language-selector />
+        <hr />
+        First language config
+        <hr />
+        Second language config
+    </div>
+</div>
+
+<h2>
     <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
     <span class="badge">{{ partOfSpeech }}</span>
-</dt>
+</h2>
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">

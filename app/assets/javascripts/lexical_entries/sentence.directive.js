@@ -9,12 +9,12 @@ function sentence() {
             sentence: "=value",
         },
 
-        template: "<span ng-include='sentenceTemplateUrl'></span>",
+        template: "<span ng-include='sentenceTemplateUrl()'></span>",
 
-        controller: function($scope, lang) {
-            langMod = lang[$scope.language];
-
-            $scope.sentenceTemplateUrl = langMod.sentenceTemplateUrl;
+        controller: function($scope, langComps) {
+            $scope.sentenceTemplateUrl = function () {
+                return langComps.sentenceTemplateUrl($scope.language);
+            };
         }
     };
 }

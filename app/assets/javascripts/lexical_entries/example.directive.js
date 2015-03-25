@@ -10,17 +10,20 @@ function example() {
             sentence: "=value",
         },
 
-        //template: "Sentence: {{ sentence }} ; Translation: {{ translation }}",
-        template: "<sentence value='sentence' lang='language' /><sentence value='translation' lang='secondLanguage' />",
+        template: "<sentence value='sentence' lang='language' /><sentence value='translation()' lang='secondLanguage' />",
 
         controller: function($scope) {
-            $scope.translation = pickTranslationIn($scope.secondLanguage, $scope.sentence);
+
+            $scope.translation = function () {
+                return pickTranslationIn($scope.secondLanguage, $scope.sentence);
+            };
 
             function pickTranslationIn(language, sentence) {
                 return _.detect(sentence.translations, function(t) {
                     return t.language === language;
                 });
             }
+
         }
     };
 }

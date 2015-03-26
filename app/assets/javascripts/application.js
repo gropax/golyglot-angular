@@ -33,7 +33,6 @@
 //= require eng/service
 //
 //= require core/module
-//= require core/lang.service
 //
 //= require modules
 //= require_tree .

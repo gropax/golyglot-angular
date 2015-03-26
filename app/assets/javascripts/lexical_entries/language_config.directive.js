@@ -1,8 +1,5 @@
 angular.module('golyglot').directive('languageConfig', languageConfig);
 
-// @todo
-//     Restrict language config here.
-//
 function languageConfig() {
     return {
         restrict: 'E',

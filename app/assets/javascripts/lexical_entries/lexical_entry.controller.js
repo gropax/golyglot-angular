@@ -1,13 +1,6 @@
 angular.module('golyglot').controller('LexicalEntryCtrl', LexicalEntryCtrl);
 
-
-// @todo
-//     Remove `lang` & `config`
-//
-function LexicalEntryCtrl($scope, _, lang, config) {
-
-    $scope.secondLanguage = config.secondLanguage;
-
+function LexicalEntryCtrl($scope) {
 
     $scope.lexicalEntry = {
         "language": "cmn",
@@ -250,35 +243,6 @@ function LexicalEntryCtrl($scope, _, lang, config) {
 
           }
         ]
-    };
-
-    var language = $scope.lexicalEntry.language;
-    var langModule = lang[language] || lang.std;
-
-    $scope.lang = lang;
-    $scope.lemmaTemplate = langModule.lemmaTemplate;
-
-
-    $scope.english = lang.eng.english;
-
-    $scope.partOfSpeech = $scope.lexicalEntry.partOfSpeech;
-
-    $scope.translation = function(sent, lang) {
-        return _.detect(sent.translations, function(t) {
-            return t.language === lang; 
-        });
-    };
-
-    $scope.englishEquivalents = function(eqs) {
-        var engEqs = _.select(eqs, function(eq) { return eq.lenguage === 'eng'; });
-
-        return _.map(engEqs, $scope.english).join('; ');
-    };
-
-    $scope.englishTranslation = function(sent) {
-        var trans = $scope.translation(sent, "eng");
-
-        return trans ? $scope.english(trans) : "No translation in English";
     };
 
 };

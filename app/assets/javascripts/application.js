@@ -26,7 +26,6 @@
 //
 //= require cmn/module
 //= require cmn/service
-//= require cmn/config.service
 //= require cmn/comps.service
 //
 //= require eng/module

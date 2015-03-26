@@ -8,7 +8,7 @@ function languageSelector(config, availableLanguages) {
             language: "=value",
         },
 
-        templateUrl: "lexical_entries/language_selector.html",
+        templateUrl: "shared/language_selector.html",
 
         controller: function($scope, availableLanguages) {
             $scope.languages = availableLanguages;

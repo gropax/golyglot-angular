@@ -5,7 +5,7 @@ angular.module('golyglot.cmn').service('cmnComps', cmnComps);
 //
 function cmnComps(std) {
     // this.equivalentTemplateUrl
-    this.lemmaTemplateUrl = "cmn/lemma.html";
-    this.sentenceTemplateUrl = "cmn/sentence.html";
-    this.configTemplateUrl = "cmn/config.html";
+    this.lemmaTemplateUrl = "cmn/components/lemma.html";
+    this.sentenceTemplateUrl = "cmn/components/sentence.html";
+    this.configTemplateUrl = "cmn/components/config.html";
 }

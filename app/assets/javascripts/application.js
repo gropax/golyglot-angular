@@ -23,11 +23,15 @@
 //
 //= require std/module
 //= require std/service
+//
 //= require cmn/module
 //= require cmn/service
-//= require cmn/lemma.controller
+//= require cmn/config.service
+//= require cmn/comps.service
+//
 //= require eng/module
 //= require eng/service
+//
 //= require core/module
 //= require core/lang.service
 //

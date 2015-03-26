@@ -5,6 +5,7 @@ function langComps(stdComps, cmnComps, engComps) {
     this.equivalentTemplateUrl = componentGetter("equivalent");
     this.lemmaTemplateUrl = componentGetter("lemma");
     this.sentenceTemplateUrl = componentGetter("sentence");
+    this.configTemplateUrl = componentGetter("config");
 
 
     var compServices = {

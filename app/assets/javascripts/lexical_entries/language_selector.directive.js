@@ -4,12 +4,14 @@ function languageSelector(config, availableLanguages) {
     return {
         restrict: 'E',
 
+        scope: {
+            language: "=value",
+        },
+
         templateUrl: "lexical_entries/language_selector.html",
 
-        controller: function($scope, config, availableLanguages) {
+        controller: function($scope, availableLanguages) {
             $scope.languages = availableLanguages;
-            $scope.secondLanguage = config.secondLanguage;
-            $scope.config = config;
         }
     };
 }

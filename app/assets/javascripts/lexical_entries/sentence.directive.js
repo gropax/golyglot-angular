@@ -7,6 +7,7 @@ function sentence() {
         scope: {
             language: "=lang",
             sentence: "=value",
+            langConfig: "=config"
         },
 
         template: "<span ng-include='sentenceTemplateUrl()'></span>",

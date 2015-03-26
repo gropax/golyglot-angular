@@ -5,12 +5,9 @@
         <h3 class="panel-title">Configuration</h3>
     </div>
     <div class="panel-body">
-        <p>{{ secondLanguage }}</p>
-        <language-selector />
+        <language-selector value="secondLanguage"></language-selector>
         <hr />
-        First language config
-        <hr />
-        Second language config
+        <language-config lang="lexicalEntry.language" config="langConfig"></language-config>
     </div>
 </div>
 
@@ -18,6 +15,7 @@
     <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
     <span class="badge">{{ partOfSpeech }}</span>
 </h2>
+
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">
@@ -36,7 +34,7 @@
 
             <ul class="sentences">
                 <li ng-repeat="sentence in sense.sentences">
-                    <example value="sentence" lang="sentence.language" sec-lang="secondLanguage"/>
+                    <example value="sentence" lang="sentence.language" sec-lang="secondLanguage" config="langConfig"/>
                 </li>
             </ul>
         </li>

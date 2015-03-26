@@ -8,9 +8,10 @@ function example() {
             language: "=lang",
             secondLanguage: "=secLang",
             sentence: "=value",
+            langConfig: "=config"
         },
 
-        template: "<sentence value='sentence' lang='language' /><sentence value='translation()' lang='secondLanguage' />",
+        template: "<sentence value='sentence' lang='language' config='langConfig'/><sentence value='translation()' lang='secondLanguage' config='langConfig'/>",
 
         controller: function($scope) {
 

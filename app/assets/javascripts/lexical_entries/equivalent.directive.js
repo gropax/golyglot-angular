@@ -1,5 +1,8 @@
 angular.module('golyglot').directive('equivalent', equivalent);
 
+// @todo
+//     Use `langComps` instead of `lang`
+//
 function equivalent() {
     return {
         restrict: 'E',

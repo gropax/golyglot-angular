@@ -1,5 +1,8 @@
 angular.module('golyglot.cmn').service('cmn', cmn);
 
+// @todo
+//     Remove template urls.
+//
 function cmn(std) {
 
     // this.equivalentTemplateUrl

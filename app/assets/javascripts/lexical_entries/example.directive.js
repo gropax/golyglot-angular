@@ -1,5 +1,8 @@
 angular.module('golyglot').directive('example', example);
 
+// @todo
+//     Remove `lang` attribute: can be extracted from `sentence`.
+//
 function example() {
     return {
         restrict: 'E',

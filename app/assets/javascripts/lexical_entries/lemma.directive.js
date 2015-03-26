@@ -1,5 +1,8 @@
 angular.module('golyglot').directive('lemma', lemma);
 
+// @todo
+//     Use `langComps` instead of `lang`
+//
 function lemma() {
     return {
         restrict: 'E',

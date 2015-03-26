@@ -1,6 +1,9 @@
 angular.module('golyglot').controller('LexicalEntryCtrl', LexicalEntryCtrl);
 
 
+// @todo
+//     Remove `lang` & `config`
+//
 function LexicalEntryCtrl($scope, _, lang, config) {
 
     $scope.secondLanguage = config.secondLanguage;

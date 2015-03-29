@@ -9,12 +9,8 @@ function std() {
 
 
     function representation(key, val) {
-        var fn = function(form) {
-            if (form === undefined) { return undefined; }
-
-            repr = _.detect(form.representations, function(r) {
-                return r[key] === val;
-            });
+        var fn = function(reprs) {
+            repr = _.detect(reprs, function(r) { return r[key] === val; });
 
             return repr.writtenForm;
         };

@@ -1,1 +1,10 @@
-<h1>Hourra ! Lexical Entries</h1>
+<h1>Lexical Entries</h1>
+
+<ol>
+    <li ng-repeat="lexicalEntry in lexicalEntries">
+        <a ui-sref="lexicalEntry({id: lexicalEntry._id.$oid})">
+            <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
+        </a>
+        <span class="badge">{{ lexicalEntry.partOfSpeech.name }}</span>
+    </li>
+</ol>

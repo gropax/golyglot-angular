@@ -1,18 +1,18 @@
 
 angular.module('golyglot').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider.
-        state('lexical_entries', {
+        state('lexicalEntries', {
             url: '/lexical_entries',
             templateUrl: 'lexical_entries/lexical_entries.html',
             controller: 'LexicalEntriesCtrl'
         }).
-        state('lexical_entry', {
-            url: '/lexical_entry/:id',
+        state('lexicalEntry', {
+            url: '/lexical_entries/:id',
             templateUrl: 'lexical_entries/lexical_entry.html',
             controller: 'LexicalEntryCtrl'
         });
 
-    $urlRouterProvider.otherwise('/lexical_entry/1');
+    $urlRouterProvider.otherwise('/lexical_entries');
 
     // What is this ?
     //$locationProvider.html5Mode(true);

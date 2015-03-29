@@ -1,8 +1,17 @@
 angular.module('golyglot').controller('LexicalEntryCtrl', LexicalEntryCtrl);
 
-function LexicalEntryCtrl($scope) {
+function LexicalEntryCtrl($scope, $stateParams, LexicalEntry) {
+    $scope.searching = true;
+    $scope.lexicalEntry = undefined;
 
-    $scope.lexicalEntry = {
+    LexicalEntry.get({id: $stateParams.id}).then(function (results) {
+        $scope.lexicalEntry = results;
+        $scope.searching = false;
+    }, function (error) {
+        $scope.searching = false;
+    });
+
+    $scope.lexicalEntryFixture = {
         "language": "cmn",
 
         "type": "word",

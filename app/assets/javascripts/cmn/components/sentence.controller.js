@@ -1,12 +1,13 @@
 angular.module('golyglot.cmn').controller('CmnSentenceCtrl', CmnSentenceCtrl);
 
 function CmnSentenceCtrl($scope, cmn) {
-    var simp = cmn.getSimplified($scope.sentence);
-    var trad = cmn.getTraditional($scope.sentence);
+    var reprs = $scope.sentence.textRepresentations;
+
+    var simp = cmn.getSimplified(reprs);
+    var trad = cmn.getTraditional(reprs);
+    $scope.pinyin = cmn.getPinyin(reprs);
 
     cmnConfig = $scope.langConfig.cmn;
-
-    $scope.pinyin = cmn.getPinyin($scope.sentence);
 
     $scope.characters = function() {
         return (cmnConfig.charStyle === "traditional" ? trad : simp);

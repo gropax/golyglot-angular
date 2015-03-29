@@ -5,6 +5,7 @@ asset "angular"
 asset "underscore"
 asset "angular-underscore-module"
 asset "ui-router"
+asset "angular-rails-resource"
 
 asset "angular-ui-bootstrap-bower"
 asset "angular-xeditable"

@@ -1,6 +1,8 @@
 angular.module('golyglot.eng').controller('EngEquivalentCtrl', EngEquivalentCtrl);
 
 function EngEquivalentCtrl($scope, eng) {
-    $scope.english = eng.getEnglish($scope.equivalent);
+    var reprs = $scope.equivalent.textRepresentations;
+
+    $scope.english = eng.getEnglish(reprs);
 };
 

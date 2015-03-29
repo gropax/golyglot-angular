@@ -6,6 +6,7 @@
     "underscore": "latest",
     "angular-underscore-module": "latest",
     "ui-router": "latest",
+    "angular-rails-resource": "latest",
     "angular-ui-bootstrap-bower": "latest",
     "angular-xeditable": "latest"
   }

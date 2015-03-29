@@ -13,22 +13,22 @@
 
 <h2>
     <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
-    <span class="badge">{{ lexicalEntry.partOfSpeech }}</span>
+    <span class="badge">{{ lexicalEntry.partOfSpeech.name }}</span>
 </h2>
 
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">
-
             <div class="equivalents">
-                <span ng-repeat="eq in sense.equivalents">
+                <span ng-repeat="eq in sense.equivalents | language:secondLanguage">
                     <equivalent value="eq" lang="secondLanguage" />
                     <span ng-show="! $last">; </span>
                 </span>
             </div>
 
             <ul class="definitions">
-                <li class="definition" ng-repeat="def in sense.definitions">
+                <li class="definition" ng-repeat="def in sense.definitions | language:secondLanguage">
+                    @todo
                 </li>
             </ul>        
 

@@ -3,6 +3,7 @@ var golyglot = angular.module('golyglot', [
     'templates',
     'ui.router',
     'ui.bootstrap',
+    'rails',
 
     'golyglot.core',
     //'xeditable'

@@ -18,6 +18,7 @@
 //= require angular-underscore-module/angular-underscore-module
 //= require ui-router/release/angular-ui-router
 //= require angular-rails-templates
+//= require angular-rails-resource/angularjs-rails-resource
 //= require angular-ui-bootstrap-bower/ui-bootstrap
 //= require angular-xeditable/dist/js/xeditable
 //

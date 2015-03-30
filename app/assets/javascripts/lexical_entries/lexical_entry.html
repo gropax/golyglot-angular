@@ -26,15 +26,20 @@
                 </span>
             </div>
 
-            <ul class="definitions">
-                <li class="definition" ng-repeat="def in sense.definitions | language:secondLanguage">
-                    @todo
-                </li>
-            </ul>        
+            <div class="definitions">
+                <span ng-repeat="def in sense.definitions | language:secondLanguage">
+                    <definition value="def" lang="secondLanguage" />
+                    <span ng-show="! $last">; </span>
+                </span>
+            </div>        
 
             <ul class="sentences">
                 <li ng-repeat="sentence in sense.sentences">
-                    <example value="sentence" lang="sentence.language" sec-lang="secondLanguage" config="langConfig"/>
+                    <sentence value="sentence" lang="sentence.language" config="langConfig"></sentence>
+                    <sentence value="(sentence.translations|language:secondLanguage)[0]" lang="secondLanguage" config="langConfig"></sentence>
+                    
+                    
+                    <!-- <example value="sentence" lang="sentence.language" sec-lang="secondLanguage" config="langConfig"/> -->
                 </li>
             </ul>
         </li>

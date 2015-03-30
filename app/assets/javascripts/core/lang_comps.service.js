@@ -5,6 +5,7 @@ angular.module('golyglot.core').service('langComps', langComps);
 //
 function langComps(stdComps, cmnComps, engComps) {
 
+    this.definitionTemplateUrl = componentGetter("definition");
     this.equivalentTemplateUrl = componentGetter("equivalent");
     this.lemmaTemplateUrl = componentGetter("lemma");
     this.sentenceTemplateUrl = componentGetter("sentence");

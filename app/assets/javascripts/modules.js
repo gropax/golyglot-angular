@@ -1,13 +1,10 @@
 var golyglot = angular.module('golyglot', [
     'golyglot.core',
     'golyglot.lexical-entries',
-    'golyglot.lang.cmn',
-]);
 
-golyglot.constant('availableLanguages', [
-    {code: "cmn", name: "Mandarin"},
-    {code: "eng", name: "English"},
-    {code: "fra", name: "French"},
+    'golyglot.lang.cmn',
+    'golyglot.lang.eng',
+    'golyglot.lang.fra',
 ]);
 
 

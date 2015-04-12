@@ -1,3 +1,1 @@
-angular.module('golyglot.eng', [
-    'golyglot.std'        
-]);
+angular.module('golyglot.lang.eng', ['golyglot.core']);

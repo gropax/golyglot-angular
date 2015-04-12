@@ -27,6 +27,10 @@
 //
 //= require lang/cmn/module
 //= require_tree ./lang/cmn
+//= require lang/eng/module
+//= require_tree ./lang/eng
+//= require lang/fra/module
+//= require_tree ./lang/fra
 //
 //= require lexical_entries/module
 //= require_tree ./lexical_entries

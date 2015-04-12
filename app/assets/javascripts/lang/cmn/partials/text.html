@@ -1,13 +1,13 @@
-<span ng-controller='CmnSentenceCtrl'>
+<span>
     <span ng-show="showPinyin()">
         <ruby>
-            <rb>{{ characters() }}</rb>
+            <rb>{{ simplified() }}</rb>
             <rp>(</rp>
-            <rt>{{ pinyin }}</rt>
+            <rt>{{ pinyin() }}</rt>
             <rp>)</rp>
         </ruby>
     </span>
     <span ng-show="!showPinyin()">
-        {{ characters() }}
+        {{ simplified() }}
     </span>
 </span>

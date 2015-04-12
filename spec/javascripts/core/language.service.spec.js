@@ -57,5 +57,44 @@
 
         });
 
+
+        describe("#defaultConfig", function() {
+            beforeEach(function() {
+                var xxx = new LanguagePlugin('xxx');
+                xxx.defaultConfig = {bougle: "bigle", trugle: 123};
+                languageService.registerPlugin(xxx);
+
+                var yyy = new LanguagePlugin('yyy');
+                yyy.defaultConfig = {auie: "nrst", jldv: 456};
+                languageService.registerPlugin(yyy);
+            });
+
+            it("return config for all registered plugins", function() {
+                var expected = {
+                    xxx: {bougle: "bigle", trugle: 123},
+                    yyy: {auie: "nrst", jldv: 456}
+                };
+                expect(languageService.defaultConfig()).toEqual(expected); 
+            });
+        });
+
+        describe("#availableLanguages", function() {
+            beforeEach(function() {
+                var cmn = new LanguagePlugin('cmn', 'Mandarin');
+                languageService.registerPlugin(cmn);
+
+                var fra = new LanguagePlugin('fra', 'French');
+                languageService.registerPlugin(fra);
+            });
+
+            it("return a list of all registered language plugins", function() {
+                var expected = [
+                    {code: 'cmn', name: 'Mandarin'},
+                    {code: 'fra', name: 'French'},
+                ]
+                expect(languageService.availableLanguages()).toEqual(expected); 
+            });
+        });
+
     });
 })();

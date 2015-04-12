@@ -10,9 +10,10 @@
             LanguagePlugin = _LanguagePlugin_;
         }));
 
-        it("is initialized with a code", function() {
-            var plugin = new LanguagePlugin("cmn");
+        it("is initialized with a code and a name", function() {
+            var plugin = new LanguagePlugin("cmn", "Mandarin");
             expect(plugin.code).toEqual('cmn');
+            expect(plugin.name).toEqual('Mandarin');
         });
 
         

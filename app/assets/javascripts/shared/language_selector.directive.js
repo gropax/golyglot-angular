@@ -1,17 +1,19 @@
 angular.module('golyglot').directive('languageSelector', languageSelector);
 
-function languageSelector(availableLanguages) {
+languageSelector.$inject = ['languageService'];
+
+function languageSelector(languageService) {
     return {
         restrict: 'E',
 
         scope: {
-            language: "=value",
+            language: "=",
         },
 
         templateUrl: "shared/language_selector.html",
 
-        controller: function($scope, availableLanguages) {
-            $scope.languages = availableLanguages;
+        controller: function($scope, languageService) {
+            $scope.languages = languageService.availableLanguages();
         }
     };
 }

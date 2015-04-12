@@ -1,14 +1,9 @@
-angular.module('golyglot.lang.cmn').config(['$provide', function($provide) {
-    $provide.decorator('languageService', languageServiceDecorator);
-}]);
+angular.module('golyglot.lang.cmn').config(config);
 
+config.$inject = ['languageServiceProvider'];
 
-languageServiceDecorator.$inject = ['$delegate', '$log', 'LanguagePlugin'];
-
-function languageServiceDecorator($delegate, $log, LanguagePlugin) {
-    $log.log("Decorator initialized !!");
-
-    var plugin = new LanguagePlugin("cmn");
+function config(languageServiceProvider) {
+    var plugin = new languageServiceProvider.LanguagePlugin("cmn", "Mandarin");
 
     plugin.partials = {
         lemma: "lang/cmn/partials/lemma.html",
@@ -18,7 +13,7 @@ function languageServiceDecorator($delegate, $log, LanguagePlugin) {
 
     plugin.defaultConfig = {
         charset: "simplified",
-        displayPinYin: true,
+        showPinyin: true,
     };
 
     plugin.representations({
@@ -27,7 +22,5 @@ function languageServiceDecorator($delegate, $log, LanguagePlugin) {
         pinyin: {script: "Latn", orthographyName: "pinyin"},
     });
 
-    $delegate.registerPlugin(plugin);
-
-    return $delegate;
+    languageServiceProvider.registerPlugin(plugin);
 }

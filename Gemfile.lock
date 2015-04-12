@@ -8,6 +8,16 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
+GIT
+  remote: git://github.com/pivotal/jasmine-gem.git
+  revision: 6d7b6041de007ad6fc08071a6a7e317c6ddbf272
+  specs:
+    jasmine (2.2.0)
+      jasmine-core (~> 2.2)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -79,6 +89,7 @@ GEM
       thor (~> 0.19.1)
     hike (1.2.3)
     i18n (0.7.0)
+    jasmine-core (2.2.0)
     jbuilder (2.2.8)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -101,6 +112,7 @@ GEM
       mini_portile (~> 0.6.0)
     optionable (0.2.0)
     origin (2.1.1)
+    phantomjs (1.9.8.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -197,6 +209,7 @@ DEPENDENCIES
   database_cleaner (~> 1.4.1)
   factory_girl_rails
   foreman
+  jasmine!
   jbuilder (~> 2.0)
   jquery-rails
   mongoid (~> 4)!

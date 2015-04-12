@@ -1,4 +1,4 @@
-angular.module('golyglot').controller('LexicalEntriesCtrl', LexicalEntriesCtrl);
+angular.module('golyglot.lexical-entries').controller('LexicalEntriesCtrl', LexicalEntriesCtrl);
 
 function LexicalEntriesCtrl($scope, LexicalEntry) {
     $scope.searching = true;

@@ -6,15 +6,27 @@ function lemma() {
 
         scope: {
             language: "=lang",
-            lemma: "=value",
+            form: "=value",
+            config: "=",
         },
 
-        template: "<span ng-include='lemmaTemplateUrl()'></span>",
+        template: "<span ng-include='partial()'></span>",
 
-        controller: function($scope, langComps) {
-            $scope.lemmaTemplateUrl = function () {
-                return langComps.lemmaTemplateUrl($scope.language);
+        controller: function($scope, $log, languageService) {
+            var language = $scope.language;
+
+            $scope.partial = function () {
+                return languageService.partial(language, 'lemma');
             };
+
+            // Import representation getters and config variables into the
+            // controller `$scope`.
+            //
+            // @note
+            //     languageService#importHelpersIn` reads the `language`, `form`
+            //     and `config` properties of the `$scope` variable.
+            //
+            languageService.importHelpersIn($scope);
         }
     };
 }

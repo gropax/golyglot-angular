@@ -3,6 +3,7 @@
   "dependencies": {
     "bootstrap-sass-official": "latest",
     "angular": "latest",
+    "angular-mocks": "latest",
     "underscore": "latest",
     "angular-underscore-module": "latest",
     "ui-router": "latest",

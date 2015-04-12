@@ -1,6 +1,6 @@
 angular.module('golyglot').directive('languageSelector', languageSelector);
 
-function languageSelector(config, availableLanguages) {
+function languageSelector(availableLanguages) {
     return {
         restrict: 'E',
 

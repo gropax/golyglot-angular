@@ -3,7 +3,7 @@ angular.module('golyglot.core').service('langComps', langComps);
 // Module providing a single interface to access language-specific component
 // variants, given the corresponding language code.
 //
-function langComps(stdComps, cmnComps, engComps) {
+function langComps(stdComps, engComps) {
 
     this.definitionTemplateUrl = componentGetter("definition");
     this.equivalentTemplateUrl = componentGetter("equivalent");
@@ -13,7 +13,6 @@ function langComps(stdComps, cmnComps, engComps) {
 
 
     var compServices = {
-        cmn: cmnComps,
         eng: engComps,
     }
 

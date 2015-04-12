@@ -1,4 +1,4 @@
-angular.module('golyglot').factory('LexicalEntry', LexicalEntry);
+angular.module('golyglot.lexical-entries').factory('LexicalEntry', LexicalEntry);
 
 
 function LexicalEntry(railsResourceFactory) {

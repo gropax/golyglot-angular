@@ -2,6 +2,7 @@
 
 asset "bootstrap-sass-official"
 asset "angular"
+asset "angular-mocks"
 asset "underscore"
 asset "angular-underscore-module"
 asset "ui-router"

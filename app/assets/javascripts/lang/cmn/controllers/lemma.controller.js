@@ -1,4 +1,4 @@
-angular.module('golyglot.cmn').controller('CmnLemmaCtrl', CmnLemmaCtrl);
+angular.module('golyglot.lang.cmn').controller('CmnLemmaCtrl', CmnLemmaCtrl);
 
 
 function CmnLemmaCtrl($scope, cmn) {

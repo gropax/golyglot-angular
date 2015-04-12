@@ -48,6 +48,7 @@ group :test, :development do
   gem 'database_cleaner', '~> 1.4.1'
   gem 'selenium-webdriver'
   gem 'pry'
+  gem 'jasmine', github: 'pivotal/jasmine-gem'
 end
 
 gem 'bower-rails'

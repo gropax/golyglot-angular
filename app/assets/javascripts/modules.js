@@ -1,12 +1,7 @@
 var golyglot = angular.module('golyglot', [
-    'underscore',
-    'templates',
-    'ui.router',
-    'ui.bootstrap',
-    'rails',
-
     'golyglot.core',
-    //'xeditable'
+    'golyglot.lexical-entries',
+    'golyglot.lang.cmn',
 ]);
 
 golyglot.constant('availableLanguages', [

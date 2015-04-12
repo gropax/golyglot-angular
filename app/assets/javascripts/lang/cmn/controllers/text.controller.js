@@ -1,4 +1,4 @@
-angular.module('golyglot.cmn').controller('CmnSentenceCtrl', CmnSentenceCtrl);
+angular.module('golyglot.lang.cmn').controller('CmnSentenceCtrl', CmnSentenceCtrl);
 
 function CmnSentenceCtrl($scope, cmn) {
     var reprs = $scope.sentence.textRepresentations;

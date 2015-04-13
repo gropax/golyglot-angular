@@ -1,12 +1,14 @@
-<div ng-controller='CmnConfigCtrl'>
+<div>
+    <h3>Mandarin Settings</h3>
+
     <span>Character style: </span>
-    <select ng-model="cmnConfig.charset">
+    <select ng-model="config().charset">
         <option value="simplified">Simplified</option>
         <option value="traditional">Traditional</option>
     </select>
 
     <br />
 
-    <span>Display pinyin: </span>
-    <input type="checkbox" ng-model="cmnConfig.showPinyin">
+    <span>Show pinyin: </span>
+    <input type="checkbox" ng-model="config().showPinyin">
 </div>

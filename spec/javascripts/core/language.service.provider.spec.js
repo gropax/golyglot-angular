@@ -21,6 +21,9 @@
                     traditional: {script: 'Hant'},
                     pinyin: {script: 'Latn', orthographyName: 'pinyin'},
                 });
+                cmn.partials = {
+                    lemma: 'lang/cmn/partials/lemma.html',
+                };
                 cmn.defaultConfig = {charset: "traditional", showPinyin: true};
 
                 languageServiceProvider.registerPlugin(cmn);
@@ -172,6 +175,20 @@
                     {code: 'ara', name: 'Arabic'},
                 ]
                 expect(languageService.availableLanguages()).toEqual(expected); 
+            });
+        });
+
+        describe("#partial", function() {
+            it("returns partial if provided by plugin", function() {
+                expect(languageService.partial('cmn', 'lemma')).toEqual("lang/cmn/partials/lemma.html"); 
+            });
+
+            it("returns default partial if not provided by plugin", function() {
+                expect(languageService.partial('ara', 'lemma')).toEqual("core/partials/lemma.html"); 
+            });
+
+            it("returns false if no default partial", function() {
+                expect(languageService.partial('cmn', 'do-not-exist')).toBe(false);
             });
         });
     });

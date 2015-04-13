@@ -1,4 +1,8 @@
-angular.module('golyglot.core').provider('languageService', function() {
+angular.module('golyglot.core').provider('languageService', languageServiceProvider);
+
+languageServiceProvider.$inject = ["defaultPartials"];
+        
+function languageServiceProvider(defaultPartials) {
 
     // Language plugins creation and registering
     // -----------------------------------------
@@ -69,9 +73,8 @@ angular.module('golyglot.core').provider('languageService', function() {
     function partial(lang, name) {
         var plugin = registeredPlugins[lang];
         var partial = plugin && plugin.partials[name];
-        partial = partial || "core/partials/" + name;
 
-        return partial;
+        return partial || defaultPartials[name] || false;
     }
 
     function importHelpersIn($scope) {
@@ -107,4 +110,4 @@ angular.module('golyglot.core').provider('languageService', function() {
         });
     }
 
-});
+};

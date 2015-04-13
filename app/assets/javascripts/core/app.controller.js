@@ -1,11 +1,12 @@
 angular.module('golyglot.core').controller('AppCtrl', AppCtrl);
 
-// Global application controller. Used to store configuration data, such as:
-//   - second language
-//   - language-specific settings
+// Global application confis state.
 //
+// @note
+//     Could remove that ctrl and use `$rootscope` instead ?
+// 
 function AppCtrl($scope, languageService) {
-    $scope.langConfig = languageService.defaultConfig();
+    $scope.languageConfig = languageService.defaultConfig();
     $scope.secondLanguage = "eng";
 };
 

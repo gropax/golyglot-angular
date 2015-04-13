@@ -12,7 +12,7 @@ function lemma() {
 
         template: "<span ng-include='partial()'></span>",
 
-        controller: function($scope, $log, languageService) {
+        controller: function($scope, languageService) {
             var language = $scope.language;
 
             $scope.partial = function () {

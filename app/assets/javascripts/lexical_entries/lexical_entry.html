@@ -1,21 +1,31 @@
 <h2>Lexical Entry</h2>
 
+<div id="options" style="float: right;">
+    <gg-language-config-panel first-language="lexicalEntry.language" second-language="secondLanguage" config="languageConfig"></gg-language-config-panel>
+</div>
+
+<!--
 <div id="options" class="panel panel-default" style="float: right;">
     <div class="panel-heading">
         <h3 class="panel-title">Configuration</h3>
     </div>
     <div class="panel-body">
-        <language-selector language="secondLanguage"></language-selector>
+        <gg-language-selector language="secondLanguage"></gg-language-selector>
+        <div>
+            <hr />
+            <gg-language-config lang="lexicalEntry.language" config="languageConfig"></gg-language-config>
+        </div>
         <hr />
-        <language-config lang="lexicalEntry.language" config="langConfig"></language-config>
+        <gg-language-config lang="secondLanguage" config="languageConfig"></gg-language-config>
     </div>
 </div>
+-->
 
+<!--
 <h2>
     <lemma value="lexicalEntry.lemma" lang="lexicalEntry.language" />
     <span class="badge">{{ lexicalEntry.partOfSpeech.name }}</span>
 </h2>
-
 <dd>
     <ol class="senses">
         <li class="sense" ng-repeat="sense in lexicalEntry.senses">
@@ -39,9 +49,11 @@
                     <sentence value="(sentence.translations|language:secondLanguage)[0]" lang="secondLanguage" config="langConfig"></sentence>
                     
                     
-                    <!-- <example value="sentence" lang="sentence.language" sec-lang="secondLanguage" config="langConfig"/> -->
                 </li>
             </ul>
         </li>
     </ol>
 </dd>
+
+-->
+<!-- <example value="sentence" lang="sentence.language" sec-lang="secondLanguage" config="langConfig"/> -->

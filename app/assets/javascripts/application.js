@@ -27,6 +27,8 @@
 //
 //= require lang/cmn/module
 //= require_tree ./lang/cmn
+//= require lang/ara/module
+//= require_tree ./lang/ara
 //= require lang/eng/module
 //= require_tree ./lang/eng
 //= require lang/fra/module
@@ -38,5 +40,6 @@
 //= require modules
 //= require routes
 //
+//= require_tree ./components
 //= require_tree ./shared
 //

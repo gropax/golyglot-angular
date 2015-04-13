@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Configuration</h3>
+    </div>
+
+    <div class="panel-body">
+        <gg-language-selector language="secondLanguage"></gg-language-selector>
+
+        <gg-language-config language="firstLanguage" config="languageConfig"></gg-language-config>
+
+        <div ng-show='firstLanguage !== secondLanguage'>
+            <gg-language-config language="secondLanguage" config="languageConfig"></gg-language-config>
+        </div>
+    </div>
+</div>

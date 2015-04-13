@@ -2,7 +2,6 @@
     "use strict";
 
     describe("languageService", function() {
-        var languageService;
 
         beforeEach(module("golyglot.core"));
 

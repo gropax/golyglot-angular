@@ -4,12 +4,8 @@ angular.module('golyglot.core').controller('AppCtrl', AppCtrl);
 //   - second language
 //   - language-specific settings
 //
-function AppCtrl($scope, $log, languageService) {
-    $log.log("AppCtrl initialized !!");
-
-    //$scope.langConfig = {cmn: {charStyle: "simplified", showPinyin: true}};
+function AppCtrl($scope, languageService) {
     $scope.langConfig = languageService.defaultConfig();
-
     $scope.secondLanguage = "eng";
 };
 

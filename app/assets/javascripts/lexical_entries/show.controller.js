@@ -2,7 +2,7 @@ angular.module('golyglot.lexical-entries').controller('LexicalEntriesShowCtrl', 
 
 function LexicalEntriesShowCtrl($scope, $stateParams, LexicalEntry) {
     $scope.searching = true;
-    $scope.lexicalEntry = undefined;
+    $scope.lexicalEntry = undefined; // @todo Problems call methods in template ?
 
     LexicalEntry.get({id: $stateParams.id}).then(function (results) {
         $scope.lexicalEntry = results;
@@ -10,6 +10,10 @@ function LexicalEntriesShowCtrl($scope, $stateParams, LexicalEntry) {
     }, function (error) {
         $scope.searching = false;
     });
+
+
+
+
 
     $scope.lexicalEntryFixture = {
         "language": "cmn",

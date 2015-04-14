@@ -1,0 +1,11 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Global Settings</h3>
+    </div>
+    <div class="panel-body">
+        <span>Second language: </span>
+        <select ng-model="language">
+            <option ng-repeat="l in languages" value="{{ l.code }}">{{ l.name }}</option>
+        </select>
+    </div>
+</div>

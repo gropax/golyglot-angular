@@ -41,5 +41,4 @@
 //= require routes
 //
 //= require_tree ./components
-//= require_tree ./shared
 //

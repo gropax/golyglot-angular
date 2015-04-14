@@ -1,14 +1,14 @@
-angular.module('golyglot').directive('ggLanguageConfig', ggLanguageConfig);
+angular.module('golyglot').directive('ggLanguageSettingsPanel', ggLanguageSettingsPanel);
 
-function ggLanguageConfig() {
+function ggLanguageSettingsPanel() {
     return {
-        restrict: 'E',
+        restrict: 'EA',
 
         scope: {
             language: "=",
         },
 
-        templateUrl: "components/language_config_panel/language_config.html",
+        templateUrl: "components/language-settings-panel/template.html",
 
         controller: function($scope, languageService) {
             $scope.partial = function () {

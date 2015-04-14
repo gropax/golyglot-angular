@@ -1,13 +1,13 @@
-<span>
-    <span ng-show="config().showPinyin()">
+<span ng-controller="cmnCtrl">
+    <span ng-show="showPinyin">
         <ruby>
-            <rb>{{ data | cmnSimplified }}</rb>
+            <rb>{{ data | cmnCharacters:charset }}</rb>
             <rp>(</rp>
             <rt>{{ data | cmnPinyin }}</rt>
             <rp>)</rp>
         </ruby>
     </span>
-    <span ng-show="!config().showPinyin()">
-        {{ data | cmnSimplified }}
+    <span ng-show="!showPinyin">
+        {{ data | cmnCharacters:charset }}
     </span>
 </span>

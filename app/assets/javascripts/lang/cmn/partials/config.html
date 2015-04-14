@@ -1,8 +1,8 @@
-<div>
+<div ng-controller="cmnCtrl">
     <h3>Mandarin Settings</h3>
 
     <span>Character style: </span>
-    <select ng-model="config().charset">
+    <select ng-model="cmnSettings.charset">
         <option value="simplified">Simplified</option>
         <option value="traditional">Traditional</option>
     </select>
@@ -10,5 +10,5 @@
     <br />
 
     <span>Show pinyin: </span>
-    <input type="checkbox" ng-model="config().showPinyin">
+    <input type="checkbox" ng-model="cmnSettings.showPinyin">
 </div>

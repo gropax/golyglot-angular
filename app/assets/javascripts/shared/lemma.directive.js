@@ -5,7 +5,7 @@ function lemma() {
         restrict: 'E',
 
         scope: {
-            language: "=lang",
+            language: "=",
             form: "=value",
             config: "=",
         },

@@ -66,6 +66,7 @@ function languageServiceProvider(defaultPartials) {
             availableLanguages: availableLanguages,
             defaultConfig: defaultConfig,
             importHelpersIn: importHelpersIn,
+            representations: representations,
             partial: partial,
         };
     };
@@ -96,6 +97,21 @@ function languageServiceProvider(defaultPartials) {
         _.extend($scope, helpers);
 
         return helpers;
+    }
+
+    function representations(lang, reprs) {
+        var plugin = registeredPlugins[lang];
+
+        var getters = plugin ? plugin.representationGetters : {};
+        // Add the default getter (which just pick the first representation)
+        getters.default = function(reprs) { return reprs[0]; };
+
+        return _.mapObject(getters, function(getter, key) {
+            return function() {
+                var repr = getter(reprs);
+                return repr && repr.writtenForm;
+            };
+        });
     }
 
     function defaultConfig() {

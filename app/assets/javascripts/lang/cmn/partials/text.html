@@ -1,13 +1,13 @@
 <span>
-    <span ng-show="showPinyin()">
+    <span ng-show="config().showPinyin()">
         <ruby>
-            <rb>{{ simplified() }}</rb>
+            <rb>{{ text().simplified() }}</rb>
             <rp>(</rp>
-            <rt>{{ pinyin() }}</rt>
+            <rt>{{ text().pinyin() }}</rt>
             <rp>)</rp>
         </ruby>
     </span>
-    <span ng-show="!showPinyin()">
-        {{ simplified() }}
+    <span ng-show="!config().showPinyin()">
+        {{ text().simplified() }}
     </span>
 </span>

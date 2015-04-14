@@ -2,7 +2,7 @@ angular.module('golyglot').directive('ggLanguageConfigPanel', ggLanguageConfigPa
 
 function ggLanguageConfigPanel() {
     return {
-        restrict: 'E',
+        restrict: 'EA',
 
         scope: {
             firstLanguage: "=",

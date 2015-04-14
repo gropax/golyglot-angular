@@ -1,6 +1,6 @@
-angular.module('golyglot.lexical-entries').controller('LexicalEntriesCtrl', LexicalEntriesCtrl);
+angular.module('golyglot.lexical-entries').controller('LexicalEntriesListCtrl', LexicalEntriesListCtrl);
 
-function LexicalEntriesCtrl($scope, LexicalEntry) {
+function LexicalEntriesListCtrl($scope, LexicalEntry) {
     $scope.searching = true;
     $scope.lexicalEntries = [];
 

@@ -1,5 +1,6 @@
 angular.module('golyglot.lexical-entries').factory('LexicalEntry', LexicalEntry);
 
+LexicalEntry.$inject = ['railsResourceFactory'];
 
 function LexicalEntry(railsResourceFactory) {
     return railsResourceFactory({

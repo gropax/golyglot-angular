@@ -157,6 +157,32 @@
 
         });
 
+        describe("#representations", function() {
+            var reprs = [
+                {
+                    script: 'Hans',
+                    writtenForm: 'SIMPLIFIED',
+                },
+                {
+                    script: 'Hant',
+                    writtenForm: 'TRADITIONAL',
+                },
+                {
+                    script: 'Latn',
+                    orthographyName: 'pinyin',
+                    writtenForm: 'PINYIN',
+                },
+            ];
+
+            it("generates working getter functions", function() {
+                var text = languageService.representations('cmn', reprs);
+
+                expect(text.simplified()).toEqual('SIMPLIFIED');
+                expect(text.traditional()).toEqual('TRADITIONAL');
+                expect(text.pinyin()).toEqual('PINYIN');
+            });
+
+        });
 
         describe("#defaultConfig", function() {
             it("return config for all registered plugins", function() {

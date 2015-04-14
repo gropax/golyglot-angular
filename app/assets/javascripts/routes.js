@@ -1,15 +1,14 @@
-
 angular.module('golyglot').config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider.
         state('lexicalEntries', {
             url: '/lexical_entries',
-            templateUrl: 'lexical_entries/lexical_entries.html',
-            controller: 'LexicalEntriesCtrl'
+            templateUrl: 'lexical_entries/list.html',
+            controller: 'LexicalEntriesListCtrl'
         }).
         state('lexicalEntry', {
             url: '/lexical_entries/:id',
-            templateUrl: 'lexical_entries/lexical_entry.html',
-            controller: 'LexicalEntryCtrl'
+            templateUrl: 'lexical_entries/show.html',
+            controller: 'LexicalEntriesShowCtrl'
         });
 
     $urlRouterProvider.otherwise('/lexical_entries');

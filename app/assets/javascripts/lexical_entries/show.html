@@ -1,0 +1,38 @@
+<h2>Lexical Entry</h2>
+
+<div id="options" style="float: right;">
+    <div gg-language-config-panel first-language="lexicalEntry.language" second-language="secondLanguage" config="languageConfig"></div>
+</div>
+
+<h2>
+    <span gg-language-text type="lemma" language="lexicalEntry.language" data="lexicalEntry.lemma" config="languageConfig"></span>
+    <span class="badge">{{ lexicalEntry.partOfSpeech.name }}</span>
+</h2>
+
+<dd>
+    <ol class="senses">
+        <li class="sense" ng-repeat="sense in lexicalEntry.senses">
+            <div class="equivalents">
+                <span ng-repeat="eq in sense.equivalents | language:secondLanguage">
+                    <span gg-language-text type="text" language="secondLanguage" data="eq" config="languageConfig"></span>
+                    <span ng-show="! $last">; </span>
+                </span>
+            </div>
+
+            <div class="definitions">
+                <span ng-repeat="def in sense.definitions | language:secondLanguage">
+                    <span gg-language-text type="text" language="secondLanguage" data="def" config="languageConfig"></span>
+                    <span ng-show="! $last">; </span>
+                </span>
+            </div>        
+
+            <ul class="sentences">
+                <li ng-repeat="sentence in sense.sentences">
+                    <span gg-language-text type="text" language="sentence.language" data="sentence" config="languageConfig"></span>
+                    <span gg-language-text type="text" language="secondLanguage" data="(sentence.translations|language:secondLanguage)[0]" config="languageConfig"></span>
+                </li>
+            </ul>
+
+        </li>
+    </ol>
+</dd>

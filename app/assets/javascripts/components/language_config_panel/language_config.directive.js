@@ -6,19 +6,14 @@ function ggLanguageConfig() {
 
         scope: {
             language: "=",
-            languageConfig: "=config",
         },
 
         templateUrl: "components/language_config_panel/language_config.html",
 
-        controller: function($scope, languageService, $log) {
+        controller: function($scope, languageService) {
             $scope.partial = function () {
                 return languageService.partial($scope.language, 'config');
             };
-
-            $scope.config = function() {
-                return $scope.languageConfig[$scope.language];
-            }
         }
     };
 }

@@ -8,7 +8,6 @@ function ggLanguageText() {
             type: "@",
             language: "=",
             data: "=",
-            languageConfig: "=config",
         },
 
         template: "<span ng-include='partial()'></span>" +
@@ -18,10 +17,6 @@ function ggLanguageText() {
             $scope.partial = function () {
                 return languageService.partial($scope.language, $scope.type);
             };
-
-            $scope.config = function() {
-                return $scope.languageConfig[$scope.language];
-            }
         }
     };
 }

@@ -6,7 +6,6 @@ angular.module('golyglot.core').controller('AppCtrl', AppCtrl);
 //     Could remove that ctrl and use `$rootscope` instead ?
 // 
 function AppCtrl($scope, languageService) {
-    $scope.languageConfig = languageService.defaultConfig();
     $scope.secondLanguage = "eng";
 };
 

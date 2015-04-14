@@ -29,10 +29,10 @@
             <ul class="sentences">
                 <li ng-repeat="sentence in sense.sentences">
                     <span gg-language-text type="text" language="sentence.language" data="sentence" config="languageConfig"></span>
-                    <span gg-language-text type="text" language="secondLanguage" data="(sentence.translations|language:secondLanguage)[0]" config="languageConfig"></span>
+                    <span gg-language-text type="text" language="secondLanguage" data="sentence.translations | language:secondLanguage | first" config="languageConfig"></span>
                 </li>
             </ul>
 
         </li>
     </ol>
-</dd>
+</dd

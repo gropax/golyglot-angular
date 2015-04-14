@@ -16,11 +16,5 @@ function config(languageServiceProvider) {
         showPinyin: true,
     };
 
-    plugin.representations({
-        simplified: {script: "Hans"},
-        traditional: {script: "Hant"},
-        pinyin: {script: "Latn", orthographyName: "pinyin"},
-    });
-
     languageServiceProvider.registerPlugin(plugin);
 }

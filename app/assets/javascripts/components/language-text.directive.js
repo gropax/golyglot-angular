@@ -22,20 +22,6 @@ function ggLanguageText() {
             $scope.config = function() {
                 return $scope.languageConfig[$scope.language];
             }
-
-            $scope.reprs = function() {
-                if ($scope.data)
-                    return $scope.data.formRepresentations || $scope.data.textRepresentations;
-                else
-                    return [];
-            }
-
-            $scope.text = function() {
-                if ($scope.language)
-                    return languageService.representations($scope.language, $scope.reprs());
-                else
-                    return {};
-            }
         }
     };
 }

@@ -47,14 +47,6 @@ RSpec.describe Sentence, :type => :model do
     end
   end
 
-  describe "#find_by_email" do
-    it "returns a user for its email" do
-      bob; john
-      user = User.find_by_email("john@doe.com")
-      expect(user).to eq(john)
-    end
-  end
-
   describe "#password_hash" do
     before(:each) do
       @boby = FactoryGirl.build(:bob)
@@ -76,20 +68,12 @@ RSpec.describe Sentence, :type => :model do
   end
 
   describe "#authenticate" do
-    before(:each) do
-      bob
-    end
-
-    it "returns false if unknown email" do
-      expect(User.authenticate("wrong@email.com", "bobbybou")).to be false
-    end
-
     it "returns false if wrong password" do
-      expect(User.authenticate("bob@jackson.com", "wrongpwd")).to be false
+      expect(bob.authenticate("wrongpwd")).to be false
     end
 
     it "returns true if correct password" do
-      expect(User.authenticate("bob@jackson.com", "bobbybou")).to be true
+      expect(bob.authenticate("bobbybou")).to be true
     end
 
   end

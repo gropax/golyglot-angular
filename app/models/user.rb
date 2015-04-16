@@ -18,18 +18,8 @@ class User
 
   before_save :encrypt_password
 
-  def self.find_by_email(email)
-    self.where(email: email).first
-  end
-
-  def self.authenticate(email, password)
-    user = User.find_by_email(email)
-    if user
-      user_password = Password.new(user.password_hash)
-      user_password == password
-    else
-      false
-    end
+  def authenticate(password)
+    Password.new(password_hash) == password
   end
 
   protected

@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.describe PartOfSpeech, :type => :request do
 
-  describe "GET /lexical_entries" do
+  describe "GET /api/lexical_entries" do
     before(:each) do
       FactoryGirl.create_list(:lexical_entry, 3)
 
-      get "/lexical_entries.json"
+      get "api/lexical_entries.json"
 
       @lexical_entries = JSON.parse(response.body)
     end
@@ -24,12 +24,12 @@ RSpec.describe PartOfSpeech, :type => :request do
     end
   end
 
-  describe "GET /lexical_entries/:id" do
+  describe "GET /api/lexical_entries/:id" do
     before(:each) do
       lex = FactoryGirl.create(:lexical_entry)
       id = lex.id
 
-      get "/lexical_entries/#{id}.json"
+      get "api/lexical_entries/#{id}.json"
 
       @lexical_entry = JSON.parse(response.body)
     end

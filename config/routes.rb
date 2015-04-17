@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   root "application#index"
 
-  resources "parts_of_speech"
-  resources "lexical_entries"
+  namespace :api do
+    resources "parts_of_speech", except: [:new, :edit]
+    resources "lexical_entries", except: [:new, :edit]
+  end
 
   match 'auth/sign_up', to: 'auth#sign_up', via: :post
   match 'auth/sign_in', to: 'auth#sign_in', via: :post

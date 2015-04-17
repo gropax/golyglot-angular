@@ -1,5 +1,6 @@
 var golyglot = angular.module('golyglot', [
     'golyglot.core',
+    'golyglot.auth',
     'golyglot.lexical-entries',
 
     // Language plugins

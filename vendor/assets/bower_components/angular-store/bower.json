@@ -1,0 +1,25 @@
+{
+  "name": "Angular Store",
+  "version": "1.0.1",
+  "authors": [
+    "Pepijn Senders <p.senders92@gmail.com>"
+  ],
+  "description": "Angular cross-browser, localStorage/Cookie/UserData implementation",
+  "main": "src/angular-store.js",
+  "keywords": [
+    "localStorage",
+    "cookies",
+    "angular",
+    "storage",
+    "userData"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {}
+}

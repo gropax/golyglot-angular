@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //
 //= require angular/angular
+//= require a0-angular-storage/dist/angular-storage
 //= require angular-underscore-module/angular-underscore-module
 //= require ui-router/release/angular-ui-router
 //= require angular-rails-templates
@@ -34,6 +35,9 @@
 //= require lang/fra/module
 //= require_tree ./lang/fra
 //
+//= require auth/module
+//= require_tree ./auth
+//
 //= require lexical_entries/module
 //= require_tree ./lexical_entries
 //
@@ -41,4 +45,5 @@
 //= require routes
 //
 //= require_tree ./components
+//= require_tree .
 //

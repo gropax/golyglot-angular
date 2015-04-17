@@ -4,7 +4,7 @@ LexicalEntry.$inject = ['railsResourceFactory'];
 
 function LexicalEntry(railsResourceFactory) {
     return railsResourceFactory({
-        url: "/lexical_entries/{{id}}",
+        url: "/api/lexical_entries/{{id}}",
         name: "lexicalEntry",
     });
 }

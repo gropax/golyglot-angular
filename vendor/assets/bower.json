@@ -4,6 +4,7 @@
     "bootstrap-sass-official": "latest",
     "angular": "latest",
     "angular-mocks": "latest",
+    "a0-angular-storage": "latest",
     "underscore": "latest",
     "angular-underscore-module": "latest",
     "ui-router": "latest",

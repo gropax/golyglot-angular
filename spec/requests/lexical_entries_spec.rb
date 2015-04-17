@@ -1,12 +1,19 @@
 require 'rails_helper'
+require 'auth_token'
 
 RSpec.describe PartOfSpeech, :type => :request do
+
+  before(:each) do
+    bob = FactoryGirl.create(:bob)
+    token = AuthToken.issue_token({user_id: bob.id.to_s})
+    @headers = {'Authorization' => token}
+  end
 
   describe "GET /api/lexical_entries" do
     before(:each) do
       FactoryGirl.create_list(:lexical_entry, 3)
 
-      get "api/lexical_entries.json"
+      get "api/lexical_entries.json", nil, @headers
 
       @lexical_entries = JSON.parse(response.body)
     end
@@ -29,7 +36,7 @@ RSpec.describe PartOfSpeech, :type => :request do
       lex = FactoryGirl.create(:lexical_entry)
       id = lex.id
 
-      get "api/lexical_entries/#{id}.json"
+      get "api/lexical_entries/#{id}.json", nil, @headers
 
       @lexical_entry = JSON.parse(response.body)
     end

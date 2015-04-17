@@ -1,5 +1,5 @@
 module Api
-  class PartsOfSpeechController < ApplicationController
+  class PartsOfSpeechController < BaseController
     def index
       @parts_of_speech = PartOfSpeech.all
     end

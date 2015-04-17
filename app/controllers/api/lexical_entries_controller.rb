@@ -1,5 +1,5 @@
 module Api
-  class LexicalEntriesController < ApplicationController
+  class LexicalEntriesController < BaseController
     respond_to :json
 
     before_action :set_lexical_entry, except: [:index]

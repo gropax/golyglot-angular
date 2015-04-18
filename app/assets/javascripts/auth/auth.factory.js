@@ -1,8 +1,8 @@
 angular.module('golyglot.auth').factory('auth', auth);
 
-auth.$inject = ['$http', 'store', 'USER_ROLES'];
+auth.$inject = ['$rootScope', '$http', 'store', 'USER_ROLES', 'AUTH_EVENTS'];
 
-function auth($http, store, USER_ROLES) {
+function auth($rootScope, $http, store, USER_ROLES, AUTH_EVENTS) {
     return {
         currentUser: currentUser,
         signIn: signIn,
@@ -27,18 +27,22 @@ function auth($http, store, USER_ROLES) {
         var signingIn = $http.post("/auth/sign_in.json", creds);
         signingIn.success(function(result) {
             store.set('auth_token', result);
+            $rootScope.$broadcast(AUTH_EVENTS.signIn);
         });
         return signingIn;
     }
 
     function signOut() {
         store.remove('auth_token');
+        $rootScope.$broadcast(AUTH_EVENTS.signOut);
     }
 
     function signUp(formData) {
         var signingUp = $http.post("/auth/sign_up.json", formData);
         signingUp.success(function(result) {
             store.set('auth_token', result);
+            // Sign user in on successful registering
+            $rootScope.$broadcast(AUTH_EVENTS.signIn);
         });
         return signingUp;
     }

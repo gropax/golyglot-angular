@@ -7,7 +7,6 @@ function SignUpCtrl($scope, $rootScope, $state, auth, AUTH_EVENTS) {
 
     $scope.signUp = function() {
         return auth.signUp($scope.user).success(function(result) {
-            $rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
             $state.go('guest.home');
         });        
     };

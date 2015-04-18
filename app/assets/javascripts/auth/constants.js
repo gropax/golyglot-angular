@@ -5,5 +5,6 @@ angular.module('golyglot.auth')
         guest: 0,
     })
     .constant('AUTH_EVENTS', {
-        signUpSuccess: 'signUpSuccess',
+        signIn: 'signIn',
+        signOut: 'signOut',
     });

@@ -38,6 +38,8 @@
 //= require auth/module
 //= require_tree ./auth
 //
+//= require header/module
+//= require_tree ./header
 //= require lexical_entries/module
 //= require_tree ./lexical_entries
 //

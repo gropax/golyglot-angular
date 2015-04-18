@@ -7,9 +7,11 @@ function AppCtrl($scope, languageService, auth, USER_ROLES, AUTH_EVENTS) {
 
     $scope.currentUser = auth.currentUser();
 
-    $scope.$on(AUTH_EVENTS.signUpSuccess, function() {
-        $scope.currentUser = auth.currentUser();
-    });
+    angular.forEach([AUTH_EVENTS.signIn, AUTH_EVENTS.signOut], function(vent) {
+        $scope.$on(vent, function() {
+            $scope.currentUser = auth.currentUser();
+        });
+    })
 
     $scope.USER_ROLES = USER_ROLES;
 };

@@ -1,0 +1,52 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">GolyGlot</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <div ng-switch="currentUser.role">
+                <ul class="nav navbar-nav navbar-right" ng-switch-when="0">
+                    <li>
+                        <a href="#">Guest</a>
+                    </li>
+                    <li>
+                        <button ui-sref="guest.sign-up" type="button" class="btn btn-success navbar-btn">Sign up</button> 
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-default navbar-btn">Sign in</button> 
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" ng-switch-default>
+                    <li>
+                        <a href="#">{{ currentUser.email }}</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+

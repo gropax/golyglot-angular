@@ -2,6 +2,9 @@ require 'auth_token'
 
 module Api
   class BaseController < ApplicationController
+    # Disable default CSRF token verification
+    skip_before_action :verify_authenticity_token
+
     before_action :authenticate
 
     private

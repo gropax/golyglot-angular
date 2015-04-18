@@ -4,5 +4,6 @@ angular.module('golyglot.core', [
     'ui.router',
     'ui.bootstrap',
     'rails',
+    'angular-storage',
 ]);
 

@@ -13,7 +13,7 @@ function auth($http, store, USER_ROLES) {
     function currentUser() {
         var auth_token = store.get('auth_token');
         var user;
-        if (auth_token) {
+        if (auth_token && auth_token.user) { // @fixme &&
             user = auth_token.user;
             user.role = user.admin ? USER_ROLES.admin : USER_ROLES.user;
             delete user.admin;

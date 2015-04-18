@@ -31,9 +31,9 @@
     </div>
 
     <div class="form-group">
-        <label for="confirmPassword">Confirm password</label>
-        <input type="password" class="form-control" placeholder="confirm password" name="confirmPassword" ng-model="user.confirmPassword" required>
-        <div ng-show="registerForm.confirmPassword.$dirty" ng-messages="registerForm.confirmPassword.$error">
+        <label for="passwordConfirmation">Confirm password</label>
+        <input type="password" class="form-control" placeholder="confirm password" name="passwordConfirmation" ng-model="user.passwordConfirmation" required>
+        <div ng-show="registerForm.passwordConfirmation.$dirty" ng-messages="registerForm.passwordConfirmation.$error">
              <div ng-message="required">
                   You forgot the password confirmation.
              </div>

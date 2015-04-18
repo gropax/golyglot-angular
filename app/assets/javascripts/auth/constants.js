@@ -3,4 +3,7 @@ angular.module('golyglot.auth')
         admin: 2,
         user: 1,
         guest: 0,
+    })
+    .constant('AUTH_EVENTS', {
+        signUpSuccess: 'signUpSuccess',
     });

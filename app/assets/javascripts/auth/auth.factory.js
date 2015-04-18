@@ -24,7 +24,7 @@ function auth($http, store, USER_ROLES) {
     }
 
     function signIn(creds) {
-        var signingIn = $http.post("/auth/sign_in", creds);
+        var signingIn = $http.post("/auth/sign_in.json", creds);
         signingIn.success(function(result) {
             store.set('auth_token', result);
         });
@@ -36,7 +36,7 @@ function auth($http, store, USER_ROLES) {
     }
 
     function signUp(formData) {
-        var signingUp = $http.post("/auth/sign_up", formData);
+        var signingUp = $http.post("/auth/sign_up.json", formData);
         signingUp.success(function(result) {
             store.set('auth_token', result);
         });

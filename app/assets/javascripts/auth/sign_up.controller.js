@@ -1,14 +1,13 @@
 angular.module('golyglot.auth').controller('SignUpCtrl', SignUpCtrl);
 
-SignUpCtrl.$inject = ['$scope', '$state', 'auth'];
+SignUpCtrl.$inject = ['$scope', '$rootScope', '$state', 'auth', 'AUTH_EVENTS'];
 
-function SignUpCtrl($scope, $state, auth) {
+function SignUpCtrl($scope, $rootScope, $state, auth, AUTH_EVENTS) {
     $scope.errors = [];
-
-    $scope.$state = $state;
 
     $scope.signUp = function() {
         return auth.signUp($scope.user).success(function(result) {
+            $rootScope.$broadcast(AUTH_EVENTS.signUpSuccess);
             $state.go('guest.home');
         });        
     };

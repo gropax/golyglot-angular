@@ -14,7 +14,7 @@ RSpec.describe "AuthRequests", :type => :request do
 
     context "valid request params" do
       before(:each) do
-        post "/auth/sign_up.json", valid_data
+        post "/auth/sign_up.json", {auth: valid_data}
         @json = JSON.parse(response.body)
       end
 
@@ -45,7 +45,7 @@ RSpec.describe "AuthRequests", :type => :request do
       before(:each) do
         invalid_data = valid_data
         invalid_data['accept_terms'] = false
-        post "/auth/sign_up.json", invalid_data
+        post "/auth/sign_up.json", {auth: invalid_data} # @fixme
         @json = JSON.parse(response.body)
       end
 
@@ -71,7 +71,7 @@ RSpec.describe "AuthRequests", :type => :request do
 
     context "valid request params" do
       before(:each) do
-        post "/auth/sign_in.json", @valid_data
+        post "/auth/sign_in.json", {auth: @valid_data} # @fixme
         @json = JSON.parse(response.body)
       end
 
@@ -96,7 +96,7 @@ RSpec.describe "AuthRequests", :type => :request do
         invalid_data = @valid_data
         invalid_data['password'] = "wrongpwd"
 
-        post "/auth/sign_in.json", invalid_data
+        post "/auth/sign_in.json", {auth: invalid_data} # @fixme
         @json = JSON.parse(response.body)
       end
 
@@ -116,20 +116,20 @@ RSpec.describe "AuthRequests", :type => :request do
   end
 
   describe "GET /auth/token_status" do
-    let(:valid_token) {
-      JWT.encode({}, Rails.application.secrets.secret_key_base)
-    }
-    let(:invalid_token) {
-      JWT.encode({}, "fake key 123456789")
-    }
+    before(:each) do
+      valid = JWT.encode({}, Rails.application.secrets.secret_key_base)
+      @invalid = JWT.encode({}, "fake key 123456789")
+      @auth = {token: valid}
+    end
 
     it "returns true if token is valid" do
-      get "auth/token_status", {token: valid_token}
+      get "auth/token_status.json", {auth: @auth}
       expect(response).to have_http_status(:success)
     end
 
     it "returns false if token is invalid" do
-      get "auth/token_status", {token: invalid_token}
+      @auth[:token] = @invalid
+      get "auth/token_status.json", {auth: @auth}
       expect(response).to have_http_status(:unauthorized)
     end
   end

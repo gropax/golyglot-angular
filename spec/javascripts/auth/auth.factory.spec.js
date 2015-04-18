@@ -24,8 +24,8 @@
 
 
         describe("#signUp", function() {
-            it("post to /auth/sign_up", function() {
-                $httpBackend.expectPOST("/auth/sign_up", {}).respond(200);
+            it("post to /auth/sign_up.json", function() {
+                $httpBackend.expectPOST("/auth/sign_up.json", {}).respond(200);
                 auth.signUp({});
                 $httpBackend.flush();
             });
@@ -37,7 +37,7 @@
                         user: {id: 123, email: "john@doe.com"},
                         token: "Fake token for now."
                     };
-                    $httpBackend.whenPOST("/auth/sign_up").respond(200, data);
+                    $httpBackend.whenPOST("/auth/sign_up.json").respond(200, data);
                 });
 
                 it("save returned data in local storage", function() {
@@ -50,8 +50,8 @@
         });
 
         describe("signIn", function() {
-            it("posts to /auth/sign_in", function() {
-                $httpBackend.expectPOST("/auth/sign_in", {}).respond(200);
+            it("posts to /auth/sign_in.json", function() {
+                $httpBackend.expectPOST("/auth/sign_in.json", {}).respond(200);
                 auth.signIn({});
                 $httpBackend.flush();
             });
@@ -63,7 +63,7 @@
                         user: {id: 123, email: "john@doe.com"},
                         token: "Fake token for now."
                     };
-                    $httpBackend.whenPOST("/auth/sign_in").respond(200, data);
+                    $httpBackend.whenPOST("/auth/sign_in.json").respond(200, data);
                 });
 
                 it("save returned data in local storage", function() {

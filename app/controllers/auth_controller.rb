@@ -14,8 +14,8 @@ class AuthController < ApplicationController
   end
 
   def sign_in
-    @user = User.find_by(email: auth_params[:email].downcase)
-    if @user.authenticate(auth_params[:password])
+    @user = User.find_by_email(auth_params[:email])
+    if @user && @user.authenticate(auth_params[:password])
       @token = AuthToken.issue_token({user_id: @user.id})
       render "auth/authenticate", format: :json
     else

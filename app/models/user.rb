@@ -22,6 +22,12 @@ class User
     Password.new(password_hash) == password
   end
 
+  def self.find_by_email(email)
+    self.find_by(email: email.downcase)
+  rescue Mongoid::Errors::DocumentNotFound
+    nil
+  end
+
   protected
 
   def encrypt_password

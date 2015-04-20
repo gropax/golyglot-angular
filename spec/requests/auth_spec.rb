@@ -91,7 +91,7 @@ RSpec.describe "AuthRequests", :type => :request do
       end
     end
 
-    context "invalid request parameters" do
+    context "invalid password" do
       before(:each) do
         invalid_data = @valid_data
         invalid_data['password'] = "wrongpwd"
@@ -111,6 +111,20 @@ RSpec.describe "AuthRequests", :type => :request do
       it "doesn't return user nor token" do
         expect(@json).not_to have_key("user")
         expect(@json).not_to have_key("token")
+      end
+    end
+
+    context "invalid user email" do
+      before(:each) do
+        invalid_data = @valid_data
+        invalid_data['email'] = "wrong@email.com"
+
+        post "/auth/sign_in.json", {auth: invalid_data} # @fixme
+        @json = JSON.parse(response.body)
+      end
+
+      it "returns unauthorized status code (not 404 not found)" do
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end

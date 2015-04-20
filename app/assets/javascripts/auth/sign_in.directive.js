@@ -2,15 +2,22 @@ angular.module('golyglot.auth').directive('ggSignInForm', ggSignInForm);
 
 function ggSignInForm() {
 
-    SignInCtrl.$inject = ['$scope', '$state', 'auth'];
+    SignInCtrl.$inject = ['$scope', '$state', 'auth', '$log'];
 
-    function SignInCtrl($scope, $state, auth) {
-        $scope.errors = [];
+    function SignInCtrl($scope, $state, auth, $log) {
+        $scope.serverError = null;
+        $scope.submitted = false;
 
-        $scope.signIn = function() {
-            return auth.signIn($scope.user).success(function(result) {
-                $state.go('guest.home');
-            });        
+        $scope.signIn = function(valid) {
+            $scope.submitted = true;
+
+            if (valid) {
+                return auth.signIn($scope.user).success(function(result) {
+                    $state.go('guest.home');
+                }).error(function(data, status) {
+                    $scope.serverError = data.error;
+                });
+            }
         };
     }
 

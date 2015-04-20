@@ -14,7 +14,9 @@
 //= require jquery
 //= require jquery_ujs
 //
+//= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 //= require angular/angular
+//
 //= require a0-angular-storage/dist/angular-storage
 //= require angular-underscore-module/angular-underscore-module
 //= require ui-router/release/angular-ui-router

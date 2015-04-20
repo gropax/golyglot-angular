@@ -1,6 +1,7 @@
 # vim: filetype=ruby
 
 asset "bootstrap-sass-official"
+
 asset "angular"
 asset "angular-mocks"
 asset "a0-angular-storage"

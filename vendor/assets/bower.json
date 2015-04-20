@@ -4,6 +4,8 @@
     "bootstrap-sass-official": "latest",
     "angular": "latest",
     "angular-mocks": "latest",
+    "angular-messages": "latest",
+    "angular-validation-match": "latest",
     "a0-angular-storage": "latest",
     "underscore": "latest",
     "angular-underscore-module": "latest",

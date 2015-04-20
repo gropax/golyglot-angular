@@ -9,7 +9,7 @@ class AuthController < ApplicationController
       @token = AuthToken.issue_token({user_id: @user.id})
       render "auth/authenticate", format: :json
     else
-      render json: { errors: @user.errors }
+      render json: { errors: @user.errors }, status: :bad_request
     end
   end
 

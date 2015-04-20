@@ -4,6 +4,9 @@ asset "bootstrap-sass-official"
 
 asset "angular"
 asset "angular-mocks"
+asset "angular-messages"
+
+asset "angular-validation-match"
 asset "a0-angular-storage"
 asset "underscore"
 asset "angular-underscore-module"

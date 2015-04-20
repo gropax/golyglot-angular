@@ -3,7 +3,7 @@ angular.module('golyglot.auth').controller('SignUpCtrl', SignUpCtrl);
 SignUpCtrl.$inject = ['$scope', '$rootScope', '$state', 'auth', 'AUTH_EVENTS', "$log"];
 
 function SignUpCtrl($scope, $rootScope, $state, auth, AUTH_EVENTS, $log) {
-    $scope.errors = [];
+    $scope.serverErrors = [];
     $scope.submitted = false;
 
     $scope.signUp = function(valid) {
@@ -13,7 +13,7 @@ function SignUpCtrl($scope, $rootScope, $state, auth, AUTH_EVENTS, $log) {
             return auth.signUp($scope.user).success(function(result) {
                 $state.go('guest.home');
             }).error(function(data, status) {
-                $scope.errors = data.errors;
+                $scope.serverErrors = data.errors;
             });        
         }
     };

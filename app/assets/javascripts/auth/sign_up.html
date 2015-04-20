@@ -16,8 +16,11 @@
                ng-model="user.email"
                required />
         <div ng-messages="signUpForm.email.$error" role="alert" ng-if="signUpForm.email.$dirty || submitted">
-             <div ng-message="required">You forgot the email address.</div>
-             <div ng-message="email">That is not a well formed email address.</div>
+            <!-- Client side validation error messages  -->
+            <div ng-message="required">You forgot the email address.</div>
+            <div ng-message="email">That is not a well formed email address.</div>
+            <!-- Server side validation error messages  -->
+            <div ng-repeat="error in serverErrors.email">{{ error }}</div>
         </div>
     </div>
 
@@ -31,8 +34,8 @@
                ng-minlength="8"
                required />
         <div ng-messages="signUpForm.password.$error" ng-if="signUpForm.password.$dirty || submitted">
-             <div ng-message="required">You forgot the password.</div>
-             <div ng-message="minlength">Password must contain at least 8 characters.</div>
+            <div ng-message="required">You forgot the password.</div>
+            <div ng-message="minlength">Password must contain at least 8 characters.</div>
         </div>
     </div>
 
@@ -46,8 +49,8 @@
                match="user.password"
                required />
         <div ng-messages="signUpForm.passwordConfirmation.$error" ng-if="signUpForm.password.$dirty || submitted">
-             <div ng-message="required">You forgot the password confirmation.</div>
-             <div ng-message="match">Password confirmation do not match.</div>
+            <div ng-message="required">You forgot the password confirmation.</div>
+            <div ng-message="match">Password confirmation do not match.</div>
         </div>
     </div>
 
@@ -57,7 +60,7 @@
             Accept terms
         </label>
         <div ng-messages="signUpForm.acceptTerms.$error" ng-if="signUpForm.password.$dirty || submitted">
-             <div ng-message="required">You must accept the terms.</div>
+            <div ng-message="required">You must accept the terms.</div>
         </div>
     </div>
 

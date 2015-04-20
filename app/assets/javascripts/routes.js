@@ -35,6 +35,6 @@ angular.module('golyglot').config(function($stateProvider, $urlRouterProvider, $
     $urlRouterProvider.otherwise('/');
 
     // What is this ?
-    //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
 

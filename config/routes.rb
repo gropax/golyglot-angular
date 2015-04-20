@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   match 'auth/sign_up', to: 'auth#sign_up', via: :post
   match 'auth/sign_in', to: 'auth#sign_in', via: :post
   match 'auth/token_status', to: 'auth#token_status', via: :get
+
+  match '*path' => 'application#index', via: :get
 end

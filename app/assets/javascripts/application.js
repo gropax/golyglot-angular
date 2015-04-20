@@ -45,6 +45,8 @@
 //
 //= require header/module
 //= require_tree ./header
+//= require users/module
+//= require_tree ./users
 //= require lexical_entries/module
 //= require_tree ./lexical_entries
 //

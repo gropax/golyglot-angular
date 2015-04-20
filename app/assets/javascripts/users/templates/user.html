@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+    
+        <div id="user-info" class="col-md-3">
+            <img src="profile.jpg" alt="" class="img-rounded img-responsive center-block">
+            <h3>{{ currentUser.email }}</h3>
+        </div>
+
+        <div id="user-resources" class="col-md-9">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#">
+                        Lexicons
+                    </a>
+                </li>
+                <li role="presentation" class="disabled">
+                    <a href="#">
+                        Contributions
+                    </a>
+                </li>
+                <li role="presentation" class="disabled">
+                    <a href="#">
+                        Surveys
+                    </a>
+                </li>
+            </ul>
+
+            <div ui-view></div>
+        </div>
+
+    </div>
+</div>

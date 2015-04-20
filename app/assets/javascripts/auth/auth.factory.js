@@ -4,11 +4,21 @@ auth.$inject = ['$rootScope', '$http', 'store', 'USER_ROLES', 'AUTH_EVENTS'];
 
 function auth($rootScope, $http, store, USER_ROLES, AUTH_EVENTS) {
     return {
+        authorize: authorize,
+        authenticated: authenticated,
         currentUser: currentUser,
         signIn: signIn,
         signOut: signOut,
         signUp: signUp,
     };
+
+    function authorize(userRole) {
+        return (currentUser().role >= userRole);
+    }
+
+    function authenticated() {
+        return !!store.get('auth_token');
+    }
 
     function currentUser() {
         var auth_token = store.get('auth_token');

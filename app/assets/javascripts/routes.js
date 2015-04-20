@@ -32,7 +32,7 @@ angular.module('golyglot').config(function($stateProvider, $urlRouterProvider, $
             controller: 'LexicalEntriesShowCtrl'
         });
 
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/home');
 
     // What is this ?
     $locationProvider.html5Mode(true);

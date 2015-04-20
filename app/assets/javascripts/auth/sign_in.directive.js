@@ -13,7 +13,7 @@ function ggSignInForm() {
 
             if (valid) {
                 return auth.signIn($scope.user).success(function(result) {
-                    $state.go('guest.home');
+                    $state.go('user.lexicons', {id: $scope.currentUser.id});
                 }).error(function(data, status) {
                     $scope.serverError = data.error;
                 });

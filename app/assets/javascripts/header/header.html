@@ -29,7 +29,9 @@
 
                 <ul class="nav navbar-nav navbar-right" ng-switch-default>
                     <li>
-                        <a href="#">{{ currentUser.email }}</a>
+                        <a ui-sref="user.lexicons({id: currentUser.id})">
+                            {{ currentUser.email }}
+                        </a>
                     </li>
                     <li>
                         <a href="#">

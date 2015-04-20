@@ -44,7 +44,7 @@
 
             it("POST to /auth/sign_up.json with user data", function() {
                 $httpBackend.expectPOST('/auth/sign_up.json', user).respond(200);
-                scope.signUp();
+                scope.signUp(true);
                 $httpBackend.flush();
             });
 
@@ -56,7 +56,7 @@
 
                 it("redirects to /home page", function() {
                     spyOn($state, 'go');
-                    scope.signUp().then(function() {
+                    scope.signUp(true).then(function() {
                         expect($state.go).toHaveBeenCalledWith('guest.home');
                     });
                     $httpBackend.flush();

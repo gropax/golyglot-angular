@@ -23,6 +23,32 @@
         });
 
 
+        describe("#authorize", function() {
+            it("returns true if user has access", function() {
+                var user = {admin: true};
+                store.set('auth_token', {user: user});
+
+                expect(auth.authorize(USER_ROLES.admin)).toBe(true);
+            });
+
+            it("returnrs false if user doesn't have rights", function() {
+                store.remove('auth_token');
+                expect(auth.authorize(USER_ROLES.user)).toBe(false);
+            });
+        });
+
+        describe("#authenticated", function() {
+            it("returns true if token in local storage", function() {
+                store.set('auth_token', {});
+                expect(auth.authenticated()).toBe(true);
+            });
+
+            it("returns false otherwise", function() {
+                store.remove('auth_token');
+                expect(auth.authenticated()).toBe(false);
+            });
+        });
+
         describe("#signUp", function() {
             it("post to /auth/sign_up.json", function() {
                 $httpBackend.expectPOST("/auth/sign_up.json", {}).respond(200);

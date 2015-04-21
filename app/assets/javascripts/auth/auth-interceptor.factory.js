@@ -19,5 +19,15 @@ function authInterceptor($rootScope, $q, AUTH_EVENTS, store) {
             }
             return config;
         },
+        responseError: function (response) { 
+            var event = {
+                401: AUTH_EVENTS.unauthorized,
+                403: AUTH_EVENTS.forbidden,
+            }[response.status];
+
+            $rootScope.$broadcast(event, response);
+
+            return $q.reject(response);
+        },
     };
 }

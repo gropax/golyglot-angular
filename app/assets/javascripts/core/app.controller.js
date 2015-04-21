@@ -13,6 +13,15 @@ function AppCtrl($scope, languageService, auth, USER_ROLES, AUTH_EVENTS) {
         });
     })
 
+    // @fixme
+    //     Manual debugging... problem to spyOn $rootScope.$broadcast in tests
+    //
+    angular.forEach(AUTH_EVENTS, function(event) {
+        $scope.$on(event, function() {
+            $log.debug(event);
+        });
+    });
+
     $scope.USER_ROLES = USER_ROLES;
 };
 

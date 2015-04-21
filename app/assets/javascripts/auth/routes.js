@@ -17,8 +17,7 @@ function config($stateProvider, USER_ROLES) {
             templateUrl: 'home.html',
         }).
         state('guest.sign-up', {
-            url: '/sign_up',
-            templateUrl: 'auth/sign_up.html',
-            controller: 'SignUpCtrl',
+            url: '/sign-up',
+            templateUrl: 'auth/sign-up.html',
         });
 };

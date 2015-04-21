@@ -1,10 +1,3 @@
-
-<h1>Join GolyGlot</h1>
-<hr />
-
-<h4>Create your personal account</h4>
-<br />
-
 <form name="signUpForm" class="form-signin" ng-submit="signUp(signUpForm.$valid)" novalidate>
 
     <div class="form-group">
@@ -48,7 +41,7 @@
                ng-model="user.passwordConfirmation"
                match="user.password"
                required />
-        <div ng-messages="signUpForm.passwordConfirmation.$error" ng-if="signUpForm.password.$dirty || submitted">
+        <div ng-messages="signUpForm.passwordConfirmation.$error" ng-if="signUpForm.passwordConfirmation.$dirty || submitted">
             <div ng-message="required">You forgot the password confirmation.</div>
             <div ng-message="match">Password confirmation do not match.</div>
         </div>
@@ -59,7 +52,7 @@
             <input type="checkbox" name="acceptTerms" ng-model="user.acceptTerms" required>
             Accept terms
         </label>
-        <div ng-messages="signUpForm.acceptTerms.$error" ng-if="signUpForm.password.$dirty || submitted">
+        <div ng-messages="signUpForm.acceptTerms.$error" ng-if="signUpForm.acceptTerms.$dirty || submitted">
             <div ng-message="required">You must accept the terms.</div>
         </div>
     </div>

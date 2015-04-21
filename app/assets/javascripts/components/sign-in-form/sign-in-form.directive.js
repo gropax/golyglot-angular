@@ -23,7 +23,7 @@ function ggSignInForm() {
 
     return {
         restrict: 'EA',
-        templateUrl: 'auth/sign_in.html',
+        templateUrl: 'components/sign-in-form/sign-in-form.html',
         controller: SignInCtrl,
     };
 }

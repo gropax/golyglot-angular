@@ -16,6 +16,7 @@
             store = _store_;
         }));
 
+
         describe("requests Authorization header", function() {
             var headers;
 
@@ -43,6 +44,20 @@
                 }).respond(200);
 
                 $http.get('/api-call');
+            });
+        });
+
+        describe("response error events", function() {
+            it("broadcasts unauthorized on 401", function() {
+                $httpBackend.whenGET('/api-call').respond(401);
+                $http.get('/api-call');
+                // @todo spy on $rootScope.$broadcast
+            });
+
+            it("broadcasts forbidden on 403", function() {
+                $httpBackend.whenGET('/api-call').respond(403);
+                $http.get('/api-call');
+                // @todo spy on $rootScope.$broadcast
             });
         });
     });

@@ -8,9 +8,9 @@ RSpec.describe Lexicon, :type => :model do
     expect(lexicon).to be_valid
   end
 
-  describe "#owner" do
-    it "must have an owner" do
-      lexicon.owner = nil
+  describe "#user" do
+    it "must have an user" do
+      lexicon.user = nil
       expect(lexicon).not_to be_valid
     end
   end
@@ -23,8 +23,8 @@ RSpec.describe Lexicon, :type => :model do
 
     it "must be unique among the user's lexicons" do
       bob = FactoryGirl.create(:bob)
-      FactoryGirl.create(:lexicon, owner: bob, name: "my lexicon")
-      duplicate = FactoryGirl.build(:lexicon, owner: bob, name: "my lexicon")
+      FactoryGirl.create(:lexicon, user: bob, name: "my lexicon")
+      duplicate = FactoryGirl.build(:lexicon, user: bob, name: "my lexicon")
       expect(duplicate).not_to be_valid
     end
   end

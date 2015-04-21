@@ -1,12 +1,12 @@
 angular.module('golyglot.users').controller('UserLexiconsCtrl', UserLexiconsCtrl);
 
-UserLexiconsCtrl.$inject = ['$scope', 'Lexicon'];
+UserLexiconsCtrl.$inject = ['$scope', '$stateParams', 'Lexicon'];
 
-function UserLexiconsCtrl($scope, Lexicon) {
+function UserLexiconsCtrl($scope, $stateParams, Lexicon) {
     $scope.searching = true;
     $scope.lexicons = [];
 
-    Lexicon.query().then(function(result) {
+    Lexicon.get({userId: $stateParams.id}).then(function(result) {
         $scope.lexicons = result;
         $scope.searching = false;
     }, function(error) {

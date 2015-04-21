@@ -4,7 +4,7 @@ Lexicon.$inject = ['railsResourceFactory'];
 
 function Lexicon(railsResourceFactory) {
     return railsResourceFactory({
-        url: "/api/lexicons/{{id}}",
+        url: "/api/users/{{userId}}/lexicons/{{id}}",
         name: "lexicon",
     });
 }

@@ -1,10 +1,12 @@
 <form name="newLexicon" ng-submit="submit(newLexicon.$valid)" novalidate>
+    
+    {{ lexicon }}
 
     <div class="form-group">
-        <label for="owner">Owner</label>
-        <select name="owner"
+        <label for="user">Owner</label>
+        <select name="user"
                 class="form-control"
-                ng-model="lexicon.owner"
+                ng-model="lexicon.userId"
                 ng-options="user.id as user.email for user in [currentUser]"
                 required></select>
     </div>

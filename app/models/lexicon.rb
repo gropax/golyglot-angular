@@ -4,9 +4,9 @@ class Lexicon
   field :name, type: String
   field :description, type: String
 
-  belongs_to :owner, class_name: "User"
+  belongs_to :user
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :user
-  validates_presence_of :owner
+  validates_presence_of :user
 end

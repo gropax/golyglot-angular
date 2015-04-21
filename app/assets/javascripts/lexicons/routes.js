@@ -12,6 +12,14 @@ function config($stateProvider, USER_ROLES) {
             data: {
                 userRole: USER_ROLES.user,
             },
+        }).
+        state('lexicon', {
+            url: '/users/{userId}/lexicons/{id}',
+            templateUrl: 'lexicons/templates/show.html',
+            controller: 'ShowLexiconCtrl',
+            data: {
+                userRole: USER_ROLES.user,
+            },
         });
 };
 

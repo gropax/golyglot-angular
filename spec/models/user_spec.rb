@@ -83,7 +83,7 @@ RSpec.describe Sentence, :type => :model do
     end
 
     it "may have many lexicons" do
-      lexicons = FactoryGirl.create_list(:lexicon, 4, owner: @bob)
+      lexicons = FactoryGirl.create_list(:lexicon, 4, user: @bob)
       expect(@bob.lexicons).to match_array(lexicons)
     end
   end

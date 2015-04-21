@@ -16,8 +16,17 @@ module Api
 
       def lexicon_params
         hsh = params.require(:lexicon).permit(:name, :description)
-        hsh[:owner] = @current_user
+        hsh[:user] = user
         hsh
+      end
+
+      def user
+        user = User.find_by({id: params[:user_id]})
+        if user == @current_user
+          user
+        else
+          render status: :forbidden
+        end
       end
   end
 end

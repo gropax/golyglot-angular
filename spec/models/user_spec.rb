@@ -75,7 +75,16 @@ RSpec.describe Sentence, :type => :model do
     it "returns true if correct password" do
       expect(bob.authenticate("bobbybou")).to be true
     end
-
   end
 
+  describe "#lexicons" do
+    before(:each) do
+      @bob = FactoryGirl.build(:bob)
+    end
+
+    it "may have many lexicons" do
+      lexicons = FactoryGirl.create_list(:lexicon, 4, owner: @bob)
+      expect(@bob.lexicons).to match_array(lexicons)
+    end
+  end
 end

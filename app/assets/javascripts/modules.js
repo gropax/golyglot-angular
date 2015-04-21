@@ -3,6 +3,7 @@ var golyglot = angular.module('golyglot', [
     'golyglot.auth',
     'golyglot.header',
     'golyglot.users',
+    'golyglot.lexicons',
     'golyglot.lexical-entries',
 
     // Language plugins

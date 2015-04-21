@@ -9,6 +9,8 @@ class User
   field :password_hash, type: String
   field :accept_terms, type: Boolean
 
+  has_many :lexicons
+
   validates_presence_of :email, message: "Email Address is Required."
   validates_uniqueness_of :email, message: "Email Address Already In Use."
   validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\z/i, message: "Invalid Email Address."

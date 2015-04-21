@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "application#index"
 
   namespace :api do
+    resources "lexicons", except: [:new, :edit]
     resources "parts_of_speech", except: [:new, :edit]
     resources "lexical_entries", except: [:new, :edit]
   end

@@ -14,7 +14,7 @@
         <input name="name"
                class="form-control"
                placeholder="name"
-               ng-model="user.name"
+               ng-model="lexicon.name"
                required />
         <div ng-messages="newLexicon.name.$error" ng-if="newLexicon.name.$dirty || submitted">
             <div ng-message="required">You forgot the lexicon name.</div>
@@ -26,7 +26,7 @@
         <input name="description"
                class="form-control"
                placeholder="description"
-               ng-model="user.description"/>
+               ng-model="lexicon.description"/>
     </div>
 
     <hr />

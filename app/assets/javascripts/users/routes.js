@@ -14,7 +14,8 @@ function config($stateProvider, USER_ROLES) {
         }).
         state('user.lexicons', {
             url: '/user/{id}/lexicons',
-            templateUrl: 'users/templates/user.lexicons.html',
+            templateUrl: 'users/templates/user-lexicons.html',
+            controller: 'UserLexiconsCtrl',
         });
 };
 

@@ -6,7 +6,7 @@ class AuthController < ApplicationController
   def sign_up
     @user = User.new(auth_params)
     if @user.save
-      @token = AuthToken.issue_token({user_id: @user.id})
+      issue_token
       render "auth/authenticate", format: :json
     else
       render json: { errors: @user.errors }, status: :bad_request
@@ -16,7 +16,7 @@ class AuthController < ApplicationController
   def sign_in
     @user = User.find_by_email(auth_params[:email])
     if @user && @user.authenticate(auth_params[:password])
-      @token = AuthToken.issue_token({user_id: @user.id})
+      issue_token
       render "auth/authenticate", format: :json
     else
       render json: { error: "Invalid email or password." }, status: :unauthorized
@@ -33,10 +33,14 @@ class AuthController < ApplicationController
 
   private
 
-  # @fixme
-  #     Unatural collection of params...
-  #
-  def auth_params
-    params.require(:auth).permit(:email, :password, :password_confirmation, :accept_terms, :token)
-  end
+    # @fixme
+    #     Unatural collection of params...
+    #
+    def auth_params
+      params.require(:auth).permit(:email, :password, :password_confirmation, :accept_terms, :token)
+    end
+
+    def issue_token
+      @token = AuthToken.issue_token({user_id: @user.id.to_s})
+    end
 end

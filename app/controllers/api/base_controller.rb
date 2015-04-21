@@ -10,7 +10,7 @@ module Api
     private
 
     def authenticate
-      token = request.headers['Authorization'].split(' ').last
+      token = request.headers['Authorization']
       payload, _ = AuthToken.valid?(token)
       @current_user = User.find_by({id: payload['user_id']})
     rescue

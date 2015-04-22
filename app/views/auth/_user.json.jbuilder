@@ -1,2 +1,2 @@
-json.(user, :email)
+json.(user, :email, :name)
 json.id user.id.to_s

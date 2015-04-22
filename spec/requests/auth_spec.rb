@@ -5,6 +5,7 @@ RSpec.describe "AuthRequests", :type => :request do
   describe "POST /auth/sign_up" do
     let(:valid_data) {
       {
+        name: "JohnnyD",
         email: "john@doe.com",
         password: "gojohnnygo",
         password_confirmation: "gojohnnygo",
@@ -26,6 +27,7 @@ RSpec.describe "AuthRequests", :type => :request do
         user = @json["user"]
         expect(user["id"]).to be_kind_of String
         expect(user["email"]).to eq("john@doe.com")
+        expect(user["name"]).to eq("JohnnyD")
       end
 
       it "does not returns secret user data" do
@@ -83,6 +85,7 @@ RSpec.describe "AuthRequests", :type => :request do
         user = @json["user"]
         expect(user["id"]).to be_kind_of String
         expect(user["email"]).to eq("john@doe.com")
+        expect(user["name"]).to eq("JohnnyD")
       end
 
       it "returns auth token" do

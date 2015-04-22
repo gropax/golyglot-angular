@@ -5,6 +5,25 @@ RSpec.describe Sentence, :type => :model do
   let(:john) { FactoryGirl.create(:john) }
   let(:bob) { FactoryGirl.create(:bob) }
 
+
+  it "has a valid factory" do
+    expect(bob).to be_valid
+  end
+
+  describe "#name" do
+    it "should be unique" do
+      bob.name = john.name
+      expect(bob).not_to be_valid
+      expect(bob.errors.messages[:name]).to include("Username Already Exists.")
+    end
+
+    it "should exist" do
+      bob.name = nil
+      expect(bob).not_to be_valid
+      expect(bob.errors.messages[:name]).to include("Username is Required.")
+    end
+  end
+
   describe "#email" do
     it "should be unique" do
       bob.email = john.email

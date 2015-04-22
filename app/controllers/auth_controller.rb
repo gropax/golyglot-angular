@@ -37,7 +37,7 @@ class AuthController < ApplicationController
     #     Unatural collection of params...
     #
     def auth_params
-      params.require(:auth).permit(:email, :password, :password_confirmation, :accept_terms, :token)
+      params.require(:auth).permit(:name, :email, :password, :password_confirmation, :accept_terms, :token)
     end
 
     def issue_token

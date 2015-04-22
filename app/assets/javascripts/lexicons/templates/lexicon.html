@@ -41,9 +41,12 @@
                 </a>
             </li>
 
-            <hr />
+            <li role="presentation"
+                ng-class="tab() === 'settings' && 'active'"
+                ng-show="currentUser.id === user.id" >
 
-            <li role="presentation" ng-class="tab() === 'settings' && 'active'">
+                <hr />
+
                 <a href="#" ui-sref="user.lexicon.settings">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     Settings

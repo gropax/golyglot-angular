@@ -5,10 +5,8 @@ NewLexiconCtrl.$inject = ['$scope', '$state', 'Lexicon'];
 function NewLexiconCtrl($scope, $state, Lexicon) {
     $scope.submit = function(valid) {
         var promise = new Lexicon($scope.lexicon).create();
-        promise.then(function(result) {
-            $state.go('lexicon', {userId: result.userId, id: result.id});
-            // get lexicon id from response
-            // redirect to lexicon page
+        promise.then(function(lexicon) {
+            $state.go('user.lexicon.show', {username: $scope.currentUser.name, lexiconName: lexicon.name});
         }, function() {
             // display errors
         });

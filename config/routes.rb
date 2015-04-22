@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources "parts_of_speech", except: [:new, :edit]
     resources "lexical_entries", except: [:new, :edit]
 
-    resources "users", only: :show do
+    resources "users", only: [:show, :index] do
       get "lexicons", to: 'users#lexicons'
       post "lexicons", to: 'lexicons#create'
     end

@@ -1,5 +1,5 @@
 json.user do
-  json.partial! "auth/user", user: @user
+  json.partial! "api/users/user", user: @user
 end
 
 json.token @token

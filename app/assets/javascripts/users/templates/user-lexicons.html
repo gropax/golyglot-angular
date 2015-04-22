@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <a ui-sref="newLexicon" class="btn btn-success" role="button" style="float: right;">
+        <a ui-sref="newLexicon" ng-show="currentUser.id == user.id" class="btn btn-success" role="button" style="float: right;">
             New
         </a>
     </div>
@@ -13,7 +13,9 @@
 <table class="table">
     <tr ng-repeat="lexicon in lexicons">
         <td>
-            {{ lexicon.name }}
+            <a ui-sref="user.lexicon.show({lexiconName: lexicon.name})">
+                {{ lexicon.name }}
+            </a>
         </td>
     </tr>
 </table>

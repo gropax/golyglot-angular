@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     resources "lexical_entries", except: [:new, :edit]
 
     resources "users", only: [:show, :index] do
-      get "lexicons", to: 'users#lexicons'
-      post "lexicons", to: 'lexicons#create'
+      resources "lexicons"
+      #get "lexicons", to: 'users#lexicons'
+      #post "lexicons", to: 'lexicons#create'
     end
   end
 

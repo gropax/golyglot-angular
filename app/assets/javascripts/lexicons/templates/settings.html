@@ -1,0 +1,65 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Settings</div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Rename Lexicon
+        </li>
+    </ul>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Default Language
+        </li>
+    </ul>
+</div>
+
+<div class="panel panel-danger">
+    <div class="panel-heading">Danger Zone</div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <strong>Delete this Lexicon</strong>
+            <button type="button"
+                    class="btn btn-danger"
+                    data-toggle="modal"
+                    data-target="#deleteLexiconModal"
+                    style="float: right;">
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                Delete this Lexicon
+            </button> 
+            <p>Once you delete a repository, there is no going back. Please be certain.</p>
+        </li>
+    </ul>
+</div>
+
+
+
+<div id="deleteLexiconModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Are you ABSOLUTELY sure ?</h4>
+            </div>
+            <div class="modal-body">
+                <p>This action CANNOT be undone. This will permanently delete the <strong>{{ user.name }}/{{ lexicon.name }}</strong> lexicon, issues, and comments, and remove all collaborator associations.</p>
+                <p>Please type in the name of the repository to confirm.</p>
+
+                <form name="deleteForm" ng-submit="deleteLexicon(deleteForm.$valid)" novalidate>
+                    <div class="form-group">
+                        <input name="confirmName"
+                               class="form-control"
+                               ng-model="lexicon.confirmName"
+                               ng-options="user.id as user.email for user in [currentUser]"
+                               match="lexicon.name"
+                               required />
+                    </div>
+
+                    <input type="submit"
+                           ng-class="deleteForm.$valid || 'disabled'"
+                           class="btn btn-lg btn-danger"
+                           value="I understand the consequences, please delete this lexicon" />
+                           <!-- data-dismiss="modal" -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

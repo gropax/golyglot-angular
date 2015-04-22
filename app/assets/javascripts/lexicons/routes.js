@@ -25,15 +25,24 @@ function config($stateProvider, USER_ROLES) {
                 },
             },
 
-            controller: ['$scope', 'lexicon', function($scope, lexicon) {
+            controller: ['$scope', '$state', 'lexicon', function($scope, $state, lexicon) {
                 $scope.lexicon = lexicon;
+                $scope.tab = function() {
+                    return $state.current.name.split('.')[2];
+                };
             }],
         }).
 
-        state('user.lexicon.show', {
+        state('user.lexicon.resources', {
             url: '',
-            templateUrl: 'lexicons/templates/show.html',
-            controller: 'ShowLexiconCtrl',
+            templateUrl: 'lexicons/templates/resources.html',
+            //controller: 'LexiconResourcesCtrl',
+        }).
+
+        state('user.lexicon.settings', {
+            url: '/settings',
+            templateUrl: 'lexicons/templates/settings.html',
+            controller: 'LexiconSettingsCtrl',
         });
 };
 

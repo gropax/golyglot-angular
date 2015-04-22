@@ -1,9 +1,54 @@
 <h3>
+    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
     <a href="#" ui-sref="user.home.lexicons({username: user.name})">{{ user.name }}</a>
     <span>/</span>
-    <a href="#" ui-sref="user.lexicon.show({lexiconName: lexicon.name})">{{ lexicon.name }}</a>
+    <a href="#" ui-sref="user.lexicon.resources({lexiconName: lexicon.name})">{{ lexicon.name }}</a>
 </h3>
 
 <hr />
 
-<div ui-view></div>
+<div class="row">
+    <div class="col-md-10">
+        <div ui-view></div>
+    </div>
+    <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" ng-class="tab() === 'resources' && 'active'">
+                <a href="#" ui-sref="user.lexicon.resources">
+                    <span class="glyphicon glyphicon-font" aria-hidden="true"></span>
+                    Resources
+                </a>
+            </li>
+            <li role="presentation" class="disabled">
+                <a href="#">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    Issues
+                </a>
+            </li>
+            <li role="presentation" class="disabled">
+                <a href="#">
+                    <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                    Surveys
+                </a>
+            </li>
+
+            <hr />
+
+            <li role="presentation" class="disabled">
+                <a href="#">
+                    <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    Graphs
+                </a>
+            </li>
+
+            <hr />
+
+            <li role="presentation" ng-class="tab() === 'settings' && 'active'">
+                <a href="#" ui-sref="user.lexicon.settings">
+                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    Settings
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -5,6 +5,7 @@
         <input name="name"
                class="form-control"
                placeholder="name"
+               autocomplete="off"
                ng-model="user.name"
                required />
         <div ng-messages="signUpForm.name.$error" role="alert" ng-if="signUpForm.name.$dirty || submitted">

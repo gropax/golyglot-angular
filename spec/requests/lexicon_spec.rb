@@ -63,6 +63,44 @@ RSpec.describe Lexicon, :type => :request do
     end
   end
 
+  describe "PUT /api/users/:user_id/lexicons/:id" do
+    context "current user is the owner" do
+      before(:each) do
+        @lex = FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: @bob)
+        params = {name: "Renamed", description: "Nice"}
+        put "api/users/#{@bob.id}/lexicons/#{@lex.id}.json", {lexicon: params}, @headers
+      end
+
+      it "should return success status code" do
+        expect(response).to have_http_status(:success)
+      end
+
+      it "should update the lexicon attributes" do
+        lex = Lexicon.find_by({id: @lex.id})
+        expect(lex.name).to eq "Renamed"
+        expect(lex.description).to eq "Nice"
+      end
+    end
+
+    context "current user is NOT the owner" do
+      before(:each) do
+        @lex = FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: @john)
+        params = {name: "Renamed", description: "Nice"}
+        put "api/users/#{@john.id}/lexicons/#{@lex.id}.json", {lexicon: params}, @headers
+      end
+
+      it "should return forbidden status code" do
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it "should NOT update the lexicon attributes" do
+        lex = Lexicon.find_by({id: @lex.id})
+        expect(lex.name).to eq "MyLexicon"
+        expect(lex.description).to eq "Cool"
+      end
+    end
+  end
+
   describe "DELETE /api/users/:user_id/lexicons/:id" do
     context "current user is the owner" do
       before(:each) do

@@ -3,13 +3,21 @@ angular.module('golyglot.lexicons').controller('LexiconSettingsCtrl', LexiconSet
 LexiconSettingsCtrl.$inject = ['$scope', '$state', 'user', 'lexicon', 'Lexicon', '$log'];
 
 function LexiconSettingsCtrl($scope, $state, user, lexicon, Lexicon, $log) {
-    $scope.cleanUpModal = function() {
+    $scope.newName = $scope.lexicon.name;
+
+    $scope.renameLexicon = function() {
+        var lex = new Lexicon(lexicon);    
+        lex.name = $scope.newName;
+        lex.update().then(function() {
+            $state.go('user.lexicon.settings', {lexiconName: lex.name});
+        }, function() {
+            // @todo Handle errors
+        });
     }
 
     $scope.deleteLexicon = function() {
         var lex = new Lexicon(lexicon);
         lex.remove().then(function() {
-            //$log.debug('delete Lexicon !');
             $('#deleteLexiconModal').modal('hide');
             $state.go('user.home.lexicons', {userId: lexicon.userId});
         }, function() {

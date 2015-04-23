@@ -14,6 +14,7 @@
         <input name="name"
                class="form-control"
                placeholder="name"
+               autocomplete="off"
                ng-model="lexicon.name"
                required />
         <div ng-messages="newLexicon.name.$error" ng-if="newLexicon.name.$dirty || submitted">
@@ -26,6 +27,7 @@
         <input name="description"
                class="form-control"
                placeholder="description"
+               autocomplete="off"
                ng-model="lexicon.description"/>
     </div>
 

@@ -2,12 +2,27 @@
     <div class="panel-heading">Settings</div>
     <ul class="list-group">
         <li class="list-group-item">
-            Rename Lexicon
+            <strong>Rename Lexicon</strong>
+            <form class="form-inline" name="renameForm" ng-submit="renameLexicon(renameForm.$valid)" novalidate>
+                <div class="form-group">
+                    {{ lexicon.newName }}
+                    <input name="lexicon"
+                           class="form-control"
+                           ng-model="newName"
+                           gg-differ="lexicon.name"
+                           required />
+                </div>
+                <input type="submit"
+                       ng-class="renameForm.$valid || 'disabled'"
+                       class="btn btn-primary"
+                       value="Rename Lexicon" />
+            </form>
         </li>
     </ul>
+
     <ul class="list-group">
         <li class="list-group-item">
-            Default Language
+            <strong>Default Language</strong>
         </li>
     </ul>
 </div>
@@ -47,6 +62,7 @@
                     <div class="form-group">
                         <input name="confirmName"
                                class="form-control"
+                               autocomplete="off"
                                ng-model="lexicon.confirmName"
                                ng-options="user.id as user.email for user in [currentUser]"
                                match="lexicon.name"
@@ -57,7 +73,6 @@
                            ng-class="deleteForm.$valid || 'disabled'"
                            class="btn btn-lg btn-danger"
                            value="I understand the consequences, please delete this lexicon" />
-                           <!-- data-dismiss="modal" -->
                 </form>
             </div>
         </div>

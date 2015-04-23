@@ -16,11 +16,24 @@ module Api
 
     def create
       @lexicon = Lexicon.new(lexicon_params)
+      @lexicon.user = @user
 
       if @lexicon.save
         render :show, status: :created
       else
         render json: @lexicon.errors, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if current_user_is_owner?
+        if @lexicon.update(lexicon_params)
+          render :show, status: :ok
+        else
+          render json: @lexicon.errors, status: :unprocessable_entity
+        end
+      else
+        head :forbidden
       end
     end
 
@@ -36,9 +49,7 @@ module Api
     private
 
       def lexicon_params
-        hsh = params.require(:lexicon).permit(:name, :description)
-        hsh[:user] = @user
-        hsh
+        params.require(:lexicon).permit(:name, :description)
       end
 
       def set_lexicon

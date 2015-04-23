@@ -1,0 +1,49 @@
+<br />
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span style="color: grey;">
+                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                    language: 
+                </span>
+                <strong>Mandarin</strong>
+                <sup>(cmn)</sup>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Language</a></li>
+                <li><a href="#">Language</a></li>
+                <li><a href="#">Language</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <form name="searchForm" ng-submit="searchEntries()" novalidate>
+            <div class="input-group">
+                <input name="search"
+                       class="form-control"
+                       ng-model="search"
+                       required />
+                <span class="input-group-btn">
+                    <input type="submit"
+                           ng-class="searchForm.$valid || 'disabled'"
+                           class="btn btn-primary"
+                           value="Search" />
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-2">
+        <button type="button" class="btn btn-success" aria-expanded="false">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            New Entry
+        </button>
+    </div>
+</div>
+
+<hr />
+

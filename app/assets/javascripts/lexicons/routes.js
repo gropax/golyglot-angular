@@ -27,22 +27,40 @@ function config($stateProvider, USER_ROLES) {
 
             controller: ['$scope', '$state', 'lexicon', function($scope, $state, lexicon) {
                 $scope.lexicon = lexicon;
-                $scope.tab = function() {
+                $scope.lexiconTab = function() {
                     return $state.current.name.split('.')[2];
                 };
             }],
-        }).
-
-        state('user.lexicon.resources', {
-            url: '',
-            templateUrl: 'lexicons/templates/resources.html',
-            //controller: 'LexiconResourcesCtrl',
         }).
 
         state('user.lexicon.settings', {
             url: '/settings',
             templateUrl: 'lexicons/templates/settings.html',
             controller: 'LexiconSettingsCtrl',
+        }).
+
+        state('user.lexicon.resources', {
+            abstract: true,
+            url: '',
+            templateUrl: 'lexicons/templates/resources.html',
+
+            controller: ['$scope', '$state', function($scope, $state) {
+                $scope.resourcesTab = function() {
+                    return $state.current.name.split('.')[3];
+                };
+            }],
+        }).
+
+        state('user.lexicon.resources.lexicalEntries', {
+            url: '/lexical-entries',
+            templateUrl: 'lexical-entries/templates/list.html',
+            //controller: 'ListLexicalEntriesCtrl',
+        }).
+
+        state('user.lexicon.resources.sentences', {
+            url: '/sentences',
+            templateUrl: 'sentences/templates/list.html',
+            //controller: 'ListSentencesCtrl',
         });
 };
 

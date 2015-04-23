@@ -13,7 +13,7 @@
 <table class="table">
     <tr ng-repeat="lexicon in lexicons">
         <td>
-            <a ui-sref="user.lexicon.resources({lexiconName: lexicon.name})">
+            <a ui-sref="user.lexicon.resources.lexicalEntries({lexiconName: lexicon.name})">
                 {{ lexicon.name }}
             </a>
         </td>

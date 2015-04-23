@@ -1,1 +1,16 @@
-<h3>Resources</h3>
+<ul class="nav nav-tabs">
+    <li role="presentation"
+        ng-class="resourcesTab() === 'lexicalEntries' && 'active'" >
+        <a href="#" ui-sref="user.lexicon.resources.lexicalEntries">
+            Lexical Entries
+        </a>
+    </li>
+    <li role="presentation"
+        ng-class="resourcesTab() === 'sentences' && 'active'" >
+        <a href="#" ui-sref="user.lexicon.resources.sentences">
+            Sentences
+        </a>
+    </li>
+</ul>
+
+<div ui-view></div>

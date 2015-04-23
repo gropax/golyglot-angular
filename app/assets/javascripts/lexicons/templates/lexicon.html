@@ -1,9 +1,21 @@
-<h3>
-    <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-    <a href="#" ui-sref="user.home.lexicons({username: user.name})">{{ user.name }}</a>
-    <span>/</span>
-    <a href="#" ui-sref="user.lexicon.resources.lexicalEntries">{{ lexicon.name }}</a>
-</h3>
+
+<div class="row">
+    <div class="col-md-10">
+        <h3>
+            <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
+            <a href="#" ui-sref="user.home.lexicons({username: user.name})">{{ user.name }}</a>
+            <span>/</span>
+            <a href="#" ui-sref="user.lexicon.resources.lexicalEntries">{{ lexicon.name }}</a>
+        </h3>
+    </div>
+
+    <div class="col-md-2">
+        <button type="button" class="btn btn-default" aria-expanded="false">
+            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            Display Options
+        </button>
+    </div>
+</div>
 
 <hr />
 
@@ -11,6 +23,7 @@
     <div class="col-md-10">
         <div ui-view></div>
     </div>
+
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" ng-class="lexiconTab() === 'resources' && 'active'">

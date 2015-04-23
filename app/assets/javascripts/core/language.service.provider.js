@@ -63,6 +63,7 @@ function languageServiceProvider(defaultPartials) {
 
     this.$get = function() {
         return {
+            //registeredPlugins: registeredPlugins,
             availableLanguages: availableLanguages,
             defaultConfig: defaultConfig,
             importHelpersIn: importHelpersIn,

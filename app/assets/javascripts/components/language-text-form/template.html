@@ -1,0 +1,12 @@
+<form name="newEntryForm"
+      class="form-horizontal"
+      ng-submit="createEntry(newEntryForm.$valid)"
+      novalidate >
+
+    <div ng-include='partial()'></div>
+
+    <input type="submit"
+           ng-class="newEntryForm.$valid || 'disabled'"
+           class="btn btn-success"
+           value="Create Entry" />
+</form>

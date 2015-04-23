@@ -11,17 +11,23 @@
                        ng-model="search"
                        required />
                 <span class="input-group-btn">
-                    <input type="submit"
+                    <button type="submit"
                            ng-class="searchForm.$valid || 'disabled'"
-                           class="btn btn-primary"
-                           value="Search" />
+                           class="btn btn-primary" >
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        Search
+                    </button>
                 </span>
             </div>
         </form>
     </div>
 
     <div class="col-md-2">
-        <button type="button" ng-click="newEntry()" class="btn btn-success" aria-expanded="false">
+        <button type="button"
+                class="btn btn-success"
+                data-toggle="modal"
+                data-target="#newEntryModal"
+                aria-expanded="false">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             New Entry
         </button>
@@ -31,3 +37,20 @@
 <hr />
 
 language: {{ language }}
+languageService: {{ languageService | json }}
+
+
+
+<div id="newEntryModal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">New {{ language.name }} Entry</h4>
+            </div>
+            <div class="modal-body">
+                <div gg-language-text-form language="language.code" data="lexicalEntry.lemma"></div>
+            </div>
+        </div>
+    </div>
+</div>

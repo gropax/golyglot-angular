@@ -1,24 +1,7 @@
 <br />
 
 <div class="row">
-    <div class="col-md-3">
-        <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                <span style="color: grey;">
-                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                    language: 
-                </span>
-                <strong>Mandarin</strong>
-                <sup>(cmn)</sup>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Language</a></li>
-                <li><a href="#">Language</a></li>
-                <li><a href="#">Language</a></li>
-            </ul>
-        </div>
-    </div>
+    <div class="col-md-3" gg-language-selector language="language"></div>
 
     <div class="col-md-7">
         <form name="searchForm" ng-submit="searchEntries()" novalidate>
@@ -38,7 +21,7 @@
     </div>
 
     <div class="col-md-2">
-        <button type="button" class="btn btn-success" aria-expanded="false">
+        <button type="button" ng-click="newEntry()" class="btn btn-success" aria-expanded="false">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             New Entry
         </button>
@@ -47,3 +30,4 @@
 
 <hr />
 
+language: {{ language }}

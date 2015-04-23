@@ -1,0 +1,19 @@
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span style="color: grey;">
+            <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+            language: 
+        </span>
+        <strong>{{ language.name }}</strong>
+        <sup>{{ language.code }}</sup>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="l in languages">
+            <a href="#" ng-click="selectLanguage(l)">
+                {{ l.name }}
+                <sup>{{ l.code }}</sup>
+            </a>
+        </li>
+    </ul>
+</div>

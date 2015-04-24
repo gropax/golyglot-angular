@@ -1,11 +1,9 @@
-directive's form: {{ form }}<br />
-
 <form name="newEntryForm"
       class="form-horizontal"
       ng-submit="createEntry(newEntryForm.$valid)"
       novalidate >
 
-    <div ng-include='partial()'></div>
+    <div ng-include='template()'></div>
 
     <input type="submit"
            ng-class="newEntryForm.$valid || 'disabled'"

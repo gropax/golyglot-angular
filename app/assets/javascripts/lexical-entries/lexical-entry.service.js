@@ -19,8 +19,6 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma) {
         // Initialize a new Lemma nested resource
         var lemmaParams = arguments[0] && arguments[0].lemma;
         this.lemma = new Lemma(lemmaParams);
-
-        this.debugId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
     }
 
 

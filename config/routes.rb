@@ -2,18 +2,17 @@ Rails.application.routes.draw do
   root "application#index"
 
   namespace :api do
-    #resources "lexicons", except: [:new, :edit]
-    resources "parts_of_speech", except: [:new, :edit]
-    resources "lexical_entries", except: [:new, :edit]
+    #resources "parts_of_speech", except: [:new, :edit]
+    #resources "lexical_entries", except: [:new, :edit]
 
     resources "users", only: [:show, :index] do
-      resources "lexicons"
+      resources "lexicons", only: [:index, :create, :show, :update, :destroy]
       #get "lexicons", to: 'users#lexicons'
       #post "lexicons", to: 'lexicons#create'
     end
 
-    resources "lexicons" do
-      resources "lexical_entries"
+    resources "lexicons", only: [] do
+      resources "lexical_entries", only: [:create]
     end
   end
 

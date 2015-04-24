@@ -2,30 +2,43 @@ require 'rails_helper'
 
 RSpec.describe Lexicon, :type => :model do
 
-  let(:lexicon) { FactoryGirl.create(:lexicon) }
+  let(:bob) { FactoryGirl.create(:bob) }
+  let(:john) { FactoryGirl.create(:john) }
+
+  let(:lexicon) { FactoryGirl.create(:lexicon, user: bob) }
 
   it "has a valid factory" do
     expect(lexicon).to be_valid
   end
 
   describe "#user" do
-    it "must have an user" do
+    it "should not be blank" do
       lexicon.user = nil
       expect(lexicon).not_to be_valid
+      expect(lexicon.errors.messages[:user]).to include("can't be blank")
     end
   end
 
   describe "#name" do
-    it "must have a name" do
-      lexicon.name = nil
-      expect(lexicon).not_to be_valid
+    before :each do
+      FactoryGirl.create(:lexicon, user: bob, name: "my lexicon")
     end
 
-    it "must be unique among the user's lexicons" do
-      bob = FactoryGirl.create(:bob)
-      FactoryGirl.create(:lexicon, user: bob, name: "my lexicon")
-      duplicate = FactoryGirl.build(:lexicon, user: bob, name: "my lexicon")
-      expect(duplicate).not_to be_valid
+    it "should not be blank" do
+      lexicon.name = nil
+      expect(lexicon).not_to be_valid
+      expect(lexicon.errors.messages[:name]).to include("can't be blank")
+    end
+
+    it "should be unique among the user's lexicons" do
+      dup = FactoryGirl.build(:lexicon, user: bob, name: "my lexicon")
+      expect(dup).not_to be_valid
+      expect(dup.errors.messages[:name]).to include("is already taken")
+    end
+
+    it "can be shared by lexicons of different users" do
+      dup = FactoryGirl.build(:lexicon, user: john, name: "my lexicon")
+      expect(dup).to be_valid
     end
   end
 

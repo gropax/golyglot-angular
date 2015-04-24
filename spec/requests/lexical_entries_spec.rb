@@ -33,10 +33,8 @@ RSpec.describe LexicalEntry, :type => :request do
           ]
         }
       }
-      post "api/lexicons/#{@lexicon.id}/lexical_entries.json",
+      post api_lexicon_lexical_entries_path(@lexicon),
         {lexical_entry: lexical_entry}, @headers
-
-      @json = JSON.parse(response.body)
     end
 
     it "should return a created status code" do
@@ -44,7 +42,6 @@ RSpec.describe LexicalEntry, :type => :request do
     end
 
     it "should create a lexical entry in database" do
-      #binding.pry
       lexical_entry = LexicalEntry.find_by({lexicon_id: @lexicon.id})
       pinyin = lexical_entry.lemma.representations.last.written_form
       expect(pinyin).to eq "wo3"

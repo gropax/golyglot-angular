@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'jwt'
 
 RSpec.describe "AuthRequests", :type => :request do
   describe "POST /auth/sign_up" do
@@ -15,8 +14,7 @@ RSpec.describe "AuthRequests", :type => :request do
 
     context "valid request params" do
       before(:each) do
-        post "/auth/sign_up.json", {auth: valid_data}
-        @json = JSON.parse(response.body)
+        post auth_sign_up_path, {auth: valid_data}, {"Accept" => "application/json"}
       end
 
       it "returns a success status code" do
@@ -24,21 +22,21 @@ RSpec.describe "AuthRequests", :type => :request do
       end
 
       it "returns apropriate user data" do
-        user = @json["user"]
+        user = json["user"]
         expect(user["id"]).to be_kind_of String
         expect(user["email"]).to eq("john@doe.com")
         expect(user["name"]).to eq("JohnnyD")
       end
 
       it "does not returns secret user data" do
-        user = @json["user"]
+        user = json["user"]
         expect(user).not_to have_key("password_hash")
         expect(user).not_to have_key("created_at")
         expect(user).not_to have_key("updated_at")
       end
 
       it "returns auth token" do
-        token = @json["token"]
+        token = json["token"]
         expect(token).to be_kind_of String
       end
     end
@@ -47,17 +45,16 @@ RSpec.describe "AuthRequests", :type => :request do
       before(:each) do
         invalid_data = valid_data
         invalid_data['accept_terms'] = false
-        post "/auth/sign_up.json", {auth: invalid_data} # @fixme
-        @json = JSON.parse(response.body)
+        post "/auth/sign_up", {auth: invalid_data} # @fixme
       end
 
       it "returns errors" do
-        expect(@json['errors']).to have_key("accept_terms")
+        expect(json['errors']).to have_key("accept_terms")
       end
 
       it "doesn't return user nor token" do
-        expect(@json).not_to have_key("user")
-        expect(@json).not_to have_key("token")
+        expect(json).not_to have_key("user")
+        expect(json).not_to have_key("token")
       end
     end
   end
@@ -73,8 +70,7 @@ RSpec.describe "AuthRequests", :type => :request do
 
     context "valid request params" do
       before(:each) do
-        post "/auth/sign_in.json", {auth: @valid_data} # @fixme
-        @json = JSON.parse(response.body)
+        post "/auth/sign_in", {auth: @valid_data} # @fixme
       end
 
       it "returns a success status code" do
@@ -82,15 +78,14 @@ RSpec.describe "AuthRequests", :type => :request do
       end
 
       it "returns user data" do
-        user = @json["user"]
+        user = json["user"]
         expect(user["id"]).to be_kind_of String
         expect(user["email"]).to eq("john@doe.com")
         expect(user["name"]).to eq("JohnnyD")
       end
 
       it "returns auth token" do
-        token = @json["token"]
-        expect(token).to be_kind_of String
+        expect(json["token"]).to be_kind_of String
       end
     end
 
@@ -99,8 +94,7 @@ RSpec.describe "AuthRequests", :type => :request do
         invalid_data = @valid_data
         invalid_data['password'] = "wrongpwd"
 
-        post "/auth/sign_in.json", {auth: invalid_data} # @fixme
-        @json = JSON.parse(response.body)
+        post "/auth/sign_in", {auth: invalid_data} # @fixme
       end
 
       it "returns unauthorized status code" do
@@ -108,12 +102,12 @@ RSpec.describe "AuthRequests", :type => :request do
       end
 
       it "returns error message" do
-        expect(@json['error']).to eq('Invalid email or password.')
+        expect(json['error']).to eq('Invalid email or password.')
       end
 
       it "doesn't return user nor token" do
-        expect(@json).not_to have_key("user")
-        expect(@json).not_to have_key("token")
+        expect(json).not_to have_key("user")
+        expect(json).not_to have_key("token")
       end
     end
 
@@ -122,8 +116,7 @@ RSpec.describe "AuthRequests", :type => :request do
         invalid_data = @valid_data
         invalid_data['email'] = "wrong@email.com"
 
-        post "/auth/sign_in.json", {auth: invalid_data} # @fixme
-        @json = JSON.parse(response.body)
+        post "/auth/sign_in", auth: invalid_data
       end
 
       it "returns unauthorized status code (not 404 not found)" do
@@ -133,20 +126,13 @@ RSpec.describe "AuthRequests", :type => :request do
   end
 
   describe "GET /auth/token_status" do
-    before(:each) do
-      valid = JWT.encode({}, Rails.application.secrets.secret_key_base)
-      @invalid = JWT.encode({}, "fake key 123456789")
-      @auth = {token: valid}
-    end
-
     it "returns true if token is valid" do
-      get "auth/token_status.json", {auth: @auth}
+      get "auth/token_status", auth: {token: valid_token}
       expect(response).to have_http_status(:success)
     end
 
     it "returns false if token is invalid" do
-      @auth[:token] = @invalid
-      get "auth/token_status.json", {auth: @auth}
+      get "auth/token_status", auth: {token: invalid_token}
       expect(response).to have_http_status(:unauthorized)
     end
   end

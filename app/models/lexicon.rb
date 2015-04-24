@@ -5,6 +5,7 @@ class Lexicon
   field :description, type: String
 
   belongs_to :user
+  has_many :lexical_entries
 
   validates_presence_of :name
   validates_uniqueness_of :name, scope: :user

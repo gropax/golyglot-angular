@@ -37,7 +37,10 @@ RSpec.describe Lexicon, :type => :model do
   end
 
   describe "#lexical_entries" do
-    it "has many lexical entries"
+    it "has many lexical entries" do
+      entries = FactoryGirl.create_list(:lexical_entry, 3, lexicon: lexicon)
+      expect(lexicon.lexical_entries).to match_array(entries)
+    end
   end
 
   describe "#sentences" do

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       #get "lexicons", to: 'users#lexicons'
       #post "lexicons", to: 'lexicons#create'
     end
+
+    resources "lexicons" do
+      resources "lexical_entries"
+    end
   end
 
   match 'auth/sign_up', to: 'auth#sign_up', via: :post

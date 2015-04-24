@@ -6,7 +6,7 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma) {
 
     RailsResource.extendTo(LexicalEntry);
     LexicalEntry.configure({
-        url: "/api/lexical_entries/{{id}}",
+        url: "/api/lexicons/{{lexiconId}}/lexical_entries/{{id}}",
         name: "lexicalEntry",
         serializer: railsSerializer(function() {
             this.resource('lemma', Lemma);

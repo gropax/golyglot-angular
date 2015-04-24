@@ -12,7 +12,7 @@ RSpec.describe Form, :type => :model do
     end
 
     it "it is invalid without representation" do
-      form.form_representations = []
+      form.representations = []
       expect(form).not_to be_valid
     end
 

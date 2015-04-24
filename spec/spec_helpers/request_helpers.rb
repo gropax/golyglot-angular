@@ -2,7 +2,7 @@ require 'jwt'
 
 module RequestHelpers
   def json
-    @json ||= JSON.parse(response.body)
+    @_json ||= JSON.parse(response.body)
   end
 
   def valid_token(payload = {})
@@ -17,8 +17,25 @@ module RequestHelpers
 
   [:get, :post, :put, :delete].each do |method|
     define_method(method) do |url, data = {}, headers = {}|
-      new_headers = headers.merge({'Accept' => 'application/json'})
+      new_headers = headers.dup
+
+      # All request are JSON
+      new_headers['Accept'] = 'application/json'
+
+      # If a user is logged in, add auth token
+      if @_token
+        new_headers['Authorization'] = @_token
+      end
+
       super(url, data, new_headers)
     end
+  end
+
+
+  attr_reader :current_user
+
+  def authenticate(user)
+    @current_user = user
+    @_token = AuthToken.issue_token({user_id: user.id.to_s})
   end
 end

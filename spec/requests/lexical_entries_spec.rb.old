@@ -3,17 +3,13 @@ require 'auth_token'
 
 RSpec.describe PartOfSpeech, :type => :request do
 
-  before(:each) do
-    bob = FactoryGirl.create(:bob)
-    token = AuthToken.issue_token({user_id: bob.id.to_s})
-    @headers = {'Authorization' => token}
-  end
+  current_user :bob
 
   describe "GET /api/lexical_entries" do
     before(:each) do
       FactoryGirl.create_list(:lexical_entry, 3)
 
-      get "api/lexical_entries.json", nil, @headers
+      get "api/lexical_entries.json"
 
       @lexical_entries = JSON.parse(response.body)
     end

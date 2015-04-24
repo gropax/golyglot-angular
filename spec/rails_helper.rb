@@ -6,8 +6,8 @@ require 'rspec/rails'
 require 'pry'
 require "database_cleaner"
 
-#require_relative './spec_helpers/request_helpers'
 require 'spec_helpers/request_helpers'
+require 'spec_helpers/auth_macros'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -42,4 +42,5 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
   config.include RequestHelpers, type: :request
+  config.extend AuthMacros, type: :request
 end

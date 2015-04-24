@@ -3,22 +3,18 @@ require 'auth_token'
 
 RSpec.describe Lexicon, :type => :request do
 
-  before(:each) do
-    @john = FactoryGirl.create(:john)
-    @bob = FactoryGirl.create(:bob)
-    token = AuthToken.issue_token({user_id: @bob.id.to_s})
-    @headers = {'Authorization' => token}
-  end
+  current_user :bob
+  let(:john) { FactoryGirl.create(:john) }
 
   describe "GET /api/users/:id/lexicons" do
     before(:each) do
-      FactoryGirl.create_list(:lexicon, 4, user: @bob)
-      FactoryGirl.create_list(:lexicon, 3, user: @john)
+      FactoryGirl.create_list(:lexicon, 4, user: bob)
+      FactoryGirl.create_list(:lexicon, 3, user: john)
     end
 
     context "without query params" do
       before(:each) do
-        get api_user_lexicons_path(@bob), nil, @headers
+        get api_user_lexicons_path(bob)
       end
 
       it "returns the user's lexicons" do
@@ -28,12 +24,12 @@ RSpec.describe Lexicon, :type => :request do
 
     context "with 'name' query param" do
       before(:each) do
-        FactoryGirl.create(:lexicon, name: "MyLexicon", user: @bob)
-        get api_user_lexicons_path(@bob), {name: "MyLexicon"}, @headers
+        FactoryGirl.create(:lexicon, name: "MyLexicon", user: bob)
+        get api_user_lexicons_path(bob), name: "MyLexicon"
       end
 
       it "returns single lexicon found by name" do
-        expect(json['name']).to eq("MyLexicon")
+        expect(json['name']).to eq "MyLexicon"
       end
     end
   end
@@ -45,11 +41,11 @@ RSpec.describe Lexicon, :type => :request do
         name: "my lexicon",
         description: "a cool lexicon to store entries",
       }
-      post api_user_lexicons_path(@bob), {lexicon: lexicon}, @headers
+      post api_user_lexicons_path(bob), lexicon: lexicon
     end
 
     it "should create a lexicon in database" do
-      lexicon = Lexicon.find_by({user: @bob})
+      lexicon = Lexicon.find_by user: bob
       expect(lexicon.name).to eq "my lexicon"
     end
 
@@ -59,37 +55,39 @@ RSpec.describe Lexicon, :type => :request do
   end
 
   describe "PUT /api/users/:user_id/lexicons/:id" do
+    let(:params) { {name: "Renamed", description: "Nice"} }
+
     context "current user is the owner" do
+      let(:lexicon) { FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: bob) }
+
       before(:each) do
-        @lex = FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: @bob)
-        params = {name: "Renamed", description: "Nice"}
-        put api_user_lexicon_path(@bob, @lex), {lexicon: params}, @headers
+        put api_user_lexicon_path(bob, lexicon), lexicon: params
       end
 
       it "should return success status code" do
-        expect(response).to have_http_status(:success)
+        expect(response).to have_http_status :success
       end
 
       it "should update the lexicon attributes" do
-        lex = Lexicon.find_by({id: @lex.id})
+        lex = Lexicon.find_by id: lexicon.id
         expect(lex.name).to eq "Renamed"
         expect(lex.description).to eq "Nice"
       end
     end
 
     context "current user is NOT the owner" do
+      let(:lexicon) { FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: john) }
+
       before(:each) do
-        @lex = FactoryGirl.create(:lexicon, name: "MyLexicon", description: "Cool", user: @john)
-        params = {name: "Renamed", description: "Nice"}
-        put api_user_lexicon_path(@john, @lex), {lexicon: params}, @headers
+        put api_user_lexicon_path(john, lexicon), lexicon: params
       end
 
       it "should return forbidden status code" do
-        expect(response).to have_http_status(:forbidden)
+        expect(response).to have_http_status :forbidden
       end
 
       it "should NOT update the lexicon attributes" do
-        lex = Lexicon.find_by({id: @lex.id})
+        lex = Lexicon.find_by id: lexicon.id
         expect(lex.name).to eq "MyLexicon"
         expect(lex.description).to eq "Cool"
       end
@@ -99,8 +97,8 @@ RSpec.describe Lexicon, :type => :request do
   describe "DELETE /api/users/:user_id/lexicons/:id" do
     context "current user is the owner" do
       before(:each) do
-        lex = FactoryGirl.create(:lexicon, name: "MyLexicon", user: @bob)
-        delete api_user_lexicon_path(@bob, lex), nil, @headers
+        lex = FactoryGirl.create(:lexicon, name: "MyLexicon", user: bob)
+        delete api_user_lexicon_path(bob, lex)
       end
 
       it "should return success status code" do
@@ -114,8 +112,8 @@ RSpec.describe Lexicon, :type => :request do
 
     context "current user is NOT the owner" do
       before(:each) do
-        lex = FactoryGirl.create(:lexicon, name: "MyLexicon", user: @john)
-        delete api_user_lexicon_path(@john, lex), nil, @headers
+        lex = FactoryGirl.create(:lexicon, name: "MyLexicon", user: john)
+        delete api_user_lexicon_path(john, lex)
       end
 
       it "should return forbidden status code" do

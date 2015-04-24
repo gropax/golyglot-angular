@@ -1,10 +1,28 @@
-angular.module('golyglot.lexical-entries').factory('LexicalEntry', LexicalEntry);
+angular.module('golyglot.lexical-entries').factory('LexicalEntry', LexicalEntryFactory);
 
-LexicalEntry.$inject = ['railsResourceFactory'];
+LexicalEntryFactory.$inject = ['RailsResource', 'railsSerializer', 'Lemma'];
 
-function LexicalEntry(railsResourceFactory) {
-    return railsResourceFactory({
+function LexicalEntryFactory(RailsResource, railsSerializer, Lemma) {
+
+    RailsResource.extendTo(LexicalEntry);
+    LexicalEntry.configure({
         url: "/api/lexical_entries/{{id}}",
         name: "lexicalEntry",
+        serializer: railsSerializer(function() {
+            this.resource('lemma', Lemma);
+        }),
     });
+
+    function LexicalEntry() {
+        LexicalEntry.__super__.constructor.apply(this, arguments);
+
+        // Initialize a new Lemma nested resource
+        var lemmaParams = arguments[0] && arguments[0].lemma;
+        this.lemma = new Lemma(lemmaParams);
+
+        this.debugId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+    }
+
+
+    return LexicalEntry;
 }

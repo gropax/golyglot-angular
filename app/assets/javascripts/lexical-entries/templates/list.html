@@ -36,9 +36,8 @@
 
 <hr />
 
-language: {{ language }}
-languageService: {{ languageService | json }}
-
+language: {{ language }}<br />
+lexicalEntry: {{ lexicalEntry | json }}<br />
 
 
 <div id="newEntryModal" class="modal">
@@ -49,7 +48,7 @@ languageService: {{ languageService | json }}
                 <h4 class="modal-title">New {{ language.name }} Entry</h4>
             </div>
             <div class="modal-body">
-                <div gg-language-text-form language="language.code" data="lexicalEntry.lemma"></div>
+                <div gg-language-text-form language="language.code" form="lexicalEntry.lemma"></div>
             </div>
         </div>
     </div>

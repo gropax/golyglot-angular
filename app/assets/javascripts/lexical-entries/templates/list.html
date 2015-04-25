@@ -61,13 +61,12 @@
 
 <hr />
 
-
-<h4>Recently added:</h4>
+<h4>{{ listTitle }}</h4>
 
 <table class="table">
-    <tr ng-repeat="entry in lexicalEntries">
+    <tr ng-repeat="lex in lexicalEntries">
         <td>
-            <div gg-language-text type="lemma" language="language.code" data="entry"></div>
+            <span gg-language-text type="lemma" language="language.code" data="lex.lemma"></span>
         </td>
     </tr>
 </table>

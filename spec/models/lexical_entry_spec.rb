@@ -11,6 +11,16 @@ RSpec.describe LexicalEntry, :type => :model do
     expect(lexical_entry).to be_valid
   end
 
+  describe "timestamps" do
+    it "respond to #created_at" do
+      expect(lexical_entry.created_at).to be_kind_of ActiveSupport::TimeWithZone
+    end
+
+    it "respond to #updated_at" do
+      expect(lexical_entry.updated_at).to be_kind_of ActiveSupport::TimeWithZone
+    end
+  end
+
   describe "#lexicon" do
     it "must belong to a lexicon" do
       lexical_entry.lexicon = nil

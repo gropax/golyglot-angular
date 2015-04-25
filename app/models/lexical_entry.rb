@@ -1,5 +1,6 @@
 class LexicalEntry
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :language, type: String
 

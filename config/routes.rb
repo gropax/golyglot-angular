@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
 
     resources "lexicons", only: [] do
-      resources "lexical_entries", only: [:create]
+      resources "lexical_entries", only: [:index, :create]
     end
   end
 

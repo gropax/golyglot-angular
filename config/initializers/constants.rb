@@ -1,4 +1,5 @@
 LANGUAGE_CODES = [
+  "ara",
   "cmn",
   "eng",
   "fra"

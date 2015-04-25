@@ -6,6 +6,17 @@ module Api
     before_action :set_user
     #before_action :set_lexical_entry, except: [:index, :create]
 
+    def index
+      if language = params[:language]
+        @lexical_entries = LexicalEntry.where({lexicon: @lexicon, language: language})
+          .desc(:created_at).limit(10)
+      else
+        render json: {error: 'language required'}, status: :bad_request
+      end
+      #binding.pry
+      #render :index, status: :success
+    end
+
     def create
       @lexical_entry = LexicalEntry.new(lexical_entry_params)
 

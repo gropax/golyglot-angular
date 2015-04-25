@@ -34,12 +34,6 @@
     </div>
 </div>
 
-<hr />
-
-language: {{ language }}<br />
-lexicalEntry: {{ lexicalEntry | json }}<br />
-
-
 <div id="newEntryModal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -64,3 +58,16 @@ lexicalEntry: {{ lexicalEntry | json }}<br />
         </div>
     </div>
 </div>
+
+<hr />
+
+
+<h4>Recently added:</h4>
+
+<table class="table">
+    <tr ng-repeat="entry in lexicalEntries">
+        <td>
+            <div gg-language-text type="lemma" language="language.code" data="entry"></div>
+        </td>
+    </tr>
+</table>

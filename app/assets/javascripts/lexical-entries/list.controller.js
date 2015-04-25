@@ -10,6 +10,17 @@ function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, languageS
         $log.debug("Search: " + $scope.search);
     };
 
+    $scope.searching = true;
+    $scope.lexicalEntries = [];
+
+    LexicalEntry.get({lexiconId: lexicon.id}).then(function(result) {
+        $scope.lexicalEntries = result;
+        $scope.searching = false;
+    }, function(error) {
+        $scope.searching = false;
+        // @todo Handle error
+    });
+
 
     $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
 

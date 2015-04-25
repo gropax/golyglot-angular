@@ -1,4 +1,4 @@
-json.(lexical_entry, :language, :type)
+json.(lexical_entry, :language, :type, :created_at, :updated_at)
 json.id lexical_entry.id.to_s
 json.lexicon_id lexical_entry.lexicon.id.to_s
 

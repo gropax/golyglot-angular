@@ -1,17 +1,18 @@
 angular.module('golyglot.lang.ara').config(config);
 
-config.$inject = ['languageServiceProvider'];
+config.$inject = ['langProvider'];
 
-function config(languageServiceProvider) {
-    var plugin = new languageServiceProvider.LanguagePlugin("ara", "Arabic");
+function config(langProvider) {
+    langProvider.language('ara', 'Arabic')
 
-    plugin.partials = {
-        config: "lang/ara/partials/config.html",
-    };
+        .defaultRepresentation({
+            script: 'Arab', // @fixme
+            orthographyName: 'arabic', // @fixme
+        })
 
-    plugin.defaultConfig = {
-        showVowels: true,
-    };
+        .component('settingsPanel', {
+            templateUrl: 'lang/ara/components/settingsPanel.html',
+        })
 
-    languageServiceProvider.registerPlugin(plugin);
+        .register();
 }

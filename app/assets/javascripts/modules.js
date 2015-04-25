@@ -2,6 +2,7 @@ var golyglot = angular.module('golyglot', [
     'golyglot.core',
     'golyglot.auth',
     'golyglot.header',
+    'golyglot.lang',
     'golyglot.users',
     'golyglot.lexicons',
     'golyglot.lexical-entries',
@@ -12,12 +13,3 @@ var golyglot = angular.module('golyglot', [
     'golyglot.lang.eng',
     'golyglot.lang.fra',
 ]);
-
-
-/* Setup Theme for xeditable module
- */
-//golyglot.run(function(editableOptions) {
-//    editableOptions.theme = 'bs3';
-//});
-
-

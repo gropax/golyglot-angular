@@ -1,9 +1,14 @@
 angular.module('golyglot.lang.eng').config(config);
 
-config.$inject = ['languageServiceProvider'];
+config.$inject = ['langProvider'];
 
-function config(languageServiceProvider) {
-    var plugin = new languageServiceProvider.LanguagePlugin("eng", "English");
+function config(langProvider) {
+    langProvider.language('eng', 'English')
 
-    languageServiceProvider.registerPlugin(plugin);
+        .defaultRepresentation({
+            script: 'Latn',
+            orthographyName: 'english', // @fixme
+        })
+
+        .register();
 }

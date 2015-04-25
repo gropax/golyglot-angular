@@ -31,6 +31,8 @@
 //= require core/module
 //= require_tree ./core
 //
+//= require lang/module
+//= require lang/lang.provider
 //= require lang/cmn/module
 //= require_tree ./lang/cmn
 //= require lang/ara/module
@@ -39,6 +41,7 @@
 //= require_tree ./lang/eng
 //= require lang/fra/module
 //= require_tree ./lang/fra
+//= require_tree ./lang
 //
 //= require auth/module
 //= require_tree ./auth

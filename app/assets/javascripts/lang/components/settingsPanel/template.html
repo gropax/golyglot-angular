@@ -1,0 +1,8 @@
+<div class="panel panel-default" ng-if="langComp">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ langName }} Settings</h3>
+    </div>
+    <div class="panel-body"
+         ng-include="langComp.templateUrl"
+         ng-controller="langComp.controller"></div>
+</div>

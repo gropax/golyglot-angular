@@ -4,13 +4,13 @@ function ggLangLemma() {
     return {
         restrict: 'EA',
         scope: {
-            data: "=",
+            model: "=",
             langCode: "=",
         },
         templateUrl: 'lang/components/text/template.html',
 
         controller: function($scope, lang) {
-            $scope.langComp = lang(langCode).component('lemma');
+            $scope.langComp = lang($scope.langCode).component('lemma');
         }
     };
 }

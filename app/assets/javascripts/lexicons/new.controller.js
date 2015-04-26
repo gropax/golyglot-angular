@@ -6,7 +6,7 @@ function NewLexiconCtrl($scope, $state, Lexicon) {
     $scope.submit = function(valid) {
         var promise = new Lexicon($scope.lexicon).create();
         promise.then(function(lexicon) {
-            $state.go('user.lexicon.resources', {username: $scope.currentUser.name, lexiconName: lexicon.name});
+            $state.go('user.lexicon.resources.lexicalEntries', {username: $scope.currentUser.name, lexiconName: lexicon.name});
         }, function() {
             // display errors
         });

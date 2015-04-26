@@ -1,4 +1,2 @@
-<span ng-if="!langComp">{{ data | writtenForm }}</span>
-<span ng-if="langComp"
-      ng-include='langComp.templateUrl'
-      ng-controller='langComp.controller'></span>
+<span ng-if="!langComp">{{ model | writtenForm }}</span>
+<span ng-if="langComp" ng-include='langComp.templateUrl'></span>

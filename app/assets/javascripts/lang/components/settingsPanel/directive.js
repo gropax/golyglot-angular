@@ -9,8 +9,8 @@ function ggLangSettingsPanel() {
         templateUrl: "lang/components/settingsPanel/template.html",
 
         controller: function($scope, lang) {
-            $scope.langName = lang(langCode).name;
-            $scope.langComp = lang(langCode).component('settingsPanel');
+            $scope.langName = lang($scope.langCode).name;
+            $scope.langComp = lang($scope.langCode).component('settingsPanel');
         }
     };
 }

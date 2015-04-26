@@ -16,10 +16,12 @@ function LanguageTextFormCtrl($scope, lang, Representation, $log) {
     });
 
     $scope.$watch('representation.writtenForm', function() {
+        $log.debug('writtenForm changed');
+
         var reprs = [];
-        var model = $scope.representation.writtenForm;
-        if (angular.isDefined(model) && model !== "")
-            reprs.push(repr);
+        var w = $scope.representation.writtenForm;
+        if (angular.isDefined(w) && w !== "")
+            reprs.push($scope.representation);
 
         $scope.model.representations = reprs;
     });

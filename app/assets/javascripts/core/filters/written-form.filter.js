@@ -4,7 +4,7 @@ writtenForm.$inject = [];
 
 function writtenForm() {
     return function(input) {
-        var reprs = input ? input.formRepresentations || input.textRepresentations : false;
+        var reprs = input ? input.representations : false;
 
         return reprs ? reprs[0].writtenForm : false;
     };

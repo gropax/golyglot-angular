@@ -1,9 +1,11 @@
 <div ng-if="!langComp" ng-controller="LangTextFormCtrl">
+    {{ model.representations }}
     <div class="form-group">
         <label for="writtenForm" class="col-sm-3 control-label">{{ reprName }}</label>
         <div class="col-sm-9">
             <input name="writtenForm"
                    class="form-control"
+                   ng-model="representation.writtenForm"
                    autocomplete="off"
                    required />
         </div>

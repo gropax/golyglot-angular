@@ -6,6 +6,7 @@ LANGUAGE_CODES = [
 ]
 
 SCRIPT_CODES = [
+  "Arab",
   "Latn",
   "Hans",
   "Hant"

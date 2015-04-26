@@ -23,7 +23,7 @@ module Api
       if @lexical_entry.save
         render :show, status: :created
       else
-        render json: @lexicon.errors, status: :unprocessable_entity
+        render json: @lexical_entry.errors, status: :unprocessable_entity
       end
     end
 

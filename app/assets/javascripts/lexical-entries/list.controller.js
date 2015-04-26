@@ -28,6 +28,9 @@ function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, lang, $lo
             // Display recent entries after a new entry has been created
             displayRecentEntries();
 
+            // Reset the empty lexical entry
+            $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
+
         }, function(error) {
             // handle errors
         });

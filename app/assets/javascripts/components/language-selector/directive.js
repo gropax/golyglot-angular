@@ -1,4 +1,4 @@
-angular.module('golyglot.lexicons').directive('ggLanguageSelector', ggLanguageSelector);
+angular.module('golyglot.core').directive('ggLanguageSelector', ggLanguageSelector);
 
 function ggLanguageSelector() {
     return {

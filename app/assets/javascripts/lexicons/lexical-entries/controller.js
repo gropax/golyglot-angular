@@ -1,8 +1,8 @@
-angular.module('golyglot.lexical-entries').controller('ListLexicalEntriesCtrl', ListLexicalEntriesCtrl);
+angular.module('golyglot.lexicons').controller('LexiconLexicalEntriesCtrl', LexiconLexicalEntriesCtrl);
 
-ListLexicalEntriesCtrl.$inject = ['$scope', 'lexicon', 'LexicalEntry', 'lang', '$log'];
+LexiconLexicalEntriesCtrl.$inject = ['$scope', 'lexicon', 'LexicalEntry', 'lang', '$log'];
 
-function ListLexicalEntriesCtrl($scope, lexicon, LexicalEntry, lang, $log) {
+function LexiconLexicalEntriesCtrl($scope, lexicon, LexicalEntry, lang, $log) {
 
     // Initialize value of language selector
     //

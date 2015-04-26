@@ -48,12 +48,12 @@
 //
 //= require header/module
 //= require_tree ./header
-//= require users/module
-//= require_tree ./users
-//= require lexicons/module
-//= require_tree ./lexicons
 //= require lexical-entries/module
 //= require_tree ./lexical-entries
+//= require lexicons/module
+//= require_tree ./lexicons
+//= require users/module
+//= require_tree ./users
 //
 //= require modules
 //= require routes

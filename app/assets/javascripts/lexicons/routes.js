@@ -5,19 +5,22 @@ config.$inject = ['$stateProvider', 'USER_ROLES'];
 function config($stateProvider, USER_ROLES) {
 
     $stateProvider.
+        // What state name ? Not under `user` state: create new lexicon for **currentUser**
+        //
         state('newLexicon', {
             url: '/new',
-            templateUrl: 'lexicons/templates/new.html',
+            templateUrl: 'lexicons/new/template.html',
             controller: 'NewLexiconCtrl',
             data: {
                 userRole: USER_ROLES.user,
             },
         }).
 
-        state('user.lexicon', {
+        state('user:lexicon', {
+            parent: 'user',
             abstract: true,
             url: '/:lexiconName',
-            templateUrl: 'lexicons/templates/lexicon.html',
+            templateUrl: 'lexicons/lexicon.html', // @fixme Feels strange
 
             resolve: {
                 lexicon: function($stateParams, user, Lexicon) {
@@ -33,16 +36,18 @@ function config($stateProvider, USER_ROLES) {
             }],
         }).
 
-        state('user.lexicon.settings', {
+        state('lexicon:settings', {
+            parent: 'user:lexicon',
             url: '/settings',
-            templateUrl: 'lexicons/templates/settings.html',
+            templateUrl: 'lexicons/settings/template.html',
             controller: 'LexiconSettingsCtrl',
         }).
 
-        state('user.lexicon.resources', {
+        state('lexicon:resources', {
+            parent: 'user:lexicon',
             abstract: true,
             url: '',
-            templateUrl: 'lexicons/templates/resources.html',
+            templateUrl: 'lexicons/resources/template.html',
 
             controller: ['$scope', '$state', function($scope, $state) {
                 $scope.resourcesTab = function() {
@@ -51,10 +56,17 @@ function config($stateProvider, USER_ROLES) {
             }],
         }).
 
-        state('user.lexicon.resources.sentences', {
-            url: '/sentences',
-            templateUrl: 'sentences/templates/list.html',
-            //controller: 'ListSentencesCtrl',
+        state('lexicon:lexicalEntries', {
+            parent: 'lexicon:resources',
+            url: '',
+            templateUrl: 'lexicons/lexical-entries/template.html',
+            controller: 'LexiconLexicalEntriesCtrl',
         });
+
+        //state('user.lexicon.resources.sentences', {
+        //    url: '/sentences',
+        //    templateUrl: 'sentences/templates/list.html',
+        //    //controller: 'ListSentencesCtrl',
+        //});
 };
 

@@ -9,7 +9,7 @@ function LexiconSettingsCtrl($scope, $state, user, lexicon, Lexicon, $log) {
         var lex = new Lexicon(lexicon);    
         lex.name = $scope.newName;
         lex.update().then(function() {
-            $state.go('user.lexicon.settings', {lexiconName: lex.name});
+            $state.go('lexicon.settings', {lexiconName: lex.name});
         }, function() {
             // @todo Handle errors
         });
@@ -19,7 +19,7 @@ function LexiconSettingsCtrl($scope, $state, user, lexicon, Lexicon, $log) {
         var lex = new Lexicon(lexicon);
         lex.remove().then(function() {
             $('#deleteLexiconModal').modal('hide');
-            $state.go('user.home.lexicons', {userId: lexicon.userId});
+            $state.go('user.lexicons', {userId: lexicon.userId});
         }, function() {
             // @todo Handle errors
         });

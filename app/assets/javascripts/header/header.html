@@ -29,7 +29,7 @@
 
                 <ul class="nav navbar-nav navbar-right" ng-switch-default>
                     <li>
-                        <a ui-sref="user.home.lexicons({username: currentUser.name})">
+                        <a ui-sref="user:lexicons({username: currentUser.name})">
                             {{ currentUser.name }}
                         </a>
                     </li>
@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a ui-sref="user:settings">
                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         </a>
                     </li>

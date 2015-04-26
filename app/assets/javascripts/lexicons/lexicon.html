@@ -3,9 +3,9 @@
     <div class="col-md-10">
         <h3>
             <span class="glyphicon glyphicon-book" aria-hidden="true"></span>
-            <a href="#" ui-sref="user.home.lexicons({username: user.name})">{{ user.name }}</a>
+            <a href="#" ui-sref="user:lexicons({username: user.name})">{{ user.name }}</a>
             <span>/</span>
-            <a href="#" ui-sref="user.lexicon.resources.lexicalEntries">{{ lexicon.name }}</a>
+            <a href="#" ui-sref="lexicon:lexicalEntries">{{ lexicon.name }}</a>
         </h3>
     </div>
 
@@ -27,7 +27,7 @@
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
             <li role="presentation" ng-class="lexiconTab() === 'resources' && 'active'">
-                <a href="#" ui-sref="user.lexicon.resources.lexicalEntries">
+                <a href="#" ui-sref="lexicon:lexicalEntries">
                     <span class="glyphicon glyphicon-font" aria-hidden="true"></span>
                     Resources
                 </a>
@@ -60,7 +60,7 @@
 
                 <hr />
 
-                <a href="#" ui-sref="user.lexicon.settings">
+                <a ui-sref="lexicon:settings">
                     <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                     Settings
                 </a>

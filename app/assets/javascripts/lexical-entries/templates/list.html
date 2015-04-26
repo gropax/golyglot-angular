@@ -42,18 +42,10 @@
                 <h4 class="modal-title">New {{ language.name }} Entry</h4>
             </div>
             <div class="modal-body">
-                <form name="newEntryForm"
-                      class="form-horizontal"
-                      ng-submit="createEntry()"
-                      novalidate >
-
-                    <div gg-lang-text-form lang-code="language.code" model="lexicalEntry.lemma"></div>
-
-                    <input type="submit"
-                           ng-class="lexicalEntry.lemma.representations.length === 0 && 'disabled'"
-                           class="btn btn-success"
-                           value="Create Entry" />
-                </form>
+                <div gg-new-lexical-entry-form
+                     lang-code="language.code"
+                     lexicon-id="lexicon.id"
+                     on-success="onEntryCreated()" ></div>
             </div>
         </div>
     </div>

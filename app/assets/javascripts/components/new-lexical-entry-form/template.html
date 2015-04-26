@@ -1,0 +1,12 @@
+<form name="newLexicalEntryForm"
+      class="form-horizontal"
+      ng-submit="submit()"
+      novalidate >
+
+    <div gg-lang-text-form lang-code="langCode" model="lexicalEntry.lemma"></div>
+
+    <input type="submit"
+           ng-class="lexicalEntry.lemma.representations.length === 0 && 'disabled'"
+           class="btn btn-success"
+           value="Create Entry" />
+</form>

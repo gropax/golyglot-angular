@@ -1,8 +1,8 @@
 angular.module('golyglot.lexical-entries').controller('ListLexicalEntriesCtrl', ListLexicalEntriesCtrl);
 
-ListLexicalEntriesCtrl.$inject = ['$scope', '$state', 'lexicon', 'LexicalEntry', 'lang', '$log'];
+ListLexicalEntriesCtrl.$inject = ['$scope', 'lexicon', 'LexicalEntry', 'lang', '$log'];
 
-function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, lang, $log) {
+function ListLexicalEntriesCtrl($scope, lexicon, LexicalEntry, lang, $log) {
 
     // Initialize value of language selector
     //
@@ -13,29 +13,10 @@ function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, lang, $lo
     $scope.language = lang.all()[0];
 
 
-    // @feature Create Lexical Entry
-    //
-    $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
-
-    $scope.$watch('language', function() {
-        $scope.lexicalEntry.language = $scope.language.code;
-    });
-
-    $scope.createEntry = function() {
-        $scope.lexicalEntry.create().then(function() {
-            $('#newEntryModal').modal('hide');
-
-            // Display recent entries after a new entry has been created
-            displayRecentEntries();
-
-            // Reset the empty lexical entry
-            $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
-
-        }, function(error) {
-            // handle errors
-        });
+    $scope.onEntryCreated = function() {
+        $('#newEntryModal').modal('hide');
+        displayRecentEntries();
     };
-
 
     $scope.listTitle = 'Added Recently';
     $scope.lexicalEntries = [];

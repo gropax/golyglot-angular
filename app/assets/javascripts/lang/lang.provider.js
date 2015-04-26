@@ -8,18 +8,29 @@ function langProvider($injector, LANG_COMPONENTS) {
         return lang;
     };
 
-
-    var Language, LanguageFactory;
     var languages = {};
 
     function lang(langCode) {
         return languages[langCode];
     }
 
+    lang.all = function() {
+        var langArray = [];
+        for (var code in languages) {
+            if (languages.hasOwnProperty(code)) {
+                langArray.push(languages[code]);
+            }
+        }
+        return langArray;
+    };
+
 
     this.language = function(code, name) {
         return new LanguageFactory(code, name)
     };
+
+
+    var Language, LanguageFactory;
 
     Language = (function() {
         
@@ -61,22 +72,12 @@ function langProvider($injector, LANG_COMPONENTS) {
         };
 
         LanguageFactory.prototype.component = function(name, config) {
-            console.log('#component: ' + name);
-
             if (angular.isUndefined(config.templateUrl)) {
                 throw new LanguageError('Template URL required');
             }
             if (LANG_COMPONENTS.indexOf(name) === -1) {
                 throw new LanguageError('Unknown component: ' + name);
             }
-
-            //var ctrl;
-
-            //if (angular.isDefined(config.controller)) {
-            //    ctrl = $injector.get(config.controller)
-            //} else {
-            //    ctrl = angular.noop;
-           // }
 
             this.components[name] = {
                 templateUrl: config.templateUrl,

@@ -47,7 +47,7 @@
                       ng-submit="createEntry()"
                       novalidate >
 
-                    <div gg-language-text-form language="language.code" form="lexicalEntry.lemma"></div>
+                    <div gg-lang-text-form lang-code="language.code" model="lexicalEntry.lemma"></div>
 
                     <input type="submit"
                            ng-class="lexicalEntry.lemma.representations.length === 0 && 'disabled'"

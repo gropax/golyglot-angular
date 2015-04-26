@@ -1,19 +1,26 @@
-angular.module('golyglot.core').controller('LanguageTextFormCtrl', LanguageTextFormCtrl);
+angular.module('golyglot.core').controller('LangTextFormCtrl', LanguageTextFormCtrl);
 
-LanguageTextFormCtrl.$inject = ['$scope', 'Representation', '$log'];
+LanguageTextFormCtrl.$inject = ['$scope', 'lang', 'Representation', '$log'];
 
-function LanguageTextFormCtrl($scope, Representation, $log) {
-    $scope.form.representations = [];
+function LanguageTextFormCtrl($scope, lang, Representation, $log) {
 
-    var defaultRepr = lang.defaultRepresentation($scope.language)
-    $scope.representation = new Representation(defaultRepr);
+    $scope.$watch('langCode', function() {
+        // Reset the form's representations
+        $scope.model.representations = [];
+
+        // Fetch the default repr. for the new language
+        var defaultRepr = lang($scope.langCode).defaultRepresentation;
+        $scope.representation = new Representation(defaultRepr);
+
+        $scope.reprName = defaultRepr.orthographyName;
+    });
 
     $scope.$watch('representation.writtenForm', function() {
         var reprs = [];
-        var form = $scope.representation.writtenForm;
-        if (angular.isDefined(form) && form !== "")
+        var model = $scope.representation.writtenForm;
+        if (angular.isDefined(model) && model !== "")
             reprs.push(repr);
 
-        $scope.form.representations = reprs;
+        $scope.model.representations = reprs;
     });
 }

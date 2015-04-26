@@ -4,13 +4,15 @@ function ggLangTextForm() {
     return {
         restrict: 'EA',
         scope: {
-            form: "=",
+            model: "=",
             langCode: "=",
         },
         templateUrl: "lang/components/textForm/template.html",
 
-        controller: function($scope, lang) {
-            $scope.langComp = lang(langCode).component('textForm');
+        controller: function($scope, lang, $log) {
+            $scope.$watch('langCode', function() {
+                $scope.langComp = lang($scope.langCode).component('textForm');
+            });
         }
     };
 }

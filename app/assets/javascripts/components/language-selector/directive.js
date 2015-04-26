@@ -9,8 +9,8 @@ function ggLanguageSelector() {
 
         templateUrl: 'components/language-selector/template.html',
 
-        controller: function($scope, languageService, $log) {
-            $scope.languages = languageService.availableLanguages();
+        controller: function($scope, lang, $log) {
+            $scope.languages = lang.all();
 
             $scope.selectLanguage = function(language) {
                 $scope.language = language;

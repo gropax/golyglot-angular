@@ -1,6 +1,6 @@
-<div ng-if="!langComp" ng-controller="TextFormCtrl">
+<div ng-if="!langComp" ng-controller="LangTextFormCtrl">
     <div class="form-group">
-        <label for="writtenForm" class="col-sm-3 control-label">{{ representationName }}</label>
+        <label for="writtenForm" class="col-sm-3 control-label">{{ reprName }}</label>
         <div class="col-sm-9">
             <input name="writtenForm"
                    class="form-control"
@@ -10,6 +10,4 @@
     </div>
 </div>
 
-<div ng-if="langComp"
-     ng-include="langComp.templateUrl"
-     ng-controller="langComp.controller"></div>
+<div ng-if="langComp" ng-include="langComp.templateUrl"></div>

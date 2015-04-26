@@ -1,8 +1,8 @@
 angular.module('golyglot').directive('ggGlobalSettingsPanel', ggGlobalSettingsPanel);
 
-ggGlobalSettingsPanel.$inject = ['languageService'];
+ggGlobalSettingsPanel.$inject = ['lang'];
 
-function ggGlobalSettingsPanel(languageService) {
+function ggGlobalSettingsPanel(lang) {
     return {
         restrict: 'EA',
 
@@ -12,8 +12,8 @@ function ggGlobalSettingsPanel(languageService) {
 
         templateUrl: "components/global-settings-panel/template.html",
 
-        controller: function($scope, languageService) {
-            $scope.languages = languageService.availableLanguages();
+        controller: function($scope, lang) {
+            $scope.languages = lang.all();
         }
     };
 }

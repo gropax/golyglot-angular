@@ -7,7 +7,7 @@ function cmnLanguageTextFormCtrl($scope, Representation, $log) {
     $scope.traditional = new Representation({script: 'Hant', orthographyName: 'traditional'});
     $scope.pinyin = new Representation({script: 'Latn', orthographyName: 'pinyin'});
 
-    $scope.form.representations = [];
+    $scope.model.representations = [];
 
     // Watches representations to include in form's representations only those
     // who has a valid `writtenForm`.
@@ -19,7 +19,7 @@ function cmnLanguageTextFormCtrl($scope, Representation, $log) {
                 if (angular.isDefined(repr.writtenForm) && repr.writtenForm !== "")
                     reprs.push(repr);
             });
-            $scope.form.representations = reprs;
+            $scope.model.representations = reprs;
         })
     })
 }

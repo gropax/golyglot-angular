@@ -1,8 +1,8 @@
 angular.module('golyglot.lexical-entries').controller('ListLexicalEntriesCtrl', ListLexicalEntriesCtrl);
 
-ListLexicalEntriesCtrl.$inject = ['$scope', '$state', 'lexicon', 'LexicalEntry', 'languageService', '$log'];
+ListLexicalEntriesCtrl.$inject = ['$scope', '$state', 'lexicon', 'LexicalEntry', 'lang', '$log'];
 
-function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, languageService, $log) {
+function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, lang, $log) {
 
     // Initialize value of language selector
     //
@@ -10,7 +10,7 @@ function ListLexicalEntriesCtrl($scope, $state, lexicon, LexicalEntry, languageS
     //     Add a 'main language' attribute in lexicons, which would be the
     //     default language
     //
-    $scope.language = languageService.availableLanguages()[0];
+    $scope.language = lang.all()[0];
 
 
     // @feature Create Lexical Entry

@@ -1,4 +1,4 @@
-angular.module('golyglot').directive('ggLangTextForm', ggLangTextForm);
+angular.module('golyglot.lang').directive('ggLangTextForm', ggLangTextForm);
 
 function ggLangTextForm() {
     return {

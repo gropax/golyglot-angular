@@ -1,8 +1,8 @@
-angular.module('golyglot.lang.cmn').controller('cmnCtrl', cmnCtrl);
+angular.module('golyglot.lang.cmn').controller('CmnCtrl', CmnCtrl);
 
-cmnCtrl.$inject = ['$scope', 'cmnSettings', '$log'];
+CmnCtrl.$inject = ['$scope', 'cmnSettings', '$log'];
 
-function cmnCtrl($scope, cmnSettings, $log) {
+function CmnCtrl($scope, cmnSettings, $log) {
     $scope.cmnSettings = cmnSettings;
 
     $scope.charset = cmnSettings.charset;

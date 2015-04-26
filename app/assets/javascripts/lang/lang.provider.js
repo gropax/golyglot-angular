@@ -9,6 +9,7 @@ function langProvider($injector, LANG_COMPONENTS) {
     };
 
 
+    var Language, LanguageFactory;
     var languages = {};
 
     function lang(langCode) {
@@ -17,45 +18,75 @@ function langProvider($injector, LANG_COMPONENTS) {
 
 
     this.language = function(code, name) {
-        return new Language(code, name)
+        return new LanguageFactory(code, name)
     };
 
-    this.Language = (function(langProvider) {
+    Language = (function() {
+        
+        var Language = function(factory) {
+            this.factory = factory;
+        }
 
-        var Language = function(code, name) {
+        Object.defineProperties(Language.prototype, {
+            code: { get: function() { return this.factory.code; } },
+            name: { get: function() { return this.factory.name; } },
+            settings: { get: function() { return this.factory.settings; } },
+            defaultRepresentation: { get: function() { return this.factory.defaultRepresentation; } },
+        });
+
+        Language.prototype.component = function(name) {
+            return this.factory.components[name];
+        };
+
+        return Language;
+
+    })();
+
+
+    LanguageFactory = (function(languages, Language) {
+
+        var LanguageFactory = function(code, name) {
             this.code = code;
             this.name = name;
 
-            this.settings = {};
             this.components = {};
 
             this.registered = false;
         }
 
-        Language.prototype.settings = function(settings) {
-            this.settings = $injector.get(settings);
+        LanguageFactory.prototype.settings = function(serviceName) {
+            this.settings = serviceName;
 
             return this;
         };
 
-        Language.prototype.component = function(name, config) {
+        LanguageFactory.prototype.component = function(name, config) {
+            console.log('#component: ' + name);
+
             if (angular.isUndefined(config.templateUrl)) {
-                throw LanguageError('Template URL required');
+                throw new LanguageError('Template URL required');
             }
-            if (!LANG_COMPONENTS[name]) {
-                throw LanguageError('Unknown component: ' + name);
+            if (LANG_COMPONENTS.indexOf(name) === -1) {
+                throw new LanguageError('Unknown component: ' + name);
             }
-            var ctrl = $injector.get(config.controller) || angular.noop;
+
+            //var ctrl;
+
+            //if (angular.isDefined(config.controller)) {
+            //    ctrl = $injector.get(config.controller)
+            //} else {
+            //    ctrl = angular.noop;
+           // }
 
             this.components[name] = {
                 templateUrl: config.templateUrl,
-                controller: ctrl,
+                controller: config.controller,
             };
 
             return this;
         };
 
-        Language.prototype.defaultRepresentation = function(config) {
+        LanguageFactory.prototype.defaultRepresentation = function(config) {
             if (!angular.isString(config.script)) {
                 throw LanguageError('Invalid script name');
             }
@@ -64,16 +95,17 @@ function langProvider($injector, LANG_COMPONENTS) {
             }
 
             this.defaultRepresentation = config;
+
             return this;
         };
 
-        Language.prototype.register = function() {
+        LanguageFactory.prototype.register = function() {
             if (angular.isUndefined(this.defaultRepresentation)) {
                 throw LanguageError('Default representation required');
             }
 
             if (!this.registered) {
-                langProvider.languages.push(this);
+                languages[this.code] = new Language(this);
                 this.registered = true;
             }
         }
@@ -87,7 +119,7 @@ function langProvider($injector, LANG_COMPONENTS) {
         LanguageError.prototype.constructor = LanguageError;
 
 
-        return Language;
+        return LanguageFactory;
 
-    })(this);
+    })(languages, Language);
 };

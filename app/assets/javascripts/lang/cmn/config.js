@@ -10,6 +10,8 @@ function config(langProvider) {
             orthographyName: 'simplified',
         })
 
+        .settings('cmnSettings')
+
         .component('lemma', {
             templateUrl: 'lang/cmn/components/lemma.html',
             controller: 'CmnCtrl',
@@ -27,7 +29,5 @@ function config(langProvider) {
             controller: 'CmnCtrl',
         })
 
-        .settings('cmnSettings')
-
-        .register()
+        .register();
 }

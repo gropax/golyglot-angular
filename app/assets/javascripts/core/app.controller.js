@@ -1,8 +1,8 @@
 angular.module('golyglot.core').controller('AppCtrl', AppCtrl);
 
-AppCtrl.$inject = ['$scope', 'languageService', 'auth', 'USER_ROLES', 'AUTH_EVENTS'];
+AppCtrl.$inject = ['$scope', 'auth', 'USER_ROLES', 'AUTH_EVENTS'];
 
-function AppCtrl($scope, languageService, auth, USER_ROLES, AUTH_EVENTS) {
+function AppCtrl($scope, auth, USER_ROLES, AUTH_EVENTS) {
     $scope.secondLanguage = "eng";
 
     $scope.currentUser = auth.currentUser();

@@ -26,12 +26,14 @@ function config($stateProvider, USER_ROLES) {
                 userRole: USER_ROLES.user,
             },
         }).
+
         state('user.home', {
             abstract: true,
             templateUrl: 'users/templates/user.html',
         }).
+
         state('user.home.lexicons', {
-            url: '/lexicons',
+            url: '',
             templateUrl: 'users/templates/user-lexicons.html',
             controller: 'UserLexiconsCtrl',
         });

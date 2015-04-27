@@ -16,7 +16,7 @@ function config($stateProvider, USER_ROLES) {
             },
         }).
 
-        state('user:lexicon', {
+        state('lexicon', {
             parent: 'user',
             abstract: true,
             url: '/:lexiconName',
@@ -37,14 +37,14 @@ function config($stateProvider, USER_ROLES) {
         }).
 
         state('lexicon:settings', {
-            parent: 'user:lexicon',
+            parent: 'lexicon',
             url: '/settings',
             templateUrl: 'lexicons/settings/template.html',
             controller: 'LexiconSettingsCtrl',
         }).
 
         state('lexicon:resources', {
-            parent: 'user:lexicon',
+            parent: 'lexicon',
             abstract: true,
             url: '',
             templateUrl: 'lexicons/resources/template.html',

@@ -88,4 +88,26 @@ RSpec.describe LexicalEntry, :type => :request do
 
   end
 
+
+  describe "GET /api/lexicons/:lexicon_id/lexical_entries/:id" do
+    let(:lexicon) { FactoryGirl.create(:lexicon, user: bob) }
+    let(:lexical_entry) { FactoryGirl.create(:lexical_entry, lexicon: lexicon) }
+
+    context "with a valid `language` param" do
+      before(:each) do
+        get api_lexicon_lexical_entry_path(lexicon, lexical_entry)
+      end
+
+      it "should return a success status code" do
+        expect(response).to have_http_status(:success)
+      end
+
+      it "returns lexical entry with lemma" do
+        expect(json["lemma"]).not_to be_nil
+      end
+
+      it "returns lexical entry with senses"
+    end
+  end
+
 end

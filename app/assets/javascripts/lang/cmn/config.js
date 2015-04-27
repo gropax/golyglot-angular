@@ -5,10 +5,19 @@ config.$inject = ['langProvider'];
 function config(langProvider) {
     langProvider.language('cmn', 'Mandarin')
 
-        .defaultRepresentation({
+        .representation('simplified', {
             script: 'Hans',
             orthographyName: 'simplified',
         })
+        .representation('traditional', {
+            script: 'Hant',
+            orthographyName: 'traditional',
+        })
+        .representation('pinyin', {
+            script: 'Latn',
+            orthographyName: 'pinyin',
+        })
+        .defaultRepresentation('simplified')
 
         .settings('cmnSettings')
 

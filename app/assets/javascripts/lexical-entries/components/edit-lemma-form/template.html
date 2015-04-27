@@ -1,0 +1,12 @@
+<form name="editLemmaForm"
+      class="form-horizontal"
+      ng-submit="submit()"
+      novalidate >
+
+    <div gg-lang-text-form lang-code="langCode" model="model"></div>
+
+    <input type="submit"
+           ng-class="model.representations.length === 0 && 'disabled'"
+           class="btn btn-success"
+           value="Create Entry" />
+</form>

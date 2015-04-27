@@ -5,10 +5,11 @@ config.$inject = ['langProvider'];
 function config(langProvider) {
     langProvider.language('eng', 'English')
 
-        .defaultRepresentation({
+        .representation('english', {
             script: 'Latn',
             orthographyName: 'english', // @fixme
         })
+        .defaultRepresentation('english')
 
         .register();
 }

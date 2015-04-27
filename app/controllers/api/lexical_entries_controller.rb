@@ -4,7 +4,7 @@ module Api
 
     before_action :set_lexicon
     before_action :set_user
-    #before_action :set_lexical_entry, except: [:index, :create]
+    before_action :set_lexical_entry, except: [:index, :create]
 
     def index
       if language = params[:language]
@@ -13,8 +13,6 @@ module Api
       else
         render json: {error: 'language required'}, status: :bad_request
       end
-      #binding.pry
-      #render :index, status: :success
     end
 
     def create
@@ -25,6 +23,9 @@ module Api
       else
         render json: @lexical_entry.errors, status: :unprocessable_entity
       end
+    end
+
+    def show
     end
 
 

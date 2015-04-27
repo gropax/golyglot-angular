@@ -58,7 +58,9 @@
 <table class="table">
     <tr ng-repeat="lex in lexicalEntries">
         <td>
-            <span gg-lang-lemma lang-code="language.code" model="lex.lemma"></span>
+            <a ui-sref="lexicalEntry({id: lex.id})">
+                <span gg-lang-lemma lang-code="language.code" model="lex.lemma"></span>
+            </a>
         </td>
     </tr>
 </table>

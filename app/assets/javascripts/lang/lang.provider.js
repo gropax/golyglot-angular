@@ -42,11 +42,17 @@ function langProvider($injector, LANG_COMPONENTS) {
             code: { get: function() { return this.factory.code; } },
             name: { get: function() { return this.factory.name; } },
             settings: { get: function() { return this.factory.settings; } },
-            defaultRepresentation: { get: function() { return this.factory.defaultRepresentation; } },
+            defaultRepresentation: { get: function() {
+                return this.factory.representations[this.factory.defaultRepresentation];
+            } },
         });
 
         Language.prototype.component = function(name) {
             return this.factory.components[name];
+        };
+
+        Language.prototype.representation = function(name) {
+            return this.factory.representations[name];
         };
 
         return Language;
@@ -61,6 +67,7 @@ function langProvider($injector, LANG_COMPONENTS) {
             this.name = name;
 
             this.components = {};
+            this.representations = {};
 
             this.registered = false;
         }
@@ -79,15 +86,15 @@ function langProvider($injector, LANG_COMPONENTS) {
                 throw new LanguageError('Unknown component: ' + name);
             }
 
-            this.components[name] = {
-                templateUrl: config.templateUrl,
-                controller: config.controller,
-            };
+            this.components[name] = config;
 
             return this;
         };
 
-        LanguageFactory.prototype.defaultRepresentation = function(config) {
+        LanguageFactory.prototype.representation = function(name, config) {
+            if (!angular.isString(name)) {
+                throw LanguageError('Representation name required');
+            }
             if (!angular.isString(config.script)) {
                 throw LanguageError('Invalid script name');
             }
@@ -95,14 +102,21 @@ function langProvider($injector, LANG_COMPONENTS) {
                 throw LanguageError('Invalid orthography name');
             }
 
-            this.defaultRepresentation = config;
+            this.representations[name] = config;
+
+            return this;
+        }
+
+        LanguageFactory.prototype.defaultRepresentation = function(name) {
+            this.defaultRepresentation = name;
 
             return this;
         };
 
         LanguageFactory.prototype.register = function() {
-            if (angular.isUndefined(this.defaultRepresentation)) {
-                throw LanguageError('Default representation required');
+            var defaultRepr = this.representations[this.defaultRepresentation];
+            if (angular.isUndefined(defaultRepr)) {
+                throw LanguageError('Unknown default representation');
             }
 
             if (!this.registered) {

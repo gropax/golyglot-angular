@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :form do
-    representations { create_list(:representation, 2) }
+    representations { build_list(:representation, 2) }
   end
 
 end

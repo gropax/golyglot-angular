@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Representation, :type => :model do
 
-  let(:repr) { FactoryGirl.create(:representation) }
+  let(:lexical_entry) { FactoryGirl.create(:cmn_lexical_entry) }
+  let(:repr) { lexical_entry.lemma.representations.first }
 
 
   describe "validation" do

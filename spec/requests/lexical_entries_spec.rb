@@ -91,7 +91,7 @@ RSpec.describe LexicalEntry, :type => :request do
 
   describe "GET /api/lexicons/:lexicon_id/lexical_entries/:id" do
     let(:lexicon) { FactoryGirl.create(:lexicon, user: bob) }
-    let(:lexical_entry) { FactoryGirl.create(:lexical_entry, lexicon: lexicon) }
+    let(:lexical_entry) { FactoryGirl.create(:cmn_lexical_entry, lexicon: lexicon) }
 
     context "with a valid `language` param" do
       before(:each) do

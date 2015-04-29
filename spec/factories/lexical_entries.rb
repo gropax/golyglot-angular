@@ -1,11 +1,15 @@
 FactoryGirl.define do
 
   factory :lexical_entry do
-    language "fra"
+    language 'eng'
     lexicon { create(:lexicon) }
-    lemma { create(:form) } # Should be lemma, but pb with association validation
-    part_of_speech { create(:part_of_speech) }
-    type { create(:lexical_entry_type) }
+    lemma { build(:lemma) }
+  end
+
+  factory :cmn_lexical_entry, class: LexicalEntry do
+    language 'cmn'
+    lexicon { create(:lexicon) }
+    lemma { build(:cmn_lemma) }
   end
 
 end

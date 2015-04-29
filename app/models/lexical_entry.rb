@@ -5,6 +5,8 @@ class LexicalEntry
   field :language, type: String
 
   embeds_one :lemma
+  accepts_nested_attributes_for :lemma
+
   embeds_many :senses
 
   belongs_to :lexicon
@@ -15,5 +17,5 @@ class LexicalEntry
   validates_presence_of :lemma
   validates_inclusion_of :language, in: LANGUAGE_CODES,
                                     allow_blank: true,
-                                    message: "must be a valid language code"
+                                    message: "is invalid language code"
 end

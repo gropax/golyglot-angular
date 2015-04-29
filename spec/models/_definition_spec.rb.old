@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Definition, :type => :model do
 
-  let(:lex) { FactoryGirl.create(:lexical_entry) }
+  let(:lex) { FactoryGirl.create(:cmn_lexical_entry) }
   let(:sense) { FactoryGirl.create(:sense, lexical_entry: lex) }
   let(:defn) { FactoryGirl.create(:definition, sense: sense) }
 

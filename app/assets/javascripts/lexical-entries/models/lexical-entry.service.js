@@ -1,8 +1,8 @@
 angular.module('golyglot.lexical-entries').factory('LexicalEntry', LexicalEntryFactory);
 
-LexicalEntryFactory.$inject = ['RailsResource', 'railsSerializer', 'Lemma'];
+LexicalEntryFactory.$inject = ['RailsResource', 'railsSerializer', 'Lemma', '$log'];
 
-function LexicalEntryFactory(RailsResource, railsSerializer, Lemma) {
+function LexicalEntryFactory(RailsResource, railsSerializer, Lemma, $log) {
 
     RailsResource.extendTo(LexicalEntry);
     LexicalEntry.configure({
@@ -17,8 +17,12 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma) {
         LexicalEntry.__super__.constructor.apply(this, arguments);
 
         // Initialize a new Lemma nested resource
-        var lemmaParams = arguments[0] && arguments[0].lemma;
-        this.lemma = new Lemma(lemmaParams);
+        //var lemmaParams = arguments[0] && arguments[0].lemma;
+        //this.lemma = new Lemma(lemmaParams);
+        
+        //$log.debug('this: ' + JSON.stringify(this, true));
+        //$log.debug('arguments: ' + JSON.stringify(arguments, true));
+        //this.lemma.lexicalEntryId = arguments.id;
     }
 
 

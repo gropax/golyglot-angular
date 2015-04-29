@@ -4,64 +4,16 @@ langProvider.$inject = ['$injector', 'LANG_COMPONENTS'];
 
 function langProvider($injector, LANG_COMPONENTS) {
 
-    this.$get = function() {
-        return lang;
-    };
-
-    var languages = {};
-
-    function lang(langCode) {
-        return languages[langCode];
-    }
-
-    lang.all = function() {
-        var langArray = [];
-        for (var code in languages) {
-            if (languages.hasOwnProperty(code)) {
-                langArray.push(languages[code]);
-            }
-        }
-        return langArray;
-    };
-
+    var languageFactories = {};
 
     this.language = function(code, name) {
-        return new LanguageFactory(code, name)
+        var factory = new LanguageFactory(code, name);
+        languageFactories[code] = factory;
+
+        return factory;
     };
 
-
-    var Language, LanguageFactory;
-
-    Language = (function() {
-        
-        var Language = function(factory) {
-            this.factory = factory;
-        }
-
-        Object.defineProperties(Language.prototype, {
-            code: { get: function() { return this.factory.code; } },
-            name: { get: function() { return this.factory.name; } },
-            settings: { get: function() { return this.factory.settings; } },
-            defaultRepresentation: { get: function() {
-                return this.factory.representations[this.factory.defaultRepresentation];
-            } },
-        });
-
-        Language.prototype.component = function(name) {
-            return this.factory.components[name];
-        };
-
-        Language.prototype.representation = function(name) {
-            return this.factory.representations[name];
-        };
-
-        return Language;
-
-    })();
-
-
-    LanguageFactory = (function(languages, Language) {
-
+    var LanguageFactory = (function() {
         var LanguageFactory = function(code, name) {
             this.code = code;
             this.name = name;
@@ -73,7 +25,7 @@ function langProvider($injector, LANG_COMPONENTS) {
         }
 
         LanguageFactory.prototype.settings = function(serviceName) {
-            this.settings = serviceName;
+            this.settingsService = serviceName;
 
             return this;
         };
@@ -113,18 +65,6 @@ function langProvider($injector, LANG_COMPONENTS) {
             return this;
         };
 
-        LanguageFactory.prototype.register = function() {
-            var defaultRepr = this.representations[this.defaultRepresentation];
-            if (angular.isUndefined(defaultRepr)) {
-                throw LanguageError('Unknown default representation');
-            }
-
-            if (!this.registered) {
-                languages[this.code] = new Language(this);
-                this.registered = true;
-            }
-        }
-
 
         function LanguageError(message) {
           this.name = 'LanguageError';
@@ -135,6 +75,32 @@ function langProvider($injector, LANG_COMPONENTS) {
 
 
         return LanguageFactory;
+    })();
 
-    })(languages, Language);
+
+    this.$get = ['Language', function(Language) {
+
+        var languages = {},
+            languageArray = [];
+
+        for (var code in languageFactories) {
+            if (languageFactories.hasOwnProperty(code)) {
+                var language = new Language(languageFactories[code]);
+
+                languages[code] = language;
+                languageArray.push(language);
+            }
+        }
+
+        function lang(langCode) {
+            return languages[langCode];
+        }
+
+        lang.all = function() {
+            return languageArray;
+        };
+
+        return lang;
+    }];
+
 };

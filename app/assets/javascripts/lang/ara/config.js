@@ -13,7 +13,5 @@ function config(langProvider) {
 
         .component('settingsPanel', {
             templateUrl: 'lang/ara/components/settingsPanel.html',
-        })
-
-        .register();
+        });
 }

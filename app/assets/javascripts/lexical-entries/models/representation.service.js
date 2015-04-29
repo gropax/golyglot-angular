@@ -1,10 +1,29 @@
-angular.module('golyglot.lexical-entries').service('Representation', Representation);
+angular.module('golyglot.lexical-entries').factory('Representation', Factory);
 
-Representation.$inject = ['railsResourceFactory'];
+Factory.$inject = ['RailsResource'];
 
-function Representation(railsResourceFactory) {
-    return railsResourceFactory({
+function Factory(RailsResource) {
+
+    RailsResource.extendTo(Representation);
+    Representation.configure({
         url: "/api/representations/{{id}}",
         name: "representation",
     });
+
+    function Representation() {
+        Representation.__super__.constructor.apply(this, arguments);
+    }
+
+    // Fast deep copy
+    //
+    Representation.prototype.clone = function() {
+        var attrs = {
+            script: this.script,
+            orthographyName: this.orthographyName,
+            writtenForm: this.writtenForm,
+        };
+        return new Representation(attrs);
+    };
+
+    return Representation;
 }

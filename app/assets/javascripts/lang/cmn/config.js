@@ -36,7 +36,5 @@ function config(langProvider) {
         .component('settingsPanel', {
             templateUrl: 'lang/cmn/components/settings-panel.html',
             controller: 'CmnCtrl',
-        })
-
-        .register();
+        });
 }

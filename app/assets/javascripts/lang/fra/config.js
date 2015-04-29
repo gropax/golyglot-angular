@@ -9,7 +9,5 @@ function config(langProvider) {
             script: 'Latn',
             orthographyName: 'french', // @fixme
         })
-        .defaultRepresentation('french')
-
-        .register();
+        .defaultRepresentation('french');
 }

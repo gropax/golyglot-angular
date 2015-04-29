@@ -18,6 +18,7 @@
 </h2>
 
 {{ lexicalEntry | json }}
+{{ lexicalEntry.lemma.representations[0].constructor.toString() | json }}
 
 <div id="editLemmaModal" class="modal">
     <div class="modal-dialog">
@@ -27,7 +28,6 @@
                 <h4 class="modal-title">Edit Lemma</h4>
             </div>
             <div class="modal-body">
-                {{ lexicalEntry.lemma | json }}
                 <div gg-edit-lemma-form
                      lang-code="lexicalEntry.language"
                      model="lexicalEntry.lemma"

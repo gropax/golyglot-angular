@@ -2,9 +2,9 @@ module Api
   class LexicalEntriesController < BaseController
     respond_to :json
 
-    before_action :set_lexicon
+    before_action :set_lexicon, only: [:index, :create]
+    before_action :set_lexical_entry_and_lexicon, except: [:index, :create]
     before_action :set_user
-    before_action :set_lexical_entry, except: [:index, :create]
 
     def index
       if language = params[:language]
@@ -28,8 +28,31 @@ module Api
     def show
     end
 
+    def update_lemma
+      @lemma.update_attributes(representations_attributes: lemma_params[:representations])
+      if @lexical_entry.save
+        render json: @lemma.to_builder.target!, status: :ok
+      else
+        render json: @lemma.errors, status: :unprocessable_entity
+      end
+    end
+
 
     private
+
+      def set_lexical_entry_and_lexicon
+        @lexical_entry = LexicalEntry.find params[:lexical_entry_id] || params[:id]
+        @lexicon = @lexical_entry.lexicon
+        @lemma = @lexical_entry.lemma
+      end
+
+      def set_lexicon
+        @lexicon = Lexicon.find params[:lexicon_id]
+      end
+
+      def set_user
+        @user = @lexicon.user
+      end
 
       def lexical_entry_params
         params.require(:lexical_entry)
@@ -37,20 +60,13 @@ module Api
                    lemma: {representations: [:script, :orthography_name, :written_form]})
       end
 
-      def set_lexical_entry
-        @lexical_entry = LexicalEntry.find_by({lexicon_id: params[:lexicon_id], id: params[:id]})
-      end
-
-      def set_lexicon
-        @lexicon = Lexicon.find_by({id: params[:lexicon_id]})
-      end
-
-      def set_user
-        @user = User.find_by({id: @lexicon.user_id})
+      def lemma_params
+        params.require(:lemma).permit(representations: [:id, :script, :orthography_name, :written_form])
       end
 
       def current_user_is_owner?
         @user == @current_user
       end
+
   end
 end

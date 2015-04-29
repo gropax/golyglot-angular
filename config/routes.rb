@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources "lexicons", only: [] do
       resources "lexical_entries", only: [:index, :create, :show]
     end
+
+    resources "lexical_entries" do
+      put "lemma", to: 'lexical_entries#update_lemma'
+    end
   end
 
   match 'auth/sign_up', to: 'auth#sign_up', via: :post

@@ -5,10 +5,6 @@ RSpec.describe Lemma, :type => :model do
   let(:lexical_entry) { FactoryGirl.create(:cmn_lexical_entry) }
   let(:lemma) { lexical_entry.lemma }
 
-  it "has a valid factory" do
-    expect(lemma).to be_valid
-  end
-
   describe "#representations" do
     it "should not be blank" do
       lemma.representations = []

@@ -24,9 +24,9 @@
 
 
         describe("resource URI", function() {
-            it("GET /api/lexical_entries/:id", function() {
-                $httpBackend.expectGET('/api/lexical_entries/123').respond(200);
-                LexicalEntry.get({id: 123});
+            it("GET /api/lexicons/:lexicon_id/lexical_entries/:id", function() {
+                $httpBackend.expectGET('/api/lexicons/456/lexical_entries/123').respond(200);
+                LexicalEntry.get({id: 123, lexiconId: 456});
                 $httpBackend.flush();
             });
         });
@@ -62,8 +62,8 @@
 
             describe("when object from server", function() {
                 beforeEach(function() {
-                    lex = new LexicalEntry({id: 123});
-                    $httpBackend.expectGET('/api/lexical_entries/123').respond(200, {
+                    lex = new LexicalEntry({id: 123, lexiconId: 456});
+                    $httpBackend.expectGET('/api/lexicons/456/lexical_entries/123').respond(200, {
                         lemma: {formRepresentations: []},
                     });
                     lex.get();

@@ -18,4 +18,16 @@ class LexicalEntry
   validates_inclusion_of :language, in: LANGUAGE_CODES,
                                     allow_blank: true,
                                     message: "is invalid language code"
+
+  def to_builder
+    Jbuilder.new do |json|
+      json.id id.to_s
+      json.lexicon_id lexicon.id.to_s
+
+      json.(self, :language, :created_at, :updated_at)
+
+      json.lemma lemma.to_builder
+    end
+  end
+
 end

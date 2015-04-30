@@ -16,8 +16,4 @@ class Form
     end
   end
 
-  def update_attributes(*args)
-    #binding.pry
-    super
-  end
 end

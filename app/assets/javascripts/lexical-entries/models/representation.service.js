@@ -18,6 +18,7 @@ function Factory(RailsResource) {
     //
     Representation.prototype.clone = function() {
         var attrs = {
+            id: this.id,
             script: this.script,
             orthographyName: this.orthographyName,
             writtenForm: this.writtenForm,

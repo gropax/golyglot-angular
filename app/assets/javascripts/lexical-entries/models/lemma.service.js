@@ -6,7 +6,7 @@ function LemmaFactory(RailsResource, railsSerializer, Representation) {
 
     RailsResource.extendTo(Lemma);
     Lemma.configure({
-        url: "/api/lexical-entry/{{lexicalEntryId}}/lemma",
+        url: "/api/lexical_entries/{{lexicalEntryId}}/lemma",
         name: "lemma",
         serializer: railsSerializer(function() {
             this.resource('representations', Representation);
@@ -16,8 +16,10 @@ function LemmaFactory(RailsResource, railsSerializer, Representation) {
     function Lemma() {
         Lemma.__super__.constructor.apply(this, arguments);
 
-        // Initialize an empty array for FormRepresentation resource
-        this.representations = [];
+        // Initialize if none given
+        if (!this.representations) {
+            this.representations = [];
+        }
     }
 
     // Fast deep copy

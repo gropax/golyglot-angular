@@ -1,8 +1,6 @@
 class Lemma < Form
   embedded_in :lexical_entry, inverse_of: :lemma
 
-  field :test, type: String
-
   def to_builder
     Jbuilder.new do |lemma|
       lemma.merge!(super.attributes!)

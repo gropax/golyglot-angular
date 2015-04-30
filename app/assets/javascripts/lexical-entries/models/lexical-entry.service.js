@@ -16,6 +16,11 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma, $log) {
     function LexicalEntry() {
         LexicalEntry.__super__.constructor.apply(this, arguments);
 
+        // Initialize a new Lemma if none given
+        if (!this.lemma) {
+            this.lemma = new Lemma();
+        }
+
         // Initialize a new Lemma nested resource
         //var lemmaParams = arguments[0] && arguments[0].lemma;
         //this.lemma = new Lemma(lemmaParams);

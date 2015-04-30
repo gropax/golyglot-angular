@@ -6,8 +6,8 @@
 
     <div gg-lang-text-form lang-code="langCode" model="model"></div>
 
-    <input type="submit"
-           ng-class="model.representations.length === 0 && 'disabled'"
+    <button type="submit"
+           ng-class="!valid && 'disabled'"
            class="btn btn-success"
            value="Create Entry" />
 </form>

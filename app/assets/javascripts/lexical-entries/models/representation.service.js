@@ -6,7 +6,7 @@ function Factory(RailsResource) {
 
     RailsResource.extendTo(Representation);
     Representation.configure({
-        url: "/api/representations/{{id}}",
+        //url: "/api/representations/{{id}}",
         name: "representation",
     });
 
@@ -18,12 +18,15 @@ function Factory(RailsResource) {
     //
     Representation.prototype.clone = function() {
         var attrs = {
-            id: this.id,
             script: this.script,
             orthographyName: this.orthographyName,
             writtenForm: this.writtenForm,
         };
-        return new Representation(attrs);
+
+        var repr = new Representation(attrs);
+        if (this.id) { repr.id = this.id; }
+
+        return repr;
     };
 
     return Representation;

@@ -1,43 +1,32 @@
 angular.module('golyglot.lexical-entries').factory('Lemma', LemmaFactory);
 
-LemmaFactory.$inject = ['RailsResource', 'railsSerializer', 'Representation'];
+LemmaFactory.$inject = ['RailsResource', 'railsSerializer', 'Representable'];
 
-function LemmaFactory(RailsResource, railsSerializer, Representation) {
-
-    RailsResource.extendTo(Lemma);
-    Lemma.configure({
-        url: "/api/lexical_entries/{{lexicalEntryId}}/lemma",
-        name: "lemma",
-        serializer: railsSerializer(function() {
-            this.resource('representations', Representation);
-        }),
-    });
+function LemmaFactory(RailsResource, railsSerializer, Representable) {
 
     function Lemma() {
         Lemma.__super__.constructor.apply(this, arguments);
-
-        // Initialize if none given
-        if (!this.representations) {
-            this.representations = [];
-        }
     }
+
+    Representable.extendTo(Lemma);
+    Lemma.configure({
+        url: "/api/lexical_entries/{{lexicalEntryId}}/lemma",
+        name: "lemma",
+    });
 
     // Fast deep copy
     //
+    // @fixme
+    //     Works but ugly
+    //
     Lemma.prototype.clone = function() {
-        var attrs = {
-            id: this.id,
-            lexicalEntryId: this.lexicalEntryId,
-        };
+        var clonedRepr = Lemma.__super__.clone.apply(this);
 
-        var reprs = [];
-        var thisReprs = this.representations;
-        for (var i = 0 ; i < thisReprs.length ; i++) {
-            reprs.push(thisReprs[i].clone());
-        }
+        // Create new object so the constructor could be `Lemma`
+        var cloned = new Lemma(clonedRepr);
 
-        var cloned = new Lemma(attrs);
-        cloned.representations = reprs;
+        cloned.id = this.id;
+        cloned.lexicalEntryId = this.lexicalEntryId;
 
         return cloned;
     };

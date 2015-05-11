@@ -50,7 +50,10 @@ group :test, :development do
   gem 'database_cleaner', '~> 1.4.1'
   gem 'selenium-webdriver'
   gem 'pry'
-  gem 'jasmine', github: 'pivotal/jasmine-gem'
+  #gem 'jasmine', github: 'pivotal/jasmine-gem'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-jasmine'
 end
 
 gem 'bower-rails'

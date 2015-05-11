@@ -15,6 +15,9 @@ function RepresentableFactory(RailsResource, railsSerializer, Representation) {
 
     RailsResource.extendTo(Representable);
     Representable.configure({
+        // Fake URL for tests
+        url: "/api/representables/{{id}}",
+
         name: "representable",
         serializer: railsSerializer(function() {
             this.resource('representations', Representation);

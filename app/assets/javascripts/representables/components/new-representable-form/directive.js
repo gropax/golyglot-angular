@@ -1,4 +1,4 @@
-angular.module('golyglot.core').directive('ggNewRepresentableForm', ggNewRepresentableForm);
+angular.module('golyglot.representables').directive('ggNewRepresentableForm', ggNewRepresentableForm);
 
 function ggNewRepresentableForm() {
     return {
@@ -7,14 +7,15 @@ function ggNewRepresentableForm() {
             model: '=ggModel',
             onSuccess: '&ggSuccess',
         },
-        templateUrl: 'components/new-lexical-entry-form/template.html',
+        templateUrl: 'representables/components/new-representable-form/template.html',
 
         controller: function($scope, lang) {
             // Make `language` available in the child scopes
             $scope.language = lang($scope.model.language);
 
             // Watch event from above (eg. when modal opens)
-            $scope.$watch('reset:form', function() {
+            $scope.$on('reset:form', function() {
+                $scope.clearForm();
                 // Clear form
             });
 
@@ -22,9 +23,9 @@ function ggNewRepresentableForm() {
             var clone = $scope.model.clone();
             $scope.representations = clone.representations;
 
-            $scope.$watch('form:modified', function() {
+            $scope.$on('form:modified', function() {
                 // Check validity
-                $scope.valid = isValid();
+                $scope.valid = $scope.isValid();
             })
 
             $scope.submit = function() {
@@ -40,9 +41,25 @@ function ggNewRepresentableForm() {
                 }
             };
 
-            function isValid() {
-                return false;
-            }
+            // @todo
+            $scope.clearForm = function() {};
+
+            //   Form is valid unless all fields are blank
+            //
+            $scope.isValid = function() {
+                var reprs = $scope.representations,
+                    allBlank = true;
+
+                for (var i = 0 ; i < reprs.length ; i++) {
+                    var repr = reprs[i];
+                    console.log("repr: " + JSON.stringify(repr));
+                    if (repr.writtenForm && repr.writtenForm !== '') {
+                        allBlank = false;
+                        break;
+                    }
+                }
+                return !allBlank;
+            };
 
         },
     };

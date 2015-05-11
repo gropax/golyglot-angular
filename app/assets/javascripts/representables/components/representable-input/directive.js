@@ -3,12 +3,12 @@ angular.module('golyglot.lang').directive('ggRepresentableInput', ggRepresentabl
 function ggRepresentableInput() {
     return {
         restrict: 'EA',
-        templateUrl: "lexical_entries/components/representable-input/template.html",
+        templateUrl: "representables/components/representable-input/template.html",
 
         controller: function($scope, lang, $log) {
             // Change the template when language is changed
             $scope.$watch('language', function() {
-                $scope.langComponent = $scope.language.component('textForm');
+                $scope.langComponent = $scope.language.component('representableInput');
             });
         }
     };

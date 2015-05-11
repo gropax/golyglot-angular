@@ -48,6 +48,11 @@
 //
 //= require header/module
 //= require_tree ./header
+//
+//= require representables/module
+//= require representables/representable.service
+//  require_tree ./representables
+//
 //= require lexical-entries/module
 //= require_tree ./lexical-entries
 //= require lexicons/module

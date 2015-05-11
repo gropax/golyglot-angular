@@ -78,7 +78,7 @@ guard :rspec, cmd: "bundle exec rspec" do
   #end
 end
 
-guard :jasmine, clean: false do
+guard :jasmine, clean: false, keep_failed: false do
   watch(%r{spec/javascripts/spec\.(js\.coffee|js|coffee)$}) { 'spec/javascripts' }
   watch(%r{spec/javascripts/(.+)\.spec\.js$})
   #watch(%r{spec/javascripts/fixtures/.+$})

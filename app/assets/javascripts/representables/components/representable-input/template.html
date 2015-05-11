@@ -1,0 +1,11 @@
+<div ng-if="!langComponent" ng-controller="StdRepresentableInputCtrl">
+    <div class="form-group">
+        <input name="writtenForm"
+               class="form-control"
+               ng-model="representation.writtenForm"
+               autocomplete="off"
+               required />
+    </div>
+</div>
+
+<div ng-if="langComponent" ng-include="langComponent.templateUrl"></div>

@@ -1,0 +1,12 @@
+<form name="newRepresentableForm"
+      class="form-horizontal"
+      ng-submit="submit()"
+      novalidate >
+
+    <div gg-representable-input></div>
+
+    <input type="submit"
+           ng-class="!valid && 'disabled'"
+           class="btn btn-success"
+           value="Create Entry" />
+</form>

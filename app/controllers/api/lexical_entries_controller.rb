@@ -31,7 +31,6 @@ module Api
 
     def update_lemma
       @lemma.update_attributes(representations_attributes: lemma_params[:representations])
-      binding.pry
       if @lexical_entry.save
         render json: @lemma.to_builder.target!, status: :ok
       else

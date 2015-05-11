@@ -2,12 +2,13 @@
     "use strict";
 
     describe("Lemma", function() {
-        angular.module("golyglot.lexical-entries.test", [
-            'ngMock',
-            'golyglot.lexical-entries',
-        ]);
+        //angular.module("golyglot.lexical-entries.test", [
+        //    'ngMock',
+        //    'golyglot.lexical-entries',
+        //]);
 
-        beforeEach(module("golyglot.lexical-entries.test"));
+        //beforeEach(module("golyglot.lexical-entries.test"));
+        beforeEach(module("golyglot.lexical-entries"));
 
         var $httpBackend, Lemma, Representation;
 
@@ -26,6 +27,7 @@
         var lemmaAttributes = {
             id: '123',
             lexicalEntryId: '456',
+            language: 'cmn',
             representations: [
                 {
                     id: '789',
@@ -42,7 +44,7 @@
 
             describe("when new empty object", function() {
                 beforeEach(function() {
-                    lemma = new Lemma();
+                    lemma = new Lemma({language: 'cmn'});
                 });
 
                 it("returns an empty array", function() {

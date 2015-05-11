@@ -1,4 +1,4 @@
-angular.module('golyglot.lexical-entries').factory('Representation', Factory);
+angular.module('golyglot.representables').factory('Representation', Factory);
 
 Factory.$inject = ['RailsResource'];
 

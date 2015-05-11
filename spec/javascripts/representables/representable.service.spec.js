@@ -2,12 +2,12 @@
     "use strict";
 
     describe("Representable", function() {
-        angular.module("golyglot.lexical-entries.test", [
+        angular.module("golyglot.representables.test", [
             'ngMock',
-            'golyglot.lexical-entries',
+            'golyglot.representables',
         ]);
 
-        beforeEach(module("golyglot.lexical-entries.test"));
+        beforeEach(module("golyglot.representables.test"));
 
         var $httpBackend, Representable, Representation;
 
@@ -24,6 +24,7 @@
 
 
         var representableAttributes = {
+            language: 'cmn',
             representations: [{script: "Hans", orthographyName: "simplified", writtenForm: 'xx'}]
         };
 
@@ -32,7 +33,7 @@
 
             describe("when new empty object", function() {
                 beforeEach(function() {
-                    representable = new Representable();
+                    representable = new Representable({language: 'cmn'});
                 });
 
                 it("returns an empty array", function() {
@@ -48,7 +49,7 @@
                     representation = representable.representations[0];
                 });
 
-                it("returns a Lemma resource", function() {
+                it("returns an array of `Representation`s", function() {
                     expect(representation.constructor).toEqual(Representation);
                 });
 
@@ -70,6 +71,35 @@
                 var clone = representable.clone();
                 expect(clone).toEqual(representable);
                 expect(clone).not.toBe(representable);
+            });
+        });
+
+        describe("#language", function() {
+            var representable;
+
+            describe("when defined", function() {
+                beforeEach(function() {
+                    representable = new Representable({language: 'cmn'});
+                });
+
+                it("should return the language", function() {
+                    expect(representable.language).toEqual('cmn');
+                });
+
+                it("should store the data in `_language`", function() {
+                    expect(representable._language).toEqual('cmn');
+                });
+            });
+
+            describe("when undefined", function() {
+                beforeEach(function() {
+                    representable = new Representable();
+                });
+
+                it("should throw RepresentableError", function() {
+                    var error = new Representable.RepresentableError('Representable has no language');
+                    expect(function() { representable.language; }).toThrow(error);
+                });
             });
         });
 

@@ -5,6 +5,7 @@ var golyglot = angular.module('golyglot', [
     'golyglot.lang',
     'golyglot.users',
     'golyglot.lexicons',
+    'golyglot.representables',
     'golyglot.lexical-entries',
 
     // Language plugins

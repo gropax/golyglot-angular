@@ -1,4 +1,4 @@
-angular.module('golyglot.lexical-entries').directive('ggNewRepresentableModalButton', ggNewRepresentableModalButton);
+angular.module('golyglot.representables').directive('ggNewRepresentableModalButton', ggNewRepresentableModalButton);
 
 function ggNewRepresentableModalButton() {
     return {
@@ -7,12 +7,14 @@ function ggNewRepresentableModalButton() {
             model: "=ggModel",
             onSuccess: "&ggSuccess",
         },
-        templateUrl: 'lexical_entries/components/new-representable-modal-button.html',
+        templateUrl: 'representables/components/new-representable-modal-button/template.html',
 
-        controller: function($scope) {
+        controller: function($rootScope, $scope) {
             $scope.openModal = function() {
-                // Send event with `model` as param
-                return false;
+                $rootScope.$broadcast('new:representable:modal:button:clicked', {
+                    model: $scope.model,
+                    onSuccess: $scope.onSuccess,
+                });
             };
         },
 

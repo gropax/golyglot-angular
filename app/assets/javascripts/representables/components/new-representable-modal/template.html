@@ -7,8 +7,9 @@
             </div>
             <div class="modal-body">
                 <div gg-new-representable-form
-                     gg-model="representable"
-                     gg-success="onRepresentableCreated()" ></div>
+                     ng-if="model"
+                     gg-model="model"
+                     gg-success="onSuccess()" ></div>
             </div>
         </div>
     </div>

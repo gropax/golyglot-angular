@@ -7,7 +7,10 @@
         beforeEach(module("golyglot.lang", function ($provide) {
             var mockLang = function(code) {
                 return {
-                    code: code
+                    code: code,
+                    component: function (name) {
+                        return 'lang/' + code + '/components/' + name + '/template.html';
+                    }
                 };
             };
             $provide.value("lang", mockLang);

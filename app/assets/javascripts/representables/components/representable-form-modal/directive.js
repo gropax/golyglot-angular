@@ -1,10 +1,10 @@
-angular.module('golyglot.representables').directive('ggNewRepresentableModal', ggNewRepresentableModal);
+angular.module('golyglot.representables').directive('ggRepresentableFormModal', ggRepresentableFormModal);
 
-function ggNewRepresentableModal() {
+function ggRepresentableFormModal() {
     return {
         restrict: 'EA',
         scope: {},
-        templateUrl: 'representables/components/new-representable-modal/template.html',
+        templateUrl: 'representables/components/representable-form-modal/template.html',
 
         controller: function($scope) {
 
@@ -17,7 +17,7 @@ function ggNewRepresentableModal() {
                 $scope.model = args.model;
                 $scope.buttonSuccessCallback = args.onSuccess;
                 // Show modal
-                $('#newRepresentableModal').modal('show');
+                $('#newRepresentableFormModal').modal('show');
             };
 
             $scope.closeModal = function() {
@@ -25,7 +25,7 @@ function ggNewRepresentableModal() {
                 $scope.model = undefined;
                 $scope.buttonSuccessCallback = undefined;
                 // Close modal
-                $('#newRepresentableModal').modal('hide');
+                $('#newRepresentableFormModal').modal('hide');
             };
 
             $scope.languageName = "@todo";

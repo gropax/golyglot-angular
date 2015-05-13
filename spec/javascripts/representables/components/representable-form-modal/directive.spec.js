@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    describe('ggNewRepresentableModal', function() {
+    describe('ggRepresentableFormModal', function() {
         var $rootScope, $scope, $httpBackend, Representable, element, isolated;
 
         // @fixme
@@ -26,13 +26,13 @@
                 $scope = $rootScope.$new();
 
                 // Create HTML code using the directive
-                element = '<div gg-new-representable-modal></div>';
+                element = '<div gg-representable-form-modal></div>';
 
                 Representable = _Representable_;
 
                 // Expect request to fetch template
                 $httpBackend = _$httpBackend_;
-                $httpBackend.whenGET('representables/components/new-representable-modal/template.html').respond(200, '');
+                $httpBackend.whenGET('representables/components/representable-form-modal/template.html').respond(200, '');
 
                 // Compile the directive and link it to the scope
                 element = $compile(element)($scope);

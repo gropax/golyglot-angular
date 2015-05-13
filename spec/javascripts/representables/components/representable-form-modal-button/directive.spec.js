@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    describe('ggNewRepresentableModalButton', function() {
+    describe('ggRepresentableFormModalButton', function() {
         var $rootScope, $scope, $httpBackend, element, isolated;
 
         beforeEach(function() {
@@ -16,11 +16,11 @@
                 $scope.callback = function() {};
 
                 // Create HTML code using the directive
-                element = '<div gg-new-representable-modal-button gg-model="representable" gg-success="callback()"></div>';
+                element = '<div gg-representable-form-modal-button gg-model="representable" gg-success="callback()"></div>';
 
                 // Expect request to fetch template
                 $httpBackend = _$httpBackend_;
-                $httpBackend.whenGET('representables/components/new-representable-modal-button/template.html').respond(200, '');
+                $httpBackend.whenGET('representables/components/representable-form-modal-button/template.html').respond(200, '');
 
                 // Compile the directive and link it to the scope
                 element = $compile(element)($scope);

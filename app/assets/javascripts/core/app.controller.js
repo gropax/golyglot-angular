@@ -18,7 +18,7 @@ function AppCtrl($scope, auth, USER_ROLES, AUTH_EVENTS) {
     //
     angular.forEach(AUTH_EVENTS, function(event) {
         $scope.$on(event, function() {
-            $log.debug(event);
+            //$log.debug(event);
         });
     });
 

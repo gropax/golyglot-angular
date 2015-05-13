@@ -20,15 +20,20 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma, $log) {
         if (!this.lemma) {
             this.lemma = new Lemma();
         }
-
-        // Initialize a new Lemma nested resource
-        //var lemmaParams = arguments[0] && arguments[0].lemma;
-        //this.lemma = new Lemma(lemmaParams);
-        
-        //$log.debug('this: ' + JSON.stringify(this, true));
-        //$log.debug('arguments: ' + JSON.stringify(arguments, true));
-        //this.lemma.lexicalEntryId = arguments.id;
     }
+
+    // Fast deep copy
+    //
+    LexicalEntry.prototype.clone = function() {
+        var cloned = new LexicalEntry({
+            id: this.id,
+            lexiconId: this.lexiconId,
+            language: this.language,
+            lemma: this.lemma.clone()
+        });
+
+        return cloned;
+    };
 
 
     return LexicalEntry;

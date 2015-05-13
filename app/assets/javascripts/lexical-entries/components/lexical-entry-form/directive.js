@@ -1,13 +1,13 @@
-angular.module('golyglot.representables').directive('ggNewRepresentableForm', ggNewRepresentableForm);
+angular.module('golyglot.lexical-entries').directive('ggLexicalEntryForm', ggLexicalEntryForm);
 
-function ggNewRepresentableForm() {
+function ggLexicalEntryForm() {
     return {
         restrict: 'EA',
         scope: {
             model: '=ggModel',
             onSuccess: '&ggSuccess',
         },
-        templateUrl: 'representables/components/new-representable-form/template.html',
+        templateUrl: 'lexical-entries/components/lexical-entry-form/template.html',
 
         controller: function($scope, lang) {
 
@@ -16,7 +16,7 @@ function ggNewRepresentableForm() {
 
             // Clone the model not to modify it directly and expose its representations to form inputs in child scopes.
             var clone = $scope.model.clone();
-            $scope.representations = clone.representations;
+            $scope.representations = clone.lemma.representations;
 
 
             // Watch event from above (eg. when modal opens)
@@ -42,7 +42,7 @@ function ggNewRepresentableForm() {
             };
 
             $scope.updateValidity = function() {
-                $scope.valid = !clone.isBlank();
+                $scope.valid = !clone.lemma.isBlank();
             };
 
             // @todo

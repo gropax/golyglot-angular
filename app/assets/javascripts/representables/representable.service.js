@@ -49,11 +49,11 @@ function RepresentableFactory(RailsResource, railsSerializer, Representation) {
             reprs.push(thisReprs[i].clone());
         }
 
-        var cloned = new Representable({
-            language: this.language,
-        });
+        var cloned = new Representable();
 
         cloned.representations = reprs;
+        if (this._language)
+            cloned._language = this._language;
 
         return cloned;
     };

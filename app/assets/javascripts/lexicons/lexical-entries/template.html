@@ -23,6 +23,7 @@
     </div>
 
     <div class="col-md-2">
+        <!--
         <button type="button"
                 class="btn btn-success"
                 data-toggle="modal"
@@ -31,9 +32,15 @@
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             New Entry
         </button>
+        -->
+        <div gg-edit-modal-button
+             gg-model="lexicalEntry"
+             gg-success="onEntryCreated()"></div>
+        <div gg-edit-modal></div>
     </div>
 </div>
 
+<!--
 <div id="newEntryModal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -50,7 +57,7 @@
         </div>
     </div>
 </div>
-
+-->
 <hr />
 
 <h4>{{ listTitle }}</h4>

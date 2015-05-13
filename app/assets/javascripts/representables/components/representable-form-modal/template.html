@@ -1,4 +1,4 @@
-<div id="newRepresentableModal" class="modal">
+<div id="newRepresentableFormModal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,8 +6,8 @@
                 <h4 class="modal-title">New {{ languageName }} Entry</h4>
             </div>
             <div class="modal-body">
-                <div gg-new-representable-form
-                     ng-if="model"
+                <div ng-if="model"
+                     gg-new-representable-form
                      gg-model="model"
                      gg-success="onSuccess()" ></div>
             </div>

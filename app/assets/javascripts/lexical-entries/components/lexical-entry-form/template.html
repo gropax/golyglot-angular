@@ -1,12 +1,11 @@
-{{ model }}
-<form name="editLemmaForm"
+<form name="newLexicalEntryForm"
       class="form-horizontal"
       ng-submit="submit()"
       novalidate >
 
-    <div gg-lang-text-form lang-code="langCode" model="model"></div>
+    <div gg-representable-input></div>
 
-    <button type="submit"
+    <input type="submit"
            ng-class="!valid && 'disabled'"
            class="btn btn-success"
            value="Create Entry" />

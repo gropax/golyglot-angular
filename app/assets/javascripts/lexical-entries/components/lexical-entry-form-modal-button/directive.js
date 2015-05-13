@@ -1,17 +1,17 @@
-angular.module('golyglot.representables').directive('ggNewRepresentableModalButton', ggNewRepresentableModalButton);
+angular.module('golyglot.lexical-entries').directive('ggLexicalEntryFormModalButton', ggLexicalEntryFormModalButton);
 
-function ggNewRepresentableModalButton() {
+function ggLexicalEntryFormModalButton() {
     return {
         restrict: 'EA',
         scope: {
             model: "=ggModel",
             onSuccess: "&ggSuccess",
         },
-        templateUrl: 'representables/components/new-representable-modal-button/template.html',
+        templateUrl: 'lexical-entries/components/lexical-entry-form-modal-button/template.html',
 
         controller: function($rootScope, $scope) {
             $scope.openModal = function() {
-                $rootScope.$broadcast('new:representable:modal:button:clicked', {
+                $rootScope.$broadcast('lexical-entry:form:modal:button:clicked', {
                     model: $scope.model,
                     onSuccess: $scope.onSuccess,
                 });

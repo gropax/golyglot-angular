@@ -23,6 +23,27 @@
         });
 
 
+
+        var lexicalEntryAttrs = {
+            id: '456',
+            lexiconId: 'abc',
+            language: 'cmn',
+            lemma: {
+                id: '123',
+                lexicalEntryId: '456',
+                language: 'cmn',
+                representations: [
+                    {
+                        id: '789',
+                        script: "Hans",
+                        orthographyName: "simplified",
+                        writtenForm: 'xx'
+                    }
+                ]
+            }
+        };
+
+
         describe("resource URI", function() {
             it("GET /api/lexicons/:lexicon_id/lexical_entries/:id", function() {
                 $httpBackend.expectGET('/api/lexicons/456/lexical_entries/123').respond(200);
@@ -36,7 +57,8 @@
 
             describe("when new empty object", function() {
                 beforeEach(function() {
-                    lex = new LexicalEntry();
+                    lex = new LexicalEntry({language: 'cmn'});
+                    console.log("lex: " + JSON.stringify(lex));
                 });
 
                 it("returns a Lemma resource", function() {
@@ -79,6 +101,21 @@
                 });
             });
         });
+
+        describe("#clone", function() {
+            var lexicalEntry;
+
+            beforeEach(function() {
+                lexicalEntry = new LexicalEntry(lexicalEntryAttrs);
+            });
+
+            it("should return a clone", function() {
+                var clone = lexicalEntry.clone();
+                expect(clone).toEqual(lexicalEntry);
+                expect(clone).not.toBe(lexicalEntry);
+            });
+        });
+
 
     });
 })();

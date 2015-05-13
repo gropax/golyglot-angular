@@ -27,7 +27,7 @@
         var lemmaAttributes = {
             id: '123',
             lexicalEntryId: '456',
-            language: 'cmn',
+            //language: 'cmn',
             representations: [
                 {
                     id: '789',
@@ -44,7 +44,7 @@
 
             describe("when new empty object", function() {
                 beforeEach(function() {
-                    lemma = new Lemma({language: 'cmn'});
+                    lemma = new Lemma(); //{language: 'cmn'});
                 });
 
                 it("returns an empty array", function() {

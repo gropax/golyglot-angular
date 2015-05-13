@@ -12,6 +12,7 @@ function LexiconLexicalEntriesCtrl($scope, lexicon, LexicalEntry, lang, $log) {
     //
     $scope.language = lang.all()[0];
 
+    $scope.lexicalEntry = new LexicalEntry({language: language, lexiconId: lexicon.id});
 
     $scope.onEntryCreated = function() {
         $('#newEntryModal').modal('hide');

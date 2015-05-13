@@ -1,8 +1,9 @@
 (function() {
     "use strict";
 
-    describe('ggNewRepresentableForm', function() {
+    describe('ggRepresentableForm', function() {
         var $httpBackend, $scope, lang, Representable, Representation, element, isolated;
+
 
         beforeEach(module("golyglot.lang", function ($provide) {
             var mockLang = function(code) {
@@ -16,6 +17,7 @@
             $provide.value("lang", mockLang);
         }));
 
+
         beforeEach(function() {
             module('golyglot.representables');
 
@@ -28,11 +30,11 @@
                 $scope.callback = function() {};
 
                 // Create HTML code using the directive
-                element = '<div gg-new-representable-form gg-model="representable" gg-success="callback()"></div>';
+                element = '<div gg-representable-form gg-model="representable" gg-success="callback()"></div>';
 
                 // Expect request to fetch template
                 $httpBackend = _$httpBackend_;
-                $httpBackend.whenGET('representables/components/new-representable-form/template.html').respond(200, '');
+                $httpBackend.whenGET('representables/components/representable-form/template.html').respond(200, '');
 
                 // Compile the directive and link it to the scope
                 element = $compile(element)($scope);

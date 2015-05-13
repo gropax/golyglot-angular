@@ -29,5 +29,9 @@ function Factory(RailsResource) {
         return repr;
     };
 
+    Representation.prototype.isBlank = function() {
+        return !this.writtenForm || this.writtenForm === '';
+    }
+
     return Representation;
 }

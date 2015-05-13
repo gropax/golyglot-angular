@@ -2,12 +2,7 @@
     "use strict";
 
     describe("Representable", function() {
-        angular.module("golyglot.representables.test", [
-            'ngMock',
-            'golyglot.representables',
-        ]);
-
-        beforeEach(module("golyglot.representables.test"));
+        beforeEach(module("golyglot.representables"));
 
         var $httpBackend, Representable, Representation;
 
@@ -27,6 +22,7 @@
             language: 'cmn',
             representations: [{script: "Hans", orthographyName: "simplified", writtenForm: 'xx'}]
         };
+
 
         describe("#representations", function() {
             var representable 
@@ -102,6 +98,36 @@
                 });
             });
         });
+
+        describe("#isBlank", function() {
+            describe("when no representations", function() {
+                it("should return true", function() {
+                    var blank = new Representable();
+                    expect(blank.isBlank()).toBe(true);
+                });
+            });
+
+            describe("when all representations are blank", function() {
+                it("should return true", function() {
+                    var blank = new Representable({representations: [
+                        {writtenForm: undefined},
+                        {writtenForm: ''}
+                    ]});
+                    expect(blank.isBlank()).toBe(true);
+                });
+            });
+
+            describe("when some representations are not blank", function() {
+                it("should return false", function() {
+                    var blank = new Representable({representations: [
+                        {writtenForm: 'ni3hao3'},
+                        {writtenForm: ''}
+                    ]});
+                    expect(blank.isBlank()).toBe(false);
+                });
+            });
+        });
+
 
     });
 })();

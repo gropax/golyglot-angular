@@ -6,16 +6,22 @@ function StdRepresentableInputCtrl($scope, lang, Representation, $log) {
 
     // Change the representation when the language is changed
     $scope.$watch('language', function() {
-
-        // @fixme Could use something like:
-        //     $scope.representation = new language.defaultRepresentation();
-        //
-        var defaultRepr = language.defaultRepresentation;
-        $scope.representation = new Representation(defaultRepr);
+        $scope.resetRepresentations();
     });
 
     // Trigger an event upward when the field is edit (eg. to update form validity)
     $scope.$watch('representation.writtenForm', function() {
         $scope.$emit('form:modified');
     });
+
+    $scope.resetRepresentations = function() {
+        // @fixme Could use something like:
+        //     $scope.representation = new language.defaultRepresentation();
+        var defaultRepr = $scope.language.defaultRepresentation;
+        $scope.representation = new Representation(defaultRepr);
+
+        // Clear and populate $scope.representations defined in parent scope
+        $scope.representations.length = 0;
+        $scope.representations.push($scope.representation);
+    };
 }

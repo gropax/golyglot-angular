@@ -18,23 +18,21 @@ function ggNewRepresentableForm() {
             var clone = $scope.model.clone();
             $scope.representations = clone.representations;
 
+
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {
                 $scope.clearForm();
-                // Clear form
             });
 
-
             $scope.$on('form:modified', function() {
-                // Check validity
-                $scope.valid = $scope.isValid();
-            })
+                $scope.updateValidity();
+            });
 
             $scope.submit = function() {
                 if ($scope.valid) {
-                    clone.create().then(function() {
+                    clone.create().then(function(result) {
                         // Update the model
-                        $scope.model = clone;
+                        $scope.model = new clone.constructor(result);
                         // Execute callback function
                         $scope.onSuccess();
                     }, function(error) {
@@ -43,25 +41,12 @@ function ggNewRepresentableForm() {
                 }
             };
 
+            $scope.updateValidity = function() {
+                $scope.valid = !clone.isBlank();
+            };
+
             // @todo
             $scope.clearForm = function() {};
-
-            //   Form is valid unless all fields are blank
-            //
-            $scope.isValid = function() {
-                var reprs = $scope.representations,
-                    allBlank = true;
-
-                for (var i = 0 ; i < reprs.length ; i++) {
-                    var repr = reprs[i];
-                    console.log("repr: " + JSON.stringify(repr));
-                    if (repr.writtenForm && repr.writtenForm !== '') {
-                        allBlank = false;
-                        break;
-                    }
-                }
-                return !allBlank;
-            };
 
         },
     };

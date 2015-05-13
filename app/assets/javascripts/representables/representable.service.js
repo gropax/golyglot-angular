@@ -58,6 +58,22 @@ function RepresentableFactory(RailsResource, railsSerializer, Representation) {
         return cloned;
     };
 
+    //   Form is valid unless all fields are blank
+    //
+    Representable.prototype.isBlank = function() {
+        var reprs = this.representations,
+            blank = true;
+
+        for (var i = 0 ; i < reprs.length ; i++) {
+            var repr = reprs[i];
+            if (!repr.isBlank()) {
+                blank = false;
+                break;
+            }
+        }
+        return blank;
+    };
+
 
     function RepresentableError(message) {
       this.name = 'RepresentableError';

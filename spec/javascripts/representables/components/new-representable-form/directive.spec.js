@@ -63,19 +63,30 @@
         });
 
         describe("controller", function() {
-            describe("#language", function() {
-                it("should be `$scope.model`'s language", function() {
-                    expect(isolated.language.code).toBe('cmn')
+
+            // EVENTS
+
+            describe("$on reset:form", function() {
+                it("should called #clearForm", function() {
+                    spyOn(isolated, 'clearForm');
+                    isolated.$apply(function() { isolated.$emit('reset:form'); });
+                    expect(isolated.clearForm).toHaveBeenCalled();
                 });
             });            
 
-            describe("#clearForm", function() {
-                it("should be called on event `reset:form`", function() {
-                    spyOn(isolated, 'clearForm');
-                    isolated.$apply(function() {
-                        isolated.$emit('reset:form');
-                    });
-                    expect(isolated.clearForm).toHaveBeenCalled();
+            describe("$on form:modified", function() {
+                it("should call #updateValidity", function() {
+                    spyOn(isolated, 'updateValidity');
+                    isolated.$apply(function() { isolated.$emit('form:modified'); });
+                    expect(isolated.updateValidity).toHaveBeenCalled();
+                });
+            });
+
+            // FUNCTIONS
+
+            describe("#language", function() {
+                it("should be `$scope.model`'s language", function() {
+                    expect(isolated.language.code).toBe('cmn')
                 });
             });            
 
@@ -87,12 +98,22 @@
             });            
 
             describe("#valid", function() {
-                it("should be updated on event `form:modified`", function() {
-                    spyOn(isolated, 'isValid').and.returnValue('boolean');
-                    isolated.$apply(function() {
-                        isolated.$emit('form:modified');
-                    });
-                    expect(isolated.valid).toEqual('boolean');
+                it("should be falsy at first", function() {
+                    expect(!!isolated.valid).toBe(false);
+                });
+            });
+
+            describe("#updateValidity", function() {
+                it("should set valid to true if clone not blank", function() {
+                    isolated.representations.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
+                    isolated.$apply(function() { isolated.updateValidity(); });
+                    expect(isolated.valid).toBe(true);
+                });
+
+                it("should set valid to false if clone is blank", function() {
+                    isolated.representations = [];
+                    isolated.$apply(function() { isolated.updateValidity(); });
+                    expect(isolated.valid).toBe(false);
                 });
             });
 
@@ -110,12 +131,12 @@
                     });
 
                     it("should update `model.representations`", function() {
-                        $httpBackend.whenPOST().respond(200);
+                        $httpBackend.whenPOST().respond(200, {id: "123"});
 
                         isolated.$apply(function() { isolated.submit(); });
                         $httpBackend.flush();
 
-                        expect(isolated.model.representations).toBe(isolated.representations)
+                        expect(isolated.model.id).toBe("123")
                     });
 
                     it("should execute `onSuccess` callback", function() {
@@ -137,28 +158,6 @@
                 });
             });
 
-            describe("#isValid", function() {
-                it("should return false if representations is empty", function() {
-                    isolated.representations = [];
-                    expect(isolated.isValid()).toBe(false);
-                });
-
-                it("should return false if all representations are blank", function() {
-                    isolated.representations = [
-                        new Representation({script: 'a', orthographyName: 'b'}),
-                        new Representation({script: 'c', orthographyName: 'd', writtenForm: ''}),
-                    ];
-                    expect(isolated.isValid()).toBe(false);
-                });
-
-                it("should return true if some representations are not blank", function() {
-                    isolated.representations = [
-                        new Representation({script: 'a', orthographyName: 'b'}),
-                        new Representation({script: 'c', orthographyName: 'd', writtenForm: 'not blank'}),
-                    ];
-                    expect(isolated.isValid()).toBe(true);
-                });
-            });
         });
 
         

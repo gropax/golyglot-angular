@@ -21,7 +21,8 @@ function StdRepresentableInputCtrl($scope, lang, Representation, $log) {
         $scope.representation = new Representation(defaultRepr);
 
         // Clear and populate $scope.representations defined in parent scope
-        $scope.representations.length = 0;
-        $scope.representations.push($scope.representation);
+        var reprs = $scope.representable.representations;
+        reprs.length = 0;
+        reprs.push($scope.representation);
     };
 }

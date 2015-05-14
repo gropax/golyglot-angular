@@ -19,14 +19,17 @@ function LemmaFactory(RailsResource, railsSerializer, Representable) {
     // @fixme
     //     Works but ugly
     //
+    // @fixme
+    //     To make equality tests pass, should not clone attributes which are `undefined`
+    //
     Lemma.prototype.clone = function() {
         var clonedRepr = Lemma.__super__.clone.apply(this);
 
         // Create new object so the constructor could be `Lemma`
         var cloned = new Lemma(clonedRepr);
 
-        cloned.id = this.id;
-        cloned.lexicalEntryId = this.lexicalEntryId;
+        if (this.id) { cloned.id = this.id; }
+        if (this.lexicalEntryId) { cloned.lexicalEntryId = this.lexicalEntryId; }
 
         return cloned;
     };

@@ -6,7 +6,7 @@ function ggRepresentableForm() {
         scope: {
             // Provide fallback `language` if not contained in representable (like in lemma) 
             //language: '=ggLanguage', 
-            model: '=ggModel',
+            original: '=ggModel',
             onSuccess: '&ggSuccess',
         },
         templateUrl: 'representables/components/representable-form/template.html',
@@ -14,11 +14,10 @@ function ggRepresentableForm() {
         controller: function($scope, lang) {
 
             // Make `language` available in the child scopes
-            $scope.language = lang($scope.model.language);
-
-            // Clone the model not to modify it directly and expose its representations to form inputs in child scopes.
-            var clone = $scope.model.clone();
-            $scope.representations = clone.representations;
+            $scope.$watch('original', function() {
+                $scope.language = lang($scope.original.language);
+                $scope.representable = $scope.original.clone();
+            });
 
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {
@@ -31,9 +30,9 @@ function ggRepresentableForm() {
 
             $scope.submit = function() {
                 if ($scope.valid) {
-                    clone.create().then(function(result) {
+                    $scope.representable.create().then(function(result) {
                         // Update the model
-                        $scope.model = new clone.constructor(result);
+                        $scope.original = new $scope.representable.constructor(result);
                         // Execute callback function
                         $scope.onSuccess();
                     }, function(error) {
@@ -43,7 +42,7 @@ function ggRepresentableForm() {
             };
 
             $scope.updateValidity = function() {
-                $scope.valid = !clone.isBlank();
+                $scope.valid = !$scope.representable.isBlank();
             };
 
             // @todo

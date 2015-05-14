@@ -24,6 +24,7 @@
             inject(function($rootScope, $compile, _$httpBackend_, _Representable_, _Representation_) {
                 Representable = _Representable_;
                 Representation = _Representation_;
+
                 // Create and populate $scope
                 $scope = $rootScope.$new();
                 $scope.representable = new Representable({language: 'cmn'});
@@ -52,8 +53,8 @@
 
 
         describe("isolated scope", function() {
-            it("should have a `model` =attribute", function() {
-                expect(isolated.model).toBe($scope.representable);
+            it("should have an `original` =ggModel", function() {
+                expect(isolated.original).toBe($scope.representable);
             });
 
             it("should have a `onSuccess` &attribute", function() {
@@ -92,10 +93,10 @@
                 });
             });            
 
-            describe("#representations", function() {
-                it("should be a clone of `$scope.model.representations`", function() {
-                    expect(isolated.representations).toEqual(isolated.model.representations);
-                    expect(isolated.representations).not.toBe(isolated.model.representations);
+            describe("#representable", function() {
+                it("should be a clone of original", function() {
+                    expect(isolated.representable).toEqual(isolated.original);
+                    expect(isolated.representable).not.toBe(isolated.original);
                 });
             });            
 
@@ -107,7 +108,8 @@
 
             describe("#updateValidity", function() {
                 it("should set valid to true if clone not blank", function() {
-                    isolated.representations.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
+                    var reprs = isolated.representable.representations;
+                    reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
                     isolated.$apply(function() { isolated.updateValidity(); });
                     expect(isolated.valid).toBe(true);
                 });
@@ -132,13 +134,13 @@
                         $httpBackend.flush();
                     });
 
-                    it("should update `model.representations`", function() {
+                    it("should update the original", function() {
                         $httpBackend.whenPOST().respond(200, {id: "123"});
 
                         isolated.$apply(function() { isolated.submit(); });
                         $httpBackend.flush();
 
-                        expect(isolated.model.id).toBe("123")
+                        expect(isolated.original.id).toBe("123")
                     });
 
                     it("should execute `onSuccess` callback", function() {

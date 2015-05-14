@@ -52,8 +52,8 @@
 
 
         describe("isolated scope", function() {
-            it("should have a `model` =attribute", function() {
-                expect(isolated.model).toBe($scope.lexicalEntry);
+            it("should have an `original` =ggModel", function() {
+                expect(isolated.original).toBe($scope.lexicalEntry);
             });
 
             it("should have a `onSuccess` &attribute", function() {
@@ -92,11 +92,17 @@
                 });
             });            
 
-            describe("#representations", function() {
-                it("should be a clone of lemma.representations", function() {
+            describe("#model", function() {
+                it("should be a clone of $scope.original", function() {
                     var lemma = isolated.model.lemma;
-                    expect(isolated.representations).toEqual(lemma.representations);
-                    expect(isolated.representations).not.toBe(lemma.representations);
+                    expect(isolated.model).toEqual(isolated.original);
+                    expect(isolated.model).not.toBe(isolated.original);
+                });
+            });            
+
+            describe("#representable", function() {
+                it("should be the lemma of $scope.model", function() {
+                    expect(isolated.representable).toBe(isolated.model.lemma);
                 });
             });            
 
@@ -108,7 +114,8 @@
 
             describe("#updateValidity", function() {
                 it("should set valid to true if clone not blank", function() {
-                    isolated.representations.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
+                    var reprs = isolated.representable.representations;
+                    reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
                     isolated.$apply(function() { isolated.updateValidity(); });
                     expect(isolated.valid).toBe(true);
                 });

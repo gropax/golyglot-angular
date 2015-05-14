@@ -24,13 +24,19 @@ function LexicalEntryFactory(RailsResource, railsSerializer, Lemma, $log) {
 
     // Fast deep copy
     //
+    // @fixme
+    //     To make equality tests pass, should not clone attributes which are `undefined`
+    //
     LexicalEntry.prototype.clone = function() {
         var cloned = new LexicalEntry({
-            id: this.id,
-            lexiconId: this.lexiconId,
-            language: this.language,
+            //id: this.id,
+            //lexiconId: this.lexiconId,
+            //language: this.language,
             lemma: this.lemma.clone()
         });
+        if (this.id) { cloned.id = this.id }
+        if (this.lexiconId) { cloned.lexiconId = this.lexiconId }
+        if (this.language) { cloned.language = this.language }
 
         return cloned;
     };

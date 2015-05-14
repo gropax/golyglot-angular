@@ -7,9 +7,13 @@
         beforeEach(function() {
             module('golyglot.representables');
              
-            inject(function($rootScope, $controller) {
+            inject(function($rootScope, $controller, Representable) {
                 $scope = $rootScope.$new();
-                $scope.representations = [];
+                //$scope.representations = [];
+                $scope.representable = new Representable({
+                    language: 'cmn',
+                    representations: []
+                });
                 // Mock Language object
                 $scope.language = {
                     defaultRepresentation: {script: 'Hans', orthographyName: 'simplified'}
@@ -53,8 +57,9 @@
             });
 
             it("should fill representations with a new representation", function() {
-                expect($scope.representations.length).toBe(1);
-                expect($scope.representations[0]).not.toBe(prevRepr);
+                var reprs = $scope.representable.representations;
+                expect(reprs.length).toBe(1);
+                expect(reprs[0]).not.toBe(prevRepr);
             });
 
             it("should keep the original representations object", function() {

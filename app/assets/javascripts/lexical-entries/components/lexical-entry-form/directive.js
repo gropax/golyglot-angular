@@ -9,15 +9,17 @@ function ggLexicalEntryForm() {
         },
         templateUrl: 'lexical-entries/components/lexical-entry-form/template.html',
 
-        controller: function($scope, lang) {
+        controller: function($scope, lang, $log) {
 
             // Make `language` available in the child scopes
-            $scope.language = lang($scope.model.language);
+            $scope.$watch('model', function() {
+                $scope.language = lang($scope.model.language);
+                //$scope.language = $scope.model.language;
+            });
 
             // Clone the model not to modify it directly and expose its representations to form inputs in child scopes.
             var clone = $scope.model.clone();
             $scope.representations = clone.lemma.representations;
-
 
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {

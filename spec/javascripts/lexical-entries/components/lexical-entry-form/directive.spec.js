@@ -26,7 +26,7 @@
                 Representation = _Representation_;
                 // Create and populate $scope
                 $scope = $rootScope.$new();
-                $scope.lexicalEntry = new LexicalEntry({language: 'cmn'});
+                $scope.lexicalEntry = new LexicalEntry({language: 'cmn', lexiconId: '123'});
                 $scope.callback = function() {};
 
                 // Create HTML code using the directive
@@ -127,7 +127,7 @@
                     });
 
                     it("should send a POST request", function() {
-                        $httpBackend.expectPOST().respond(200);
+                        $httpBackend.expectPOST('/api/lexicons/123/lexical_entries').respond(200);
 
                         isolated.$apply(function() { isolated.submit(); });
                         $httpBackend.flush();

@@ -114,6 +114,11 @@
                 expect(clone).toEqual(lexicalEntry);
                 expect(clone).not.toBe(lexicalEntry);
             });
+
+            it("should clone the lexiconId", function() {
+                var clone = lexicalEntry.clone();
+                expect(clone.lexiconId).toEqual(lexicalEntry.lexiconId);
+            });
         });
 
 

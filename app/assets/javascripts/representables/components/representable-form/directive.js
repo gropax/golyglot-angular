@@ -20,7 +20,6 @@ function ggRepresentableForm() {
             var clone = $scope.model.clone();
             $scope.representations = clone.representations;
 
-
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {
                 $scope.clearForm();

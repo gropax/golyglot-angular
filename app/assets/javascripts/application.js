@@ -18,6 +18,7 @@
 //
 //= require angular/angular
 //= require angular-messages/angular-messages
+//= require angular-resource/angular-resource
 //
 //= require angular-validation-match/dist/angular-input-match
 //= require a0-angular-storage/dist/angular-storage

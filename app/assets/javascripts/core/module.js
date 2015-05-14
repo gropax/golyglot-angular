@@ -1,5 +1,6 @@
 angular.module('golyglot.core', [
     'ngMessages',
+    'ngResource',
     //'ngMock',
     'validation.match',
     'underscore',

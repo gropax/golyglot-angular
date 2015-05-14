@@ -4,10 +4,8 @@ UserLexiconsCtrl.$inject = ['$scope', '$stateParams', 'Lexicon', 'user'];
 
 function UserLexiconsCtrl($scope, $stateParams, Lexicon, user) {
     $scope.searching = true;
-    $scope.lexicons = [];
 
-    Lexicon.get({userId: user.id}).then(function(result) {
-        $scope.lexicons = result;
+    $scope.lexicons = Lexicon.query({userId: user.id}, function() {
         $scope.searching = false;
     }, function(error) {
         $scope.searching = false;

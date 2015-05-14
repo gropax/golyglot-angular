@@ -5,6 +5,7 @@
     "angular": "latest",
     "angular-mocks": "latest",
     "angular-messages": "latest",
+    "angular-resource": "latest",
     "angular-validation-match": "latest",
     "a0-angular-storage": "latest",
     "underscore": "latest",

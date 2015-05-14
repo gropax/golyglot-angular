@@ -1,10 +1,9 @@
 angular.module('golyglot.lexicons').service('Lexicon', Lexicon);
 
-Lexicon.$inject = ['railsResourceFactory'];
+Lexicon.$inject = ['$resource'];
 
-function Lexicon(railsResourceFactory) {
-    return railsResourceFactory({
-        url: "/api/users/{{userId}}/lexicons/{{id}}",
-        name: "lexicon",
-    });
+function Lexicon($resource) {
+    var Lexicon = $resource('api/users/:userId/lexicons/:id');
+
+    return Lexicon;
 }

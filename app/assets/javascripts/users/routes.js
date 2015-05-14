@@ -13,7 +13,8 @@ function config($stateProvider, USER_ROLES) {
             // Automatically fetch `user` from its `name`
             resolve: {
                 user: ['$stateParams', 'User', function($stateParams, User) {
-                    return User.query({name: $stateParams.username});
+                    var user = User.get({name: $stateParams.username});
+                    return user.$promise;
                 }],
             },
 

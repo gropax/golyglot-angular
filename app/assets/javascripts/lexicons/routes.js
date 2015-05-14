@@ -24,7 +24,8 @@ function config($stateProvider, USER_ROLES) {
 
             resolve: {
                 lexicon: function($stateParams, user, Lexicon) {
-                    return Lexicon.query({name: $stateParams.lexiconName}, {userId: user.id});
+                    var lexicon = Lexicon.get({userId: user.id, name: $stateParams.lexiconName});
+                    return lexicon.$promise;
                 },
             },
 

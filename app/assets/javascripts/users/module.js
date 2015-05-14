@@ -1,1 +1,4 @@
-angular.module('golyglot.users', []);
+angular.module('golyglot.users', [
+    'golyglot.core',
+    'golyglot.auth',
+]);

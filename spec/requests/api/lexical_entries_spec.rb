@@ -33,13 +33,13 @@ RSpec.describe LexicalEntry, :type => :request do
       end
 
       it "should sort entries from recent to old" do
-        times = json.map { |entry| Time.parse(entry['created_at']).to_i }
+        times = json.map { |entry| Time.parse(entry['createdAt']).to_i }
         expect(times.sort).to eq times
       end
 
       it "should return the most recent lexical entries" do
         all_times = LexicalEntry.all.desc(:created_at).map { |e| e.created_at.to_json.tr('"', '') }
-        times = json.map { |entry| entry['created_at'] }
+        times = json.map { |entry| entry['createdAt'] }
 
         expect(all_times[5..14]).to eq times
       end

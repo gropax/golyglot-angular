@@ -1,30 +1,23 @@
 angular.module('golyglot.representables').factory('Representation', Factory);
 
-Factory.$inject = ['RailsResource'];
+function Factory() {
 
-function Factory(RailsResource) {
-
-    RailsResource.extendTo(Representation);
-    Representation.configure({
-        //url: "/api/representations/{{id}}",
-        name: "representation",
-    });
-
-    function Representation() {
-        Representation.__super__.constructor.apply(this, arguments);
+    function Representation(args) {
+        this.id = args.id;
+        this.script = args.script;
+        this.orthographyName = args.orthographyName;
+        this.writtenForm = args.writtenForm;
     }
 
     // Fast deep copy
     //
     Representation.prototype.clone = function() {
-        var attrs = {
+        var repr = new Representation({
+            id: this.id,
             script: this.script,
             orthographyName: this.orthographyName,
             writtenForm: this.writtenForm,
-        };
-
-        var repr = new Representation(attrs);
-        if (this.id) { repr.id = this.id; }
+        });
 
         return repr;
     };

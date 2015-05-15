@@ -36,6 +36,12 @@
             });
         });
 
+        describe("#serialize", function() {
+            it("should return this' data as an Object", function() {
+                expect(repr.serialize()).toEqual(reprAttrs);
+            });
+        });
+
         describe("#clone", function() {
             it("should return a clone", function() {
                 var clone = repr.clone();

@@ -2,16 +2,12 @@
     "use strict";
 
     describe("LexicalEntry", function() {
-        angular.module("golyglot.lexical-entries.test", [
-            'ngMock',
-            'golyglot.lexical-entries',
-        ]);
+        beforeEach(module("golyglot.lexical-entries"));
 
-        beforeEach(module("golyglot.lexical-entries.test"));
+        var $rootScope, $httpBackend, LexicalEntry, Lemma;
 
-        var $httpBackend, LexicalEntry, Lemma;
-
-        beforeEach(inject(function(_$httpBackend_, _LexicalEntry_, _Lemma_) {
+        beforeEach(inject(function(_$rootScope_, _$httpBackend_, _LexicalEntry_, _Lemma_) {
+            $rootScope = _$rootScope_;
             $httpBackend = _$httpBackend_;
             LexicalEntry = _LexicalEntry_;
             Lemma = _Lemma_;
@@ -55,15 +51,63 @@
         });
 
         describe("::get", function() {
+            describe("when success", function() {
+                it("should return the LexicalEntry", function() {
+                    $httpBackend.expectGET('api/lexicons/007/lexical_entries/456')
+                        .respond(200, lexicalEntryAttrs);
+
+                    var value;
+                    LexicalEntry.get({lexiconId: "007", id: "456"})
+                        .then(function(success) { value = success; });
+
+                    $httpBackend.flush();
+                    $rootScope.$digest();
+
+                    expect(value).toEqual(lexicalEntry);
+                });
+            });
         });
 
-        describe("::create", function() {
-        });
+        describe("::query", function() {
+            describe("when success", function() {
+                it("should return an array of `LexicalEntry`s", function() {
+                    $httpBackend.expectGET('api/lexicons/007/lexical_entries?language=cmn')
+                        .respond(200, [lexicalEntryAttrs]);
 
-        describe("#get", function() {
+                    var value;
+                    LexicalEntry.query({lexiconId: "007"}, {language: "cmn"})
+                        .then(function(success) { value = success; });
+
+                    $httpBackend.flush();
+                    $rootScope.$digest();
+
+                    expect(value).toEqual([lexicalEntry]);
+                });
+            });
         });
 
         describe("#create", function() {
+            describe("when success", function() {
+                it("should create a new LexicalEntry", function() {
+                    var newLexicalEntryAttrs = {
+                        lexiconId: '007',
+                        language: 'cmn',
+                        lemma: { representations: [reprAttrs] }
+                    };
+                    var newLexicalEntry = new LexicalEntry(newLexicalEntryAttrs);
+
+                    $httpBackend.expectPOST('api/lexicons/007/lexical_entries', newLexicalEntryAttrs)
+                        .respond(200, lexicalEntryAttrs);
+
+                    var value;
+                    newLexicalEntry.create().then(function(success) { value = success; });
+
+                    $httpBackend.flush();
+                    $rootScope.$digest();
+
+                    expect(value).toEqual(lexicalEntry);
+                });
+            });
         });
 
         describe("#lemma", function() {
@@ -88,6 +132,35 @@
                     var repr = lemma.representations[0];
                     expect(repr.writtenForm).toEqual('xx');
                 });
+            });
+        });
+
+        describe("#setAttributes", function() {
+            beforeEach(function() {
+                lexicalEntry.setAttributes({
+                    id: 'abc',
+                    lexiconId: 'def',
+                    language: 'eng',
+                    lemma: {id: 'ghi'}
+                });
+            });
+
+            it("should overwrite simple properties", function() {
+                expect(lexicalEntry.id).toEqual('abc');
+                expect(lexicalEntry.lexiconId).toEqual('def');
+                expect(lexicalEntry.language).toEqual('eng');
+            });
+
+            it("should update lemma reference", function() {
+                expect(lexicalEntry.lemma).toBe(lemma);
+                expect(lexicalEntry.lemma.id).toEqual('ghi');
+            });
+        });
+
+        describe("#serialize", function() {
+            it("should return this' data as an Object", function() {
+                expect(lexicalEntryAttrs.lemma.lexicalEntry).toBeUndefined();
+                expect(lexicalEntry.serialize()).toEqual(lexicalEntryAttrs);
             });
         });
 

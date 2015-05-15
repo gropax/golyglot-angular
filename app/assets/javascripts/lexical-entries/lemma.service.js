@@ -5,6 +5,7 @@ LemmaFactory.$inject = ['Representation'];
 function LemmaFactory(Representation) {
 
     function Lemma(args) {
+        this.id = args.id;
         this.lexicalEntry = args.lexicalEntry;
 
         var argsReprs = args.representations || [];
@@ -22,29 +23,36 @@ function LemmaFactory(Representation) {
         }
     });
 
-    // Fast deep copy
-    //
-    // @fixme
-    //     Works but ugly
-    //
-    // @fixme
-    //     To make equality tests pass, should not clone attributes which are `undefined`
-    //
-    Lemma.prototype.clone = function() {
-        var thisReprs = this.representations;
+    Lemma.prototype.setAttributes = function(args) {
+        if (args.id) { this.id = args.id; }
+        if (args.representations) {
+            var reprs = [];
+            angular.forEach(args.representations, function(repr) {
+                reprs.push(new Representation(repr));
+            });
+            this.representations = reprs;
+        }
+    };
 
-        var reprs = [];
-        for (var i = 0 ; i < thisReprs.length ; i++) {
-            reprs.push(thisReprs[i].clone());
+    Lemma.prototype.serialize = function() {
+        // Serialize Representations
+        var reprs = this.representations;
+        var serializedReprs = [];
+        for (var i = 0 ; i < reprs.length ; i++) {
+            serializedReprs.push(reprs[i].serialize());
         }
 
-        // Create new object so the constructor could be `Lemma`
-        var lemma = new Lemma({
-            lexicalEntry: this.lexicalEntry,
-            representations: reprs,
-        });
-
+        var lemma = {
+            representations: serializedReprs,
+        };
         if (this.id) { lemma.id = this.id; }
+
+        return lemma;
+    };
+
+    Lemma.prototype.clone = function() {
+        var lemma = new Lemma(this.serialize());
+        lemma.lexicalEntry = this.lexicalEntry;
 
         return lemma;
     };

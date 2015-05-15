@@ -22,7 +22,6 @@
 
         var lemmaAttrs = {
             id: '123',
-            lexicalEntry: fakeLexicalEntry,
             representations: [
                 {
                     id: '789',
@@ -36,6 +35,7 @@
         var lemma;
         beforeEach(function() {
             lemma = new Lemma(lemmaAttrs);
+            lemma.lexicalEntry = fakeLexicalEntry;
         });
 
 
@@ -86,6 +86,28 @@
                 it("returns the original data", function() {
                     expect(representation.writtenForm).toEqual('xx');
                 });
+            });
+        });
+
+        describe("#setAttributes", function() {
+            beforeEach(function() {
+                lemma.setAttributes({
+                    id: 'abc',
+                    representations: [{script: 'Hant'}]
+                });
+            });
+
+            it("should overwrite all properties", function() {
+                expect(lemma.id).toEqual('abc');
+                expect(lemma.representations).toEqual([
+                    new Representation({script: 'Hant'})
+                ]);
+            });
+        });
+
+        describe("#serialize", function() {
+            it("should return this' data as an Object", function() {
+                expect(lemma.serialize()).toEqual(lemmaAttrs);
             });
         });
 

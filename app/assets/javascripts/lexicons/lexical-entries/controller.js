@@ -32,7 +32,7 @@ function LexiconLexicalEntriesCtrl($scope, lexicon, LexicalEntry, lang, $log) {
 
     function displayRecentEntries() {
         $scope.searching = true;
-        LexicalEntry.get({lexiconId: lexicon.id}, {language: $scope.language.code}).then(function(result) {
+        LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code}).then(function(result) {
             $scope.lexicalEntries = result;
             $scope.listTitle = 'Added Recently';
 

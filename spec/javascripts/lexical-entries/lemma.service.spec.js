@@ -2,12 +2,6 @@
     "use strict";
 
     describe("Lemma", function() {
-        //angular.module("golyglot.lexical-entries.test", [
-        //    'ngMock',
-        //    'golyglot.lexical-entries',
-        //]);
-
-        //beforeEach(module("golyglot.lexical-entries.test"));
         beforeEach(module("golyglot.lexical-entries"));
 
         var $httpBackend, Lemma, Representation;
@@ -24,10 +18,11 @@
         });
 
 
-        var lemmaAttributes = {
+        var fakeLexicalEntry = {id: '123', language: 'cmn'};
+
+        var lemmaAttrs = {
             id: '123',
-            lexicalEntryId: '456',
-            //language: 'cmn',
+            lexicalEntry: fakeLexicalEntry,
             representations: [
                 {
                     id: '789',
@@ -38,13 +33,32 @@
             ]
         };
 
+        var lemma;
+        beforeEach(function() {
+            lemma = new Lemma(lemmaAttrs);
+        });
 
+
+        describe("#update", function() {
+            // @todo
+        });
+
+        describe("#lexicalEntry", function() {
+            it("should returns lemma's parent", function() {
+                expect(lemma.lexicalEntry).toBe(fakeLexicalEntry);
+            });
+        });
+
+        describe("#language", function() {
+            it("should returns lexical entry's language", function() {
+                expect(lemma.language).toEqual(fakeLexicalEntry.language);
+            });
+        });
+        
         describe("#representations", function() {
-            var lemma 
-
-            describe("when new empty object", function() {
+            describe("when created empty", function() {
                 beforeEach(function() {
-                    lemma = new Lemma(); //{language: 'cmn'});
+                    lemma = new Lemma({});
                 });
 
                 it("returns an empty array", function() {
@@ -52,31 +66,9 @@
                 });
             });
 
-            var representation;
-
-            describe("when new object with data", function() {
+            describe("when created with data", function() {
+                var representation;
                 beforeEach(function() {
-                    lemma = new Lemma(lemmaAttributes);
-                    representation = lemma.representations[0];
-                });
-
-                it("returns a Lemma resource", function() {
-                    expect(representation.constructor).toEqual(Representation);
-                });
-
-                it("returns the original data", function() {
-                    expect(representation.writtenForm).toEqual('xx');
-                });
-            });
-
-            describe("when fetched from server", function() {
-                beforeEach(function() {
-                    lemma = new Lemma({id: 123, lexicalEntryId: 456});
-                    $httpBackend.expectGET('/api/lexical_entries/456/lemma').respond(200, lemmaAttributes);
-
-                    lemma.get();
-                    $httpBackend.flush();
-
                     representation = lemma.representations[0];
                 });
 
@@ -90,18 +82,40 @@
             });
         });
 
-
         describe("#clone", function() {
-            var lemma;
-
-            beforeEach(function() {
-                lemma = new Lemma(lemmaAttributes);
-            });
-
             it("should return a clone", function() {
                 var clone = lemma.clone();
                 expect(clone).toEqual(lemma);
                 expect(clone).not.toBe(lemma);
+            });
+        });
+
+        describe("#isBlank", function() {
+            describe("when no representations", function() {
+                it("should return true", function() {
+                    var blank = new Lemma({});
+                    expect(blank.isBlank()).toBe(true);
+                });
+            });
+
+            describe("when all representations are blank", function() {
+                it("should return true", function() {
+                    var blank = new Lemma({representations: [
+                        {writtenForm: undefined},
+                        {writtenForm: ''}
+                    ]});
+                    expect(blank.isBlank()).toBe(true);
+                });
+            });
+
+            describe("when some representations are not blank", function() {
+                it("should return false", function() {
+                    var lemma = new Lemma({representations: [
+                        {writtenForm: 'ni3hao3'},
+                        {writtenForm: ''}
+                    ]});
+                    expect(lemma.isBlank()).toBe(false);
+                });
             });
         });
 

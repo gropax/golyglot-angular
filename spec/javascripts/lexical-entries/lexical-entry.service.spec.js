@@ -23,104 +23,74 @@
         });
 
 
+        var reprAttrs = {
+            id: '789',
+            script: "Hans",
+            orthographyName: "simplified",
+            writtenForm: 'xx'
+        };
 
         var lexicalEntryAttrs = {
             id: '456',
-            lexiconId: 'abc',
+            lexiconId: '007',
             language: 'cmn',
             lemma: {
                 id: '123',
-                lexicalEntryId: '456',
-                language: 'cmn',
-                representations: [
-                    {
-                        id: '789',
-                        script: "Hans",
-                        orthographyName: "simplified",
-                        writtenForm: 'xx'
-                    }
-                ]
+                representations: [reprAttrs]
             }
         };
 
+        var lexicalEntry, lemma;
+        beforeEach(function() {
+            lexicalEntry = new LexicalEntry(lexicalEntryAttrs);
+            lemma = lexicalEntry.lemma;
+        });
 
-        describe("resource URI", function() {
-            it("GET /api/lexicons/:lexicon_id/lexical_entries/:id", function() {
-                $httpBackend.expectGET('/api/lexicons/456/lexical_entries/123').respond(200);
-                LexicalEntry.get({id: 123, lexiconId: 456});
-                $httpBackend.flush();
-            });
+
+        describe("::get", function() {
+        });
+
+        describe("::create", function() {
+        });
+
+        describe("#get", function() {
+        });
+
+        describe("#create", function() {
         });
 
         describe("#lemma", function() {
-            var lex 
+            it("returns a Lemma resource", function() {
+                expect(lemma.constructor).toEqual(Lemma);
+            });
 
-            describe("when new empty object", function() {
+            describe("when created empty", function() {
                 beforeEach(function() {
-                    lex = new LexicalEntry({language: 'cmn'});
-                    console.log("lex: " + JSON.stringify(lex));
+                    lexicalEntry = new LexicalEntry({});
+                    lemma = lexicalEntry.lemma;
                 });
 
-                it("returns a Lemma resource", function() {
-                    expect(lex.lemma.constructor).toEqual(Lemma);
+                it("returns an empty lemma", function() {
+                    expect(lemma.constructor).toEqual(Lemma);
+                    expect(lemma.isBlank()).toBe(true);
                 });
             });
 
             describe("when new object with data", function() {
-                beforeEach(function() {
-                    lex = new LexicalEntry({
-                        lemma: {formRepresentations: []},
-                    });
-                });
-
-                it("returns a Lemma resource", function() {
-                    expect(lex.lemma.constructor).toEqual(Lemma);
-                });
-
                 it("returns the original data", function() {
-                    expect(lex.lemma.formRepresentations).toEqual([]);
-                });
-            });
-
-            describe("when object from server", function() {
-                beforeEach(function() {
-                    lex = new LexicalEntry({id: 123, lexiconId: 456});
-                    $httpBackend.expectGET('/api/lexicons/456/lexical_entries/123').respond(200, {
-                        lemma: {formRepresentations: []},
-                    });
-                    lex.get();
-                    $httpBackend.flush();
-                });
-
-                it("returns a Lemma resource", function() {
-                    expect(lex.lemma.constructor).toEqual(Lemma);
-                });
-
-                it("returns the original data", function() {
-                    expect(lex.lemma.formRepresentations).toEqual([]);
+                    var repr = lemma.representations[0];
+                    expect(repr.writtenForm).toEqual('xx');
                 });
             });
         });
 
         describe("#clone", function() {
-            var lexicalEntry;
-
-            beforeEach(function() {
-                lexicalEntry = new LexicalEntry(lexicalEntryAttrs);
-            });
-
             it("should return a clone", function() {
                 var clone = lexicalEntry.clone();
                 expect(clone).toEqual(lexicalEntry);
                 expect(clone).not.toBe(lexicalEntry);
             });
-
-            it("should clone the lexiconId", function() {
-                var clone = lexicalEntry.clone();
-                expect(clone.lexiconId).toEqual(lexicalEntry.lexiconId);
-            });
         });
-
 
     });
 })();

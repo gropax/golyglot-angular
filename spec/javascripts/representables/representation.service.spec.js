@@ -17,20 +17,26 @@
         });
 
 
-        var reprAttributes = {
+        var reprAttrs = {
             script: "Hans",
             orthographyName: "simplified",
             writtenForm: 'xx'
         };
 
+        var repr;
+        beforeEach(function() {
+            repr = new Representation(reprAttrs);
+        });
+
+
+        describe("constructor", function() {
+            it("should be idempotent", function() {
+                var newRepr = new Representation(repr);
+                expect(newRepr).toEqual(repr);
+            });
+        });
 
         describe("#clone", function() {
-            var repr;
-
-            beforeEach(function() {
-                repr = new Representation(reprAttributes);
-            });
-
             it("should return a clone", function() {
                 var clone = repr.clone();
                 expect(clone).toEqual(repr);
@@ -39,16 +45,17 @@
         });
 
         describe("#isBlank", function() {
-            it("should return true if writtenForm is blank", function() {
-                var undef = new Representation({writtenForm: undefined});
-                var blank = new Representation({writtenForm: ''});
+            it("should return true if writtenForm is `''`", function() {
+                repr.writtenForm = '';
+                expect(repr.isBlank()).toBe(true);
+            });
 
-                expect(undef.isBlank()).toBe(true);
-                expect(blank.isBlank()).toBe(true);
+            it("should return true if writtenForm is falsy", function() {
+                repr.writtenForm = undefined;
+                expect(repr.isBlank()).toBe(true);
             });
 
             it("should return false if writtenForm is not blank", function() {
-                var repr = new Representation({writtenForm: 'bougle'});
                 expect(repr.isBlank()).toBe(false);
             });
         });

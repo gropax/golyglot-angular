@@ -39,6 +39,13 @@
         });
 
 
+        describe("constructor", function() {
+            it("should be idempotent", function() {
+                var newLemma = new Lemma(lemma);
+                expect(newLemma).toEqual(lemma);
+            });
+        });
+
         describe("#update", function() {
             // @todo
         });

@@ -47,6 +47,13 @@
         });
 
 
+        describe("constructor", function() {
+            it("should be idempotent", function() {
+                var newLexicalEntry = new LexicalEntry(lexicalEntry);
+                expect(newLexicalEntry).toEqual(lexicalEntry);
+            });
+        });
+
         describe("::get", function() {
         });
 

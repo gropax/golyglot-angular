@@ -9,6 +9,12 @@ RSpec.describe LexicalEntry, :type => :model do
     expect(lexical_entry).to be_valid
   end
 
+  describe "::attribute_names" do
+    it "should include the `:lemma` key" do
+      expect(LexicalEntry.attribute_names).to include(:lemma)
+    end
+  end
+
   describe "#lexicon" do
     it "should not be blank" do
       lexical_entry.lexicon = nil

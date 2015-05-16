@@ -16,6 +16,7 @@ module Api
     end
 
     def create
+      #binding.pry
       @lexical_entry = LexicalEntry.new(lexical_entry_params)
 
       if @lexical_entry.save

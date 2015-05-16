@@ -19,6 +19,10 @@ class LexicalEntry
                                     allow_blank: true,
                                     message: "is invalid language code"
 
+  def self.attribute_names
+    super + [:lemma]
+  end
+
   def to_builder
     Jbuilder.new do |json|
       json.id id.to_s

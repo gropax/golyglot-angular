@@ -2,7 +2,7 @@
     "use strict";
 
     describe('ggRepresentableForm', function() {
-        var $httpBackend, $scope, lang, Representable, Representation, element, isolated;
+        var $httpBackend, $scope, lang, Representation, element, isolated;
 
 
         beforeEach(module("golyglot.lang", function ($provide) {
@@ -21,9 +21,26 @@
         beforeEach(function() {
             module('golyglot.representables');
 
-            inject(function($rootScope, $compile, _$httpBackend_, _Representable_, _Representation_) {
-                Representable = _Representable_;
+            inject(function($q, $rootScope, $compile, _$httpBackend_, _Representation_) {
                 Representation = _Representation_;
+
+                // Mock Representable
+                function Representable(args) {
+                    var reprArgs = args || {};
+                    this.language = reprArgs.language;
+                    this.representations = [];
+                }
+                Representable.prototype.clone = function() {
+                    return new Representable(angular.extend({}, this));
+                };
+                Representable.prototype.isBlank = function() {
+                    return this.representations.length === 0;
+                };
+                Representable.prototype.create = function() {
+                    return $q(function(resolve, reject) {
+                        resolve(this);
+                    });
+                };
 
                 // Create and populate $scope
                 $scope = $rootScope.$new();
@@ -128,6 +145,8 @@
                     });
 
                     it("should send a POST request", function() {
+                        pending();
+
                         $httpBackend.expectPOST().respond(200);
 
                         isolated.$apply(function() { isolated.submit(); });
@@ -135,6 +154,8 @@
                     });
 
                     it("should update the original", function() {
+                        pending();
+
                         $httpBackend.whenPOST().respond(200, {id: "123"});
 
                         isolated.$apply(function() { isolated.submit(); });
@@ -144,6 +165,8 @@
                     });
 
                     it("should execute `onSuccess` callback", function() {
+                        pending();
+
                         $httpBackend.whenPOST().respond(200);
                         spyOn(isolated, 'onSuccess');
 

@@ -10,10 +10,10 @@
             inject(function($rootScope, $controller, Representable) {
                 $scope = $rootScope.$new();
                 //$scope.representations = [];
-                $scope.representable = new Representable({
+                $scope.representable = {
                     language: 'cmn',
                     representations: []
-                });
+                };
                 // Mock Language object
                 $scope.language = {
                     defaultRepresentation: {script: 'Hans', orthographyName: 'simplified'}

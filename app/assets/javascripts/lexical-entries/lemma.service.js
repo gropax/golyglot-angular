@@ -36,11 +36,10 @@ function LemmaFactory(Representation) {
 
     Lemma.prototype.serialize = function() {
         // Serialize Representations
-        var reprs = this.representations;
         var serializedReprs = [];
-        for (var i = 0 ; i < reprs.length ; i++) {
-            serializedReprs.push(reprs[i].serialize());
-        }
+        angular.forEach(this.representations, function(repr) {
+            serializedReprs.push(repr.serialize());
+        });
 
         var lemma = {
             representations: serializedReprs,

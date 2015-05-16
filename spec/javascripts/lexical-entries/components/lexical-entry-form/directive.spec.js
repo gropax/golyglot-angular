@@ -51,6 +51,22 @@
         });
 
 
+        var lexicalEntryAttrs = {
+            id: '456',
+            lexiconId: '007',
+            language: 'cmn',
+            lemma: {
+                id: '123',
+                representations: [{
+                    id: '789',
+                    script: "Hans",
+                    orthographyName: "simplified",
+                    writtenForm: 'xx'
+                }]
+            }
+        };
+
+
         describe("isolated scope", function() {
             it("should have an `original` =ggModel", function() {
                 expect(isolated.original).toBe($scope.lexicalEntry);
@@ -134,7 +150,7 @@
                     });
 
                     it("should send a POST request", function() {
-                        $httpBackend.expectPOST('/api/lexicons/123/lexical_entries').respond(200);
+                        $httpBackend.expectPOST('api/lexicons/123/lexical_entries').respond(200, lexicalEntryAttrs);
 
                         isolated.$apply(function() { isolated.submit(); });
                         $httpBackend.flush();
@@ -150,7 +166,7 @@
                     });
 
                     it("should execute `onSuccess` callback", function() {
-                        $httpBackend.whenPOST().respond(200);
+                        $httpBackend.whenPOST().respond(200, lexicalEntryAttrs);
                         spyOn(isolated, 'onSuccess');
 
                         isolated.$apply(function() { isolated.submit(); });

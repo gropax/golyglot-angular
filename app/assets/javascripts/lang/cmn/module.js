@@ -1,1 +1,4 @@
-angular.module('golyglot.lang.cmn', ['golyglot.core']);
+angular.module('golyglot.lang.cmn', [
+    'golyglot.lang',
+    'golyglot.representables',
+]);

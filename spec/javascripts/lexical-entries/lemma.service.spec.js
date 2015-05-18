@@ -4,12 +4,13 @@
     describe("Lemma", function() {
         beforeEach(module("golyglot.lexical-entries"));
 
-        var $httpBackend, Lemma, Representation;
+        var $httpBackend, Lemma, Representation, RepresentationSchema;
 
-        beforeEach(inject(function(_$httpBackend_, _Lemma_, _Representation_) {
+        beforeEach(inject(function(_$httpBackend_, _Lemma_, _Representation_, _RepresentationSchema_) {
             $httpBackend = _$httpBackend_;
             Lemma = _Lemma_;
             Representation = _Representation_;
+            RepresentationSchema = _RepresentationSchema_;
         }));
 
         afterEach(function() {
@@ -144,6 +145,43 @@
                         {writtenForm: ''}
                     ]});
                     expect(lemma.isBlank()).toBe(false);
+                });
+            });
+        });
+
+        describe("findRepresentation", function() {
+            describe("when not found", function() {
+                it("should return false", function() {
+                    var schema = {script: 'Hant', orthographyName: 'traditional'};
+                    expect(lemma.findRepresentation(schema)).toBe(false);
+                });
+            });
+
+            describe("when found", function() {
+                it("should return the Representation", function() {
+                    var repr = lemma.representations[0];
+                    var schema = {script: 'Hans', orthographyName: 'simplified'};
+                    expect(lemma.findRepresentation(schema)).toBe(repr);
+                });
+            });
+        });
+
+        describe("findOrCreateRepresentation", function() {
+            describe("when not found", function() {
+                it("should create a new Representation", function() {
+                    var schema = new RepresentationSchema({script: 'Hant', orthographyName: 'traditional'});
+                    var repr = schema.new();
+                    expect(lemma.findOrCreateRepresentation(schema)).toEqual(repr);
+                    expect(lemma.representations.length).toBe(2);
+                });
+            });
+
+            describe("when found", function() {
+                it("should return the Representation", function() {
+                    var repr = lemma.representations[0];
+                    var schema = {script: 'Hans', orthographyName: 'simplified'};
+                    expect(lemma.findOrCreateRepresentation(schema)).toBe(repr);
+                    expect(lemma.representations.length).toBe(1);
                 });
             });
         });

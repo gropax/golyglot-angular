@@ -72,6 +72,26 @@ function LemmaFactory(Representation) {
         return blank;
     };
 
+    Lemma.prototype.findRepresentation = function(schema) {
+        var reprs = this.representations;
+        for (var i = 0 ; i < reprs.length ; i++) {
+            var repr = reprs[i];
+            if (repr.orthographyName === schema.orthographyName) {
+                return repr;
+            }
+        }
+        return false;
+    }
+
+    Lemma.prototype.findOrCreateRepresentation = function(schema) {
+        var repr = this.findRepresentation(schema);
+        if (!repr) {
+            repr = schema.new();
+            this.representations.push(repr);
+        }
+        return repr;
+    };
+
 
     return Lemma;
 }

@@ -3,5 +3,6 @@ angular.module('golyglot.lang')
         'lemma',
         'text',
         'textForm',
+        'representableInput',
         'settingsPanel',
     ]);

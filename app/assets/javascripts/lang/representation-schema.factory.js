@@ -4,19 +4,19 @@ Factory.$inject = ['Representation'];
 
 function Factory(Representation) {
 
-    var RepresentationSchema = function(schema) {
-        this.schema = schema;
+    var RepresentationSchema = function(args) {
+        var schema = args || {};
         this.script = schema.script;
         this.orthographyName = schema.orthographyName;
     }
 
-    RepresentationSchema.prototype.findOrCreate = function(hasReprs) {
-        var repr = this.find(hasReprs) || this.create();
+    RepresentationSchema.prototype.findOrCreate = function(representable) {
+        var repr = this.find(representable) || this.create();
         return repr;
     };
 
-    RepresentationSchema.prototype.find = function(hasReprs) {
-        var reprs = hasReprs.representations;
+    RepresentationSchema.prototype.find = function(representable) {
+        var reprs = representable.representations;
         for (var i = 0 ; i < reprs.length ; i++) {
             var repr = reprs[i];
             if (repr.script === this.script && repr.orthographyName === this.orthographyName) {
@@ -26,8 +26,12 @@ function Factory(Representation) {
         return null;
     };
 
-    RepresentationSchema.prototype.create = function() {
-        return new Representation(this.schema);
+    RepresentationSchema.prototype.new = function(writtenForm) {
+        return new Representation({
+            script: this.script,
+            orthographyName: this.orthographyName,
+            writtenForm: writtenForm
+        });
     };
 
 

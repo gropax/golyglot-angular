@@ -33,6 +33,10 @@ function config(langProvider) {
             templateUrl: 'lang/cmn/components/text-form/template.html',
             controller: 'CmnTextFormCtrl',
         })
+        .component('representableInput', {
+            templateUrl: 'lang/cmn/components/representable-input/template.html',
+            controller: 'CmnRepresentableInputCtrl',
+        })
         .component('settingsPanel', {
             templateUrl: 'lang/cmn/components/settings-panel.html',
             controller: 'CmnCtrl',

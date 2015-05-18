@@ -2,9 +2,6 @@
     "use strict";
 
     describe('ggRepresentableForm', function() {
-        var $httpBackend, $scope, lang, Representation, element, isolated;
-
-
         beforeEach(module("golyglot.lang", function ($provide) {
             var mockLang = function(code) {
                 return {
@@ -17,34 +14,46 @@
             $provide.value("lang", mockLang);
         }));
 
+        angular.module('golyglot.representables.test', [
+            'golyglot.representables',
+            'golyglot.lexical-entries',
+        ]);
+
+
+        var $httpBackend, $scope, lang, Representation, element, isolated, LexicalEntry, lexicalEntry, newLexicalEntry;
 
         beforeEach(function() {
-            module('golyglot.representables');
+            module('golyglot.representables.test');
 
-            inject(function($q, $rootScope, $compile, _$httpBackend_, _Representation_) {
+            inject(function($q, $rootScope, $compile, _$httpBackend_, _Representation_, _LexicalEntry_) {
                 Representation = _Representation_;
+                LexicalEntry = _LexicalEntry_;
 
-                // Mock Representable
-                function Representable(args) {
-                    var reprArgs = args || {};
-                    this.language = reprArgs.language;
-                    this.representations = [];
-                }
-                Representable.prototype.clone = function() {
-                    return new Representable(angular.extend({}, this));
+                var lexicalEntryAttrs = {
+                    lexiconId: '007',
+                    language: 'cmn',
+                    lemma: {
+                        representations: [{
+                            script: "Hans",
+                            orthographyName: "simplified",
+                            writtenForm: 'xx'
+                        }]
+                    }
                 };
-                Representable.prototype.isBlank = function() {
-                    return this.representations.length === 0;
-                };
-                Representable.prototype.create = function() {
-                    return $q(function(resolve, reject) {
-                        resolve(this);
-                    });
-                };
+
+                // New entry to test "create"
+                newLexicalEntry = new LexicalEntry(lexicalEntryAttrs);
+
+                // Persisted entry to test "update"
+                lexicalEntry = newLexicalEntry.clone();
+                lexicalEntry.id = "123";
+                lexicalEntry.lemma.id = "456";
+                lexicalEntry.lemma.representations.toArray()[0].id = "789";
+
 
                 // Create and populate $scope
                 $scope = $rootScope.$new();
-                $scope.representable = new Representable({language: 'cmn'});
+                $scope.representable = lexicalEntry.lemma;
                 $scope.callback = function() {};
 
                 // Create HTML code using the directive
@@ -112,6 +121,12 @@
 
             describe("#representable", function() {
                 it("should be a clone of original", function() {
+                    // Compare the lemmas without considering parent
+                    // lexicalEntry, which has cyclic reference to one but
+                    // not with the other.
+                    delete isolated.representable.lexicalEntry;
+                    delete isolated.original.lexicalEntry;
+
                     expect(isolated.representable).toEqual(isolated.original);
                     expect(isolated.representable).not.toBe(isolated.original);
                 });
@@ -124,17 +139,37 @@
             });
 
             describe("#updateValidity", function() {
-                it("should set valid to true if clone not blank", function() {
-                    var reprs = isolated.representable.representations;
-                    reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
-                    isolated.$apply(function() { isolated.updateValidity(); });
-                    expect(isolated.valid).toBe(true);
+                describe("when new representable", function() {
+                    beforeEach(function() {
+                        isolated.representable = newLexicalEntry.lemma;
+                    });
+
+                    it("should set valid to true if clone not blank", function() {
+                        var reprs = isolated.representable.representations;
+                        reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
+                        isolated.$apply(function() { isolated.updateValidity(); });
+                        expect(isolated.valid).toBe(true);
+                    });
+
+                    it("should set valid to false if clone is blank", function() {
+                        isolated.representable.representations = [];
+                        isolated.$apply(function() { isolated.updateValidity(); });
+                        expect(isolated.valid).toBe(false);
+                    });
                 });
 
-                it("should set valid to false if clone is blank", function() {
-                    isolated.representations = [];
-                    isolated.$apply(function() { isolated.updateValidity(); });
-                    expect(isolated.valid).toBe(false);
+                describe("when persisted representable", function() {
+                    it("should set valid to true if clone modified", function() {
+                        console.log("isolated.representable.representations: " + JSON.stringify(isolated.representable.representations));
+                        isolated.representable.representations = [];
+                        isolated.$apply(function() { isolated.updateValidity(); });
+                        expect(isolated.valid).toBe(true);
+                    });
+
+                    it("should set valid to false if clone not modified", function() {
+                        isolated.$apply(function() { isolated.updateValidity(); });
+                        expect(isolated.valid).toBe(false);
+                    });
                 });
             });
 

@@ -11,7 +11,7 @@ function CmnRepresentableInputCtrl($scope, Representation, lang, $log) {
     $scope.setRepresentations = function() {
         angular.forEach(lang('cmn').representations, function(reprSchema) {
             var name = reprSchema.orthographyName;
-            $scope[name] = $scope.representable.findOrCreateRepresentation(reprSchema);
+            $scope[name] = $scope.representable.representations.findOrCreate(reprSchema);
             
             // Trigger an event upward when the form is edited (eg. to update form validity)
             $scope.$watch(name + '.writtenForm', function() {

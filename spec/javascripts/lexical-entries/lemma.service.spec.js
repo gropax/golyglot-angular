@@ -4,12 +4,13 @@
     describe("Lemma", function() {
         beforeEach(module("golyglot.lexical-entries"));
 
-        var $httpBackend, Lemma, Representation, RepresentationSchema;
+        var $httpBackend, Lemma, Representation, RepresentationSchema, Representations;
 
-        beforeEach(inject(function(_$httpBackend_, _Lemma_, _Representation_, _RepresentationSchema_) {
+        beforeEach(inject(function(_$httpBackend_, _Lemma_, _Representation_, _RepresentationSchema_, _Representations_) {
             $httpBackend = _$httpBackend_;
             Lemma = _Lemma_;
             Representation = _Representation_;
+            Representations = _Representations_;
             RepresentationSchema = _RepresentationSchema_;
         }));
 
@@ -64,29 +65,8 @@
         });
         
         describe("#representations", function() {
-            describe("when created empty", function() {
-                beforeEach(function() {
-                    lemma = new Lemma({});
-                });
-
-                it("returns an empty array", function() {
-                    expect(lemma.representations).toEqual([]);
-                });
-            });
-
-            describe("when created with data", function() {
-                var representation;
-                beforeEach(function() {
-                    representation = lemma.representations[0];
-                });
-
-                it("returns a Lemma resource", function() {
-                    expect(representation.constructor).toEqual(Representation);
-                });
-
-                it("returns the original data", function() {
-                    expect(representation.writtenForm).toEqual('xx');
-                });
+            it("should return a Representations object", function() {
+                expect(lemma.representations.constructor).toBe(Representations);
             });
         });
 
@@ -100,9 +80,9 @@
 
             it("should overwrite all properties", function() {
                 expect(lemma.id).toEqual('abc');
-                expect(lemma.representations).toEqual([
+                expect(lemma.representations).toEqual(new Representations([
                     new Representation({script: 'Hant'})
-                ]);
+                ]));
             });
         });
 
@@ -160,40 +140,14 @@
             });
         });
 
-        describe("findRepresentation", function() {
-            describe("when not found", function() {
-                it("should return false", function() {
-                    var schema = {script: 'Hant', orthographyName: 'traditional'};
-                    expect(lemma.findRepresentation(schema)).toBe(false);
-                });
+        describe("#isNew", function() {
+            it("should return true if has no id", function() {
+                delete lemma.id;
+                expect(lemma.isNew()).toBe(true);
             });
 
-            describe("when found", function() {
-                it("should return the Representation", function() {
-                    var repr = lemma.representations[0];
-                    var schema = {script: 'Hans', orthographyName: 'simplified'};
-                    expect(lemma.findRepresentation(schema)).toBe(repr);
-                });
-            });
-        });
-
-        describe("findOrCreateRepresentation", function() {
-            describe("when not found", function() {
-                it("should create a new Representation", function() {
-                    var schema = new RepresentationSchema({script: 'Hant', orthographyName: 'traditional'});
-                    var repr = schema.new();
-                    expect(lemma.findOrCreateRepresentation(schema)).toEqual(repr);
-                    expect(lemma.representations.length).toBe(2);
-                });
-            });
-
-            describe("when found", function() {
-                it("should return the Representation", function() {
-                    var repr = lemma.representations[0];
-                    var schema = {script: 'Hans', orthographyName: 'simplified'};
-                    expect(lemma.findOrCreateRepresentation(schema)).toBe(repr);
-                    expect(lemma.representations.length).toBe(1);
-                });
+            it("should return false if has an id", function() {
+                expect(lemma.isNew()).toBe(false);
             });
         });
 

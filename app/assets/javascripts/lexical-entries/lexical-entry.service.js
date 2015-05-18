@@ -5,8 +5,14 @@ LexicalEntryFactory.$inject = ['$http', 'Lemma'];
 function LexicalEntryFactory($http, Lemma) {
 
     function LexicalEntry(args) {
-        this.lemma = new Lemma({lexicalEntry: this});
-        this.setAttributes(args);
+        var args = args || {};
+
+        if (args.id) { this.id = args.id; }
+        if (args.lexiconId) { this.lexiconId = args.lexiconId; }
+        if (args.language) { this.language = args.language; }
+
+        var lemmaAttrs = angular.extend({lexicalEntry: this}, args.lemma);
+        this.lemma = new Lemma(lemmaAttrs);
     }
 
     LexicalEntry.get = function(args) {

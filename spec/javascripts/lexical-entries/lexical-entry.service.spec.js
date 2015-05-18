@@ -155,7 +155,7 @@
 
             describe("when new object with data", function() {
                 it("returns the original data", function() {
-                    var repr = lemma.representations[0];
+                    var repr = lemma.representations.toArray()[0];
                     expect(repr.writtenForm).toEqual('xx');
                 });
             });
@@ -192,10 +192,9 @@
             });
 
             describe("with options", function() {
-                it("should pass propagate options to lemma", function() {
-                    var clone = lexicalEntry.clone();
-                    clone.lemma.representations.push(new Representation({script: 'Fake'}));
-                    var obj = clone.serialize({excludeEmptyRepresentations: true});
+                it("should propagate options to lemma", function() {
+                    lemma.representations.push(new Representation({script: 'Fake'}));
+                    var obj = lexicalEntry.serialize({excludeEmptyRepresentations: true});
                     expect(obj.lemma).toEqual(lexicalEntryAttrs.lemma);
                 });
             });

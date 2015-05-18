@@ -49,8 +49,9 @@
         describe("$watch writtenForms", function() {
             it("should $emit form:modified", function() {
                 spyOn($scope, '$emit');
+                var repr = $scope.representable.representations.toArray()[0];
                 $scope.$apply(function() {
-                    $scope.representable.representations[0].writtenForm = "modified";
+                    repr.writtenForm = "modified";
                 });
                 expect($scope.$emit).toHaveBeenCalledWith('form:modified');
             });
@@ -66,7 +67,8 @@
             });
 
             it("should binds simplified representation to $scope.simplified", function() {
-                expect($scope.simplified).toBe($scope.representable.representations[0]);
+                var simplified = $scope.representable.representations.toArray()[0]
+                expect($scope.simplified).toBe(simplified);
             });
 
             it("should binds new representations to $scope.pinyin and traditional", function() {
@@ -75,7 +77,7 @@
             });
 
             it("should push new representations in $scope.representations", function() {
-                var reprs = $scope.representable.representations;
+                var reprs = $scope.representable.representations.toArray();
                 expect(reprs.length).toBe(3);
             });
 

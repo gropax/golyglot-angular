@@ -42,7 +42,11 @@ function ggRepresentableForm() {
             };
 
             $scope.updateValidity = function() {
-                $scope.valid = !$scope.representable.isBlank();
+                if ($scope.representable.isNew()) {
+                    $scope.valid = !$scope.representable.isBlank();
+                } else {
+                    $scope.valid = $scope.representable.isModified();
+                }
             };
 
             // @todo

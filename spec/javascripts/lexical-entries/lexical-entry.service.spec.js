@@ -4,13 +4,14 @@
     describe("LexicalEntry", function() {
         beforeEach(module("golyglot.lexical-entries"));
 
-        var $rootScope, $httpBackend, LexicalEntry, Lemma;
+        var $rootScope, $httpBackend, LexicalEntry, Lemma, Representation;
 
-        beforeEach(inject(function(_$rootScope_, _$httpBackend_, _LexicalEntry_, _Lemma_) {
+        beforeEach(inject(function(_$rootScope_, _$httpBackend_, _LexicalEntry_, _Lemma_, _Representation_) {
             $rootScope = _$rootScope_;
             $httpBackend = _$httpBackend_;
             LexicalEntry = _LexicalEntry_;
             Lemma = _Lemma_;
+            Representation = _Representation_;
         }));
 
         afterEach(function() {
@@ -88,12 +89,17 @@
 
         describe("#create", function() {
             describe("when success", function() {
-                it("should create a new LexicalEntry", function() {
-                    var newLexicalEntryAttrs = {
+                var newLexicalEntryAttrs;
+
+                beforeEach(function() {
+                    newLexicalEntryAttrs = {
                         lexiconId: '007',
                         language: 'cmn',
                         lemma: { representations: [reprAttrs] }
                     };
+                });
+
+                it("should create a new LexicalEntry", function() {
                     var newLexicalEntry = new LexicalEntry(newLexicalEntryAttrs);
 
                     $httpBackend.expectPOST('api/lexicons/007/lexical_entries', newLexicalEntryAttrs)
@@ -106,6 +112,26 @@
                     $rootScope.$digest();
 
                     expect(value).toEqual(lexicalEntry);
+                });
+
+                it("should not send empty Representation", function() {
+                    // Add a new blank Representation to attributes
+                    var rawLexicalEntryAttrs = {
+                        lexiconId: '007',
+                        language: 'cmn',
+                        lemma: { representations: [
+                            reprAttrs,
+                            {script: 'Fake', orthographyName: 'empty'}
+                        ]}
+                    };
+                    var newLexicalEntry = new LexicalEntry(rawLexicalEntryAttrs);
+
+                    // Expect request without the blank Representation
+                    $httpBackend.expectPOST('api/lexicons/007/lexical_entries', newLexicalEntryAttrs)
+                        .respond(200, lexicalEntryAttrs);
+
+                    newLexicalEntry.create();
+                    $httpBackend.flush();
                 });
             });
         });
@@ -158,9 +184,20 @@
         });
 
         describe("#serialize", function() {
-            it("should return this' data as an Object", function() {
-                expect(lexicalEntryAttrs.lemma.lexicalEntry).toBeUndefined();
-                expect(lexicalEntry.serialize()).toEqual(lexicalEntryAttrs);
+            describe("without options", function() {
+                it("should return this' data as an Object", function() {
+                    expect(lexicalEntryAttrs.lemma.lexicalEntry).toBeUndefined();
+                    expect(lexicalEntry.serialize()).toEqual(lexicalEntryAttrs);
+                });
+            });
+
+            describe("with options", function() {
+                it("should pass propagate options to lemma", function() {
+                    var clone = lexicalEntry.clone();
+                    clone.lemma.representations.push(new Representation({script: 'Fake'}));
+                    var obj = clone.serialize({excludeEmptyRepresentations: true});
+                    expect(obj.lemma).toEqual(lexicalEntryAttrs.lemma);
+                });
             });
         });
 

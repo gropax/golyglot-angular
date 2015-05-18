@@ -37,7 +37,7 @@ function LexicalEntryFactory($http, Lemma) {
         return $http({
             url: "api/lexicons/" + this.lexiconId + "/lexical_entries",
             method: 'POST',
-            data: this.serialize(),
+            data: this.serialize({excludeEmptyRepresentations: true}),
         }).then(function(response) {
             lexicalEntry.setAttributes(response.data);
             return lexicalEntry;
@@ -54,11 +54,11 @@ function LexicalEntryFactory($http, Lemma) {
         if (args.lemma) { this.lemma.setAttributes(args.lemma); }
     };
 
-    LexicalEntry.prototype.serialize = function() {
+    LexicalEntry.prototype.serialize = function(opts) {
         var obj = {
             lexiconId: this.lexiconId,
             language: this.language,
-            lemma: this.lemma.serialize(),
+            lemma: this.lemma.serialize(opts),
         }
         if (this.id) { obj.id = this.id; }
 

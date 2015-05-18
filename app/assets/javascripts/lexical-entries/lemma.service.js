@@ -34,11 +34,20 @@ function LemmaFactory(Representation) {
         }
     };
 
-    Lemma.prototype.serialize = function() {
+    /* @options
+     *     excludeEmptyRepresentations
+     *
+     */
+    Lemma.prototype.serialize = function(opts) {
+        var opts = opts || {};
+        var excludeEmpty = opts.excludeEmptyRepresentations;
+
         // Serialize Representations
         var serializedReprs = [];
         angular.forEach(this.representations, function(repr) {
-            serializedReprs.push(repr.serialize());
+            if (!repr.isBlank() || !excludeEmpty) {
+                serializedReprs.push(repr.serialize());
+            }
         });
 
         var lemma = {

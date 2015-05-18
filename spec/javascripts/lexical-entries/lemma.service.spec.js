@@ -107,8 +107,19 @@
         });
 
         describe("#serialize", function() {
-            it("should return this' data as an Object", function() {
-                expect(lemma.serialize()).toEqual(lemmaAttrs);
+            describe("without options", function() {
+                it("should return this' data as an Object", function() {
+                    expect(lemma.serialize()).toEqual(lemmaAttrs);
+                });
+            });
+
+            describe("with `excludeEmptyRepresentations`", function() {
+                it("should exclude empty representations", function() {
+                    var clone = lemma.clone();
+                    clone.representations.push(new Representation({script: 'Fake'}));
+                    var obj = clone.serialize({excludeEmptyRepresentations: true});
+                    expect(obj).toEqual(lemmaAttrs);
+                });
             });
         });
 

@@ -16,4 +16,8 @@ class Form
     end
   end
 
+  def self.attribute_names
+    super + [:representations]
+  end
+
 end

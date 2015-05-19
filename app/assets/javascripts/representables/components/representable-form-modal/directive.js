@@ -16,6 +16,8 @@ function ggRepresentableFormModal() {
                 // Add arguments to the scope
                 $scope.model = args.model;
                 $scope.buttonSuccessCallback = args.onSuccess;
+                // Reset Form
+                $scope.$broadcast('reset:form');
                 // Show modal
                 $('#RepresentableFormModal').modal('show');
             };

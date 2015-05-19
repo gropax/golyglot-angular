@@ -85,10 +85,10 @@
             // EVENTS
 
             describe("$on reset:form", function() {
-                it("should called #clearForm", function() {
-                    spyOn(isolated, 'clearForm');
+                it("should called #setEntities", function() {
+                    spyOn(isolated, 'setEntities');
                     isolated.$apply(function() { isolated.$emit('reset:form'); });
-                    expect(isolated.clearForm).toHaveBeenCalled();
+                    expect(isolated.setEntities).toHaveBeenCalled();
                 });
             });            
 

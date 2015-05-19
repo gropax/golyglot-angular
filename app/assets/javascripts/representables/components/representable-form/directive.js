@@ -15,13 +15,14 @@ function ggRepresentableForm() {
 
             // Make `language` available in the child scopes
             $scope.$watch('original', function() {
+                //$scope.setEntities();
                 $scope.language = lang($scope.original.language);
                 $scope.representable = $scope.original.clone();
             });
 
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {
-                $scope.clearForm();
+                $scope.setEntities();
             });
 
             $scope.$on('form:modified', function() {
@@ -57,8 +58,11 @@ function ggRepresentableForm() {
                 }
             };
 
-            // @todo
-            $scope.clearForm = function() {};
+            $scope.setEntities = function() {
+                $scope.language = lang($scope.original.language);
+                $scope.representable = $scope.original.clone();
+            };
+
 
         },
     };

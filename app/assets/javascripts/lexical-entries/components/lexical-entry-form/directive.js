@@ -11,24 +11,14 @@ function ggLexicalEntryForm() {
 
         controller: function($scope, lang, $log) {
 
-            var original;
-
             // Make `language` available in the child scopes
             $scope.$watch('original', function() {
-                $scope.language = lang($scope.original.language);
-                //$scope.language = $scope.model.language;
-
-                $scope.model = $scope.original.clone();
-                $scope.representable = $scope.model.lemma;
+                $scope.setEntities();
             });
-
-            // Clone the model not to modify it directly and expose its representations to form inputs in child scopes.
-            //var clone = $scope.model.clone();
-            //$scope.representations = clone.lemma.representations;
 
             // Watch event from above (eg. when modal opens)
             $scope.$on('reset:form', function() {
-                $scope.clearForm();
+                $scope.setEntities();
             });
 
             $scope.$on('form:modified', function() {
@@ -54,7 +44,11 @@ function ggLexicalEntryForm() {
             };
 
             // @todo
-            $scope.clearForm = function() {};
+            $scope.setEntities = function() {
+                $scope.language = lang($scope.original.language);
+                $scope.model = $scope.original.clone();
+                $scope.representable = $scope.model.lemma;
+            };
 
         },
     };

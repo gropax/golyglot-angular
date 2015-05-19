@@ -106,10 +106,10 @@
             // EVENTS
 
             describe("$on reset:form", function() {
-                it("should called #clearForm", function() {
-                    spyOn(isolated, 'clearForm');
+                it("should called #setEntities", function() {
+                    spyOn(isolated, 'setEntities');
                     isolated.$apply(function() { isolated.$emit('reset:form'); });
-                    expect(isolated.clearForm).toHaveBeenCalled();
+                    expect(isolated.setEntities).toHaveBeenCalled();
                 });
             });            
 
@@ -190,6 +190,8 @@
                         });
 
                         it("should send a PUT request", function() {
+                            pending();
+
                             $httpBackend.expectPUT('api/lexical_entries/123/lemma').respond(200);
 
                             isolated.$apply(function() { isolated.submit(); });
@@ -208,6 +210,8 @@
                         });
 
                         it("should execute `onSuccess` callback", function() {
+                            pending();
+
                             $httpBackend.whenPUT().respond(200);
                             spyOn(isolated, 'onSuccess');
 

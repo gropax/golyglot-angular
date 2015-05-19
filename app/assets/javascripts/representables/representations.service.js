@@ -82,7 +82,7 @@ function Factory(Representation) {
     Representations.prototype.rejectNewBlank = function() {
         var reprs = [];
         angular.forEach(this.representations, function(repr) {
-            if (!repr.isNew() && !repr.isBlank())
+            if (!repr.isNew() || !repr.isBlank())
                 reprs.push(repr);
         })
         return new Representations(reprs);
@@ -135,8 +135,6 @@ function Factory(Representation) {
 
     Representations.prototype.diffFrom = function(other) {
         var reprsDiff = [];
-
-        console.log("other.length: " + JSON.stringify(other.length));
 
         // Update existing
         for (var i = 0 ; i < other.length ; i++) {

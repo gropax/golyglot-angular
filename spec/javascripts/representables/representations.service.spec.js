@@ -203,8 +203,12 @@
 
         describe("#rejectNewBlank", function() {
             it("should return a new Representations without empty blank Representation", function() {
+                reprs.push(new Representation({id: '123'}));
+                reprs.push(new Representation({writtenForm: 'abc'}));
+
                 var clone = reprs.clone();
                 clone.push(new Representation());
+
                 expect(clone.rejectNewBlank()).toEqual(reprs);
             });
         });

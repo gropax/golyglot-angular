@@ -15,7 +15,10 @@ module RequestHelpers
     JWT.encode({}, wrong_key)
   end
 
-  [:get, :post, :put, :delete].each do |method|
+  # In GET request (and presumably DELETE), parameters are sent as URL query
+  # strings.
+  #
+  [:get, :delete].each do |method|
     define_method(method) do |url, data = {}, headers = {}|
       new_headers = headers.dup
 
@@ -28,6 +31,26 @@ module RequestHelpers
       end
 
       super(url, data, new_headers)
+    end
+  end
+
+  # In POST and PUT requests, parameters are sent in body, so data should be
+  # formatted as JSON, and Content-Type set to JSON as well.
+  #
+  [:post, :put].each do |method|
+    define_method(method) do |url, data = {}, headers = {}|
+      new_headers = headers.dup
+
+      # All request are JSON
+      new_headers['Content-Type'] = 'application/json'
+      new_headers['Accept'] = 'application/json'
+
+      # If a user is logged in, add auth token
+      if @_token
+        new_headers['Authorization'] = @_token
+      end
+
+      super(url, JSON.generate(data), new_headers)
     end
   end
 

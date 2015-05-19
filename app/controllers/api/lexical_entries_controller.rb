@@ -16,7 +16,6 @@ module Api
     end
 
     def create
-      #binding.pry
       @lexical_entry = LexicalEntry.new(lexical_entry_params)
 
       if @lexical_entry.save
@@ -28,15 +27,6 @@ module Api
 
     def show
       render json: @lexical_entry.to_builder.target!
-    end
-
-    def update_lemma
-      @lemma.update_attributes(representations_attributes: lemma_params[:representations])
-      if @lexical_entry.save
-        render json: @lemma.to_builder.target!, status: :ok
-      else
-        render json: @lemma.errors, status: :unprocessable_entity
-      end
     end
 
 
@@ -60,11 +50,6 @@ module Api
         params.require(:lexical_entry)
           .permit(:language, :lexicon_id,
                    lemma: {representations: [:script, :orthography_name, :written_form]})
-      end
-
-      wrap_parameters :lemma, include: [:representations]
-      def lemma_params
-        params.require(:lemma).permit(representations: [:id, :script, :orthography_name, :written_form, :_destroy])
       end
 
       def current_user_is_owner?

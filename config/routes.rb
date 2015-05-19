@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     end
 
     resources "lexical_entries" do
-      put "lemma", to: 'lexical_entries#update_lemma'
+      #put "lemma", to: 'lexical_entries#update_lemma'
+      resource "lemma", only: [:update]
     end
   end
 

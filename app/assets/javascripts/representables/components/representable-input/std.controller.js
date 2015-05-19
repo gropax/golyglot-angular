@@ -18,11 +18,6 @@ function StdRepresentableInputCtrl($scope, lang, Representation, $log) {
         // @fixme Could use something like:
         //     $scope.representation = new language.defaultRepresentation();
         var defaultRepr = $scope.language.defaultRepresentation;
-        $scope.representation = new Representation(defaultRepr);
-
-        // Clear and populate $scope.representations defined in parent scope
-        var reprs = $scope.representable.representations;
-        reprs.length = 0;
-        reprs.push($scope.representation);
+        $scope.representation = $scope.representable.representations.findOrCreate(defaultRepr);
     };
 }

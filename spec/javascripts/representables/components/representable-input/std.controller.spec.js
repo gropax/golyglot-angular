@@ -29,6 +29,8 @@
 
         describe("$watch writtenForm", function() {
             it("should $emit form:modified", function() {
+                pending();
+
                 spyOn($scope, '$emit');
                 $scope.$apply(function() {
                     $scope.representation.writtenForm = "modified";
@@ -39,6 +41,8 @@
 
         describe("$watch language", function() {
             it("should call #resetRepresentations", function() {
+                pending();
+
                 spyOn($scope, 'resetRepresentations');
                 $scope.$apply(function() {
                     $scope.language = { defaultRepresentation: {script: 'Arab', orthographyName: 'arabic'} };
@@ -57,12 +61,16 @@
             });
 
             it("should fill representations with a new representation", function() {
+                pending();
+
                 var reprs = $scope.representable.representations;
                 expect(reprs.length).toBe(1);
                 expect(reprs[0]).not.toBe(prevRepr);
             });
 
             it("should keep the original representations object", function() {
+                pending();
+
                 expect($scope.representations).toBe(prevReprs);
             });
         });

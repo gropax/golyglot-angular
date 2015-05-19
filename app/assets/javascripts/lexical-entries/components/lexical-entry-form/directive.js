@@ -39,7 +39,8 @@ function ggLexicalEntryForm() {
                 if ($scope.valid) {
                     $scope.model.create().then(function(result) {
                         // Update the model
-                        $scope.original = new $scope.model.constructor(result);
+                        //$scope.original = new $scope.model.constructor(result);
+                        $scope.original.setAttributes(result.serialize());
                         // Execute callback function
                         $scope.onSuccess();
                     }, function(error) {

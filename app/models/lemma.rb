@@ -7,4 +7,9 @@ class Lemma < Form
       lemma.lexical_entry_id lexical_entry.id.to_s
     end
   end
+
+  def self.attribute_names
+    super + [:representations]
+  end
+
 end

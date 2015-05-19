@@ -4,9 +4,10 @@
     describe("Lemma", function() {
         beforeEach(module("golyglot.lexical-entries"));
 
-        var $httpBackend, Lemma, Representation, RepresentationSchema, Representations;
+        var $rootScope, $httpBackend, Lemma, Representation, RepresentationSchema, Representations;
 
-        beforeEach(inject(function(_$httpBackend_, _Lemma_, _Representation_, _RepresentationSchema_, _Representations_) {
+        beforeEach(inject(function(_$rootScope_, _$httpBackend_, _Lemma_, _Representation_, _RepresentationSchema_, _Representations_) {
+            $rootScope = _$rootScope_;
             $httpBackend = _$httpBackend_;
             Lemma = _Lemma_;
             Representation = _Representation_;
@@ -48,9 +49,102 @@
             });
         });
 
-        describe("#update", function() {
-            // @todo
+        describe("#updateFrom", function() {
+            describe("when success", function() {
+                var originalLemma, modifiedLemma, expectedRequest;
+
+                beforeEach(function() {
+                    var lexicalEntry = {id: '123', language: 'cmn'};
+
+                    originalLemma = new Lemma({
+                        id: '456',
+                        lexicalEntry: lexicalEntry,
+                        representations: [
+                            {
+                                id: '111',
+                                script: 'Hans',
+                                orthographyName: 'simplified',
+                                writtenForm: 'xxx',
+                            },
+                            {
+                                id: '222',
+                                script: 'Hant',
+                                orthographyName: 'traditional',
+                                writtenForm: 'XXX',
+                            },
+                            {
+                                id: '333',
+                                script: 'Latn',
+                                orthographyName: 'pinyin',
+                                writtenForm: 'ni3hao3',
+                            }
+                        ]
+                    });
+
+                    modifiedLemma = new Lemma({
+                        id: '456',
+                        lexicalEntry: lexicalEntry,
+                        representations: [
+                            {
+                                id: '111',
+                                script: 'Hans',
+                                orthographyName: 'simplified',
+                                writtenForm: 'xxx',
+                            },
+                            {
+                                id: '222',
+                                script: 'Hant',
+                                orthographyName: 'traditional',
+                                writtenForm: 'YYY',
+                            },
+                            {
+                                id: '333',
+                                script: 'Latn',
+                                orthographyName: 'pinyin',
+                                writtenForm: '',
+                            },
+                            {
+                                script: 'Latn',
+                                orthographyName: 'yutping',
+                                writtenForm: 'lei5hou2',
+                            }
+                        ]
+                    });
+
+                    expectedRequest = {
+                        representations: [
+                            {
+                                id: '222',
+                                writtenForm: 'YYY',
+                            },
+                            {
+                                id: '333',
+                                _destroy: '1',
+                            },
+                            {
+                                script: 'Latn',
+                                orthographyName: 'yutping',
+                                writtenForm: 'lei5hou2',
+                            }
+                        ]
+                    };
+                });
+
+                it("should send an update request", function() {
+                    $httpBackend.expectPUT('api/lexical_entries/123/lemma', expectedRequest)
+                        .respond(200, modifiedLemma.serialize());
+
+                    var value;
+                    modifiedLemma.updateFrom(originalLemma).then(function(success) { value = success; });
+
+                    $httpBackend.flush();
+                    $rootScope.$digest();
+
+                    expect(value).toEqual(modifiedLemma);
+                });
+            });
         });
+
 
         describe("#lexicalEntry", function() {
             it("should returns lemma's parent", function() {
@@ -148,6 +242,19 @@
 
             it("should return false if has an id", function() {
                 expect(lemma.isNew()).toBe(false);
+            });
+        });
+
+        describe("#isModified", function() {
+            it("should return true if different from original", function() {
+                var modified = lemma.clone();
+                modified.representations.toArray()[0].writtenForm = "modified";
+                expect(modified.isModified(lemma)).toBe(true);
+            });
+
+            it("should return false if identical to original", function() {
+                var modified = lemma.clone();
+                expect(modified.isModified(lemma)).toBe(false);
             });
         });
 

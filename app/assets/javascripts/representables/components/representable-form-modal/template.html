@@ -1,13 +1,14 @@
-<div id="newRepresentableFormModal" class="modal">
+<div id="RepresentableFormModal" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">New {{ languageName }} Entry</h4>
             </div>
+            gg-model: {{ model.representations | json }}
             <div class="modal-body">
                 <div ng-if="model"
-                     gg-new-representable-form
+                     gg-representable-form
                      gg-model="model"
                      gg-success="onSuccess()" ></div>
             </div>

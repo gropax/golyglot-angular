@@ -17,7 +17,7 @@ function ggRepresentableFormModal() {
                 $scope.model = args.model;
                 $scope.buttonSuccessCallback = args.onSuccess;
                 // Show modal
-                $('#newRepresentableFormModal').modal('show');
+                $('#RepresentableFormModal').modal('show');
             };
 
             $scope.closeModal = function() {
@@ -25,7 +25,7 @@ function ggRepresentableFormModal() {
                 $scope.model = undefined;
                 $scope.buttonSuccessCallback = undefined;
                 // Close modal
-                $('#newRepresentableFormModal').modal('hide');
+                $('#RepresentableFormModal').modal('hide');
             };
 
             $scope.languageName = "@todo";

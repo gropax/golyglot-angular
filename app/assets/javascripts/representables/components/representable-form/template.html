@@ -1,6 +1,9 @@
+original: {{ original.representations | json }}
+
 <form name="representableForm"
       class="form-horizontal"
       ng-submit="submit()"
+      ng-if="language"
       novalidate >
 
     <div gg-representable-input></div>

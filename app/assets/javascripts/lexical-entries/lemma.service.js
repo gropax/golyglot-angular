@@ -1,10 +1,12 @@
 angular.module('golyglot.lexical-entries').factory('Lemma', LemmaFactory);
 
-LemmaFactory.$inject = ['Representation', 'Representations'];
+LemmaFactory.$inject = ['$http', 'Representation', 'Representations'];
 
-function LemmaFactory(Representation, Representations) {
+function LemmaFactory($http, Representation, Representations) {
 
     function Lemma(args) {
+        var args = args || {};
+
         this.id = args.id;
         this.lexicalEntry = args.lexicalEntry;
         this.representations = new Representations(args.representations);
@@ -15,6 +17,20 @@ function LemmaFactory(Representation, Representations) {
             return this.lexicalEntry.language;
         }
     });
+
+    Lemma.prototype.updateFrom = function(original) {
+        var lemma = this;
+        var reprsDiff = this.representations.diffFrom(original.representations);
+
+        return $http({
+            url: "api/lexical_entries/" + this.lexicalEntry.id + "/lemma",
+            method: 'PUT',
+            data: {representations: reprsDiff},
+        }).then(function(response) {
+            lemma.setAttributes(response.data);
+            return lemma;
+        });
+    }
 
     Lemma.prototype.setAttributes = function(args) {
         if (args.id) { this.id = args.id; }
@@ -53,8 +69,8 @@ function LemmaFactory(Representation, Representations) {
         return !this.id;
     };
 
-    Lemma.prototype.isModified = function() {
-        return ;
+    Lemma.prototype.isModified = function(basis) {
+        return !this.representations.equal(basis.representations);
     };
 
     Lemma.prototype.findRepresentation = function(schema) {

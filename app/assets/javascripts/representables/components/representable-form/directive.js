@@ -30,9 +30,17 @@ function ggRepresentableForm() {
 
             $scope.submit = function() {
                 if ($scope.valid) {
-                    $scope.representable.create().then(function(result) {
+
+                    var promise;
+                    if ($scope.representable.isNew())
+                        promise = $scope.representable.create();
+                    else
+                        promise = $scope.representable.updateFrom($scope.original);
+
+                    promise.then(function(result) {
                         // Update the model
-                        $scope.original = new $scope.representable.constructor(result);
+                        //$scope.original = new $scope.representable.constructor(result);
+                        $scope.original.setAttributes(result.serialize());
                         // Execute callback function
                         $scope.onSuccess();
                     }, function(error) {
@@ -45,7 +53,7 @@ function ggRepresentableForm() {
                 if ($scope.representable.isNew()) {
                     $scope.valid = !$scope.representable.isBlank();
                 } else {
-                    $scope.valid = $scope.representable.isModified();
+                    $scope.valid = $scope.representable.isModified($scope.original);
                 }
             };
 

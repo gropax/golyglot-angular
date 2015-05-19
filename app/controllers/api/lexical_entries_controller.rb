@@ -62,8 +62,9 @@ module Api
                    lemma: {representations: [:script, :orthography_name, :written_form]})
       end
 
+      wrap_parameters :lemma, include: [:representations]
       def lemma_params
-        params.require(:lemma).permit(representations: [:id, :script, :orthography_name, :written_form])
+        params.require(:lemma).permit(representations: [:id, :script, :orthography_name, :written_form, :_destroy])
       end
 
       def current_user_is_owner?

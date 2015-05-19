@@ -3,6 +3,8 @@ angular.module('golyglot.representables').factory('Representation', Factory);
 function Factory() {
 
     function Representation(args) {
+        var args = args || {};
+
         this.id = args.id;
         this.script = args.script;
         this.orthographyName = args.orthographyName;
@@ -24,6 +26,10 @@ function Factory() {
     //
     Representation.prototype.clone = function() {
         return new Representation(this.serialize());
+    };
+
+    Representation.prototype.isNew = function() {
+        return !this.id;
     };
 
     Representation.prototype.isBlank = function() {

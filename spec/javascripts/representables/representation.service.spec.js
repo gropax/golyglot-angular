@@ -18,6 +18,7 @@
 
 
         var reprAttrs = {
+            id: '123',
             script: "Hans",
             orthographyName: "simplified",
             writtenForm: 'xx'
@@ -47,6 +48,17 @@
                 var clone = repr.clone();
                 expect(clone).toEqual(repr);
                 expect(clone).not.toBe(repr);
+            });
+        });
+
+        describe("#isNew", function() {
+            it("should return true if has no id", function() {
+                delete repr.id;
+                expect(repr.isNew()).toBe(true);
+            });
+
+            it("should return false if has an id", function() {
+                expect(repr.isNew()).toBe(false);
             });
         });
 

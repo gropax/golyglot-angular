@@ -6,6 +6,6 @@ function writtenForm() {
     return function(input) {
         var reprs = input ? input.representations : false;
 
-        return reprs ? reprs[0].writtenForm : false;
+        return reprs ? reprs.at(0).writtenForm : false;
     };
 }

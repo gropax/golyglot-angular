@@ -20,16 +20,17 @@
         ]);
 
 
-        var $httpBackend, $scope, lang, Representation, element, isolated, LexicalEntry, lexicalEntry, newLexicalEntry;
+        var $httpBackend, $scope, lang, Representation, element, isolated, LexicalEntry, lexicalEntry, newLexicalEntry, Representations;
 
         beforeEach(function() {
             module('golyglot.representables.test');
 
-            inject(function($q, $rootScope, $compile, _$httpBackend_, _Representation_, _LexicalEntry_) {
+            inject(function($q, $rootScope, $compile, _$httpBackend_, _Representation_, _LexicalEntry_, _Representations_) {
                 Representation = _Representation_;
+                Representations = _Representations_;
                 LexicalEntry = _LexicalEntry_;
 
-                var lexicalEntryAttrs = {
+                var newLexicalEntryAttrs = {
                     lexiconId: '007',
                     language: 'cmn',
                     lemma: {
@@ -40,16 +41,25 @@
                         }]
                     }
                 };
-
                 // New entry to test "create"
-                newLexicalEntry = new LexicalEntry(lexicalEntryAttrs);
+                newLexicalEntry = new LexicalEntry(newLexicalEntryAttrs);
 
-                // Persisted entry to test "update"
-                lexicalEntry = newLexicalEntry.clone();
-                lexicalEntry.id = "123";
-                lexicalEntry.lemma.id = "456";
-                lexicalEntry.lemma.representations.toArray()[0].id = "789";
-
+                var lexicalEntryAttrs = {
+                    id: "123",
+                    lexiconId: '007',
+                    language: 'cmn',
+                    lemma: {
+                        id: "456",
+                        representations: [{
+                            id: "789",
+                            script: "Hans",
+                            orthographyName: "simplified",
+                            writtenForm: 'xx'
+                        }]
+                    }
+                };
+                // New entry to test "create"
+                lexicalEntry = new LexicalEntry(lexicalEntryAttrs);
 
                 // Create and populate $scope
                 $scope = $rootScope.$new();
@@ -121,12 +131,6 @@
 
             describe("#representable", function() {
                 it("should be a clone of original", function() {
-                    // Compare the lemmas without considering parent
-                    // lexicalEntry, which has cyclic reference to one but
-                    // not with the other.
-                    delete isolated.representable.lexicalEntry;
-                    delete isolated.original.lexicalEntry;
-
                     expect(isolated.representable).toEqual(isolated.original);
                     expect(isolated.representable).not.toBe(isolated.original);
                 });
@@ -146,13 +150,13 @@
 
                     it("should set valid to true if clone not blank", function() {
                         var reprs = isolated.representable.representations;
-                        reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
+                        //reprs.push(new Representation({script: 'Hans', writtenForm: 'xxx'}));
                         isolated.$apply(function() { isolated.updateValidity(); });
                         expect(isolated.valid).toBe(true);
                     });
 
                     it("should set valid to false if clone is blank", function() {
-                        isolated.representable.representations = [];
+                        isolated.representable.representations = new Representations();
                         isolated.$apply(function() { isolated.updateValidity(); });
                         expect(isolated.valid).toBe(false);
                     });
@@ -161,7 +165,7 @@
                 describe("when persisted representable", function() {
                     it("should set valid to true if clone modified", function() {
                         console.log("isolated.representable.representations: " + JSON.stringify(isolated.representable.representations));
-                        isolated.representable.representations = [];
+                        isolated.representable.representations = new Representations();
                         isolated.$apply(function() { isolated.updateValidity(); });
                         expect(isolated.valid).toBe(true);
                     });
@@ -179,36 +183,73 @@
                         isolated.valid = true;
                     });
 
-                    it("should send a POST request", function() {
-                        pending();
+                    describe("when persisted representable", function() {
+                        beforeEach(function() {
+                            //isolated.representable = lexicalEntry.lemma.clone();
+                            isolated.representable.representations.push(new Representation({script: 'Latn', orthographyName: 'pinyin', writtenForm: 'ni3hao3'}));
+                        });
 
-                        $httpBackend.expectPOST().respond(200);
+                        it("should send a PUT request", function() {
+                            $httpBackend.expectPUT('api/lexical_entries/123/lemma').respond(200);
 
-                        isolated.$apply(function() { isolated.submit(); });
-                        $httpBackend.flush();
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
+                        });
+
+                        it("should update the original", function() {
+                            pending();
+
+                            $httpBackend.whenPOST().respond(200, {id: "123"});
+
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
+
+                            expect(isolated.original.id).toBe("123")
+                        });
+
+                        it("should execute `onSuccess` callback", function() {
+                            $httpBackend.whenPUT().respond(200);
+                            spyOn(isolated, 'onSuccess');
+
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
+
+                            expect(isolated.onSuccess).toHaveBeenCalled();
+                        });
                     });
 
-                    it("should update the original", function() {
-                        pending();
+                    describe("when new representable", function() {
+                        it("should send a POST request", function() {
+                            pending();
 
-                        $httpBackend.whenPOST().respond(200, {id: "123"});
+                            $httpBackend.expectPOST().respond(200);
 
-                        isolated.$apply(function() { isolated.submit(); });
-                        $httpBackend.flush();
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
+                        });
 
-                        expect(isolated.original.id).toBe("123")
-                    });
+                        it("should update the original", function() {
+                            pending();
 
-                    it("should execute `onSuccess` callback", function() {
-                        pending();
+                            $httpBackend.whenPOST().respond(200, {id: "123"});
 
-                        $httpBackend.whenPOST().respond(200);
-                        spyOn(isolated, 'onSuccess');
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
 
-                        isolated.$apply(function() { isolated.submit(); });
-                        $httpBackend.flush();
+                            expect(isolated.original.id).toBe("123")
+                        });
 
-                        expect(isolated.onSuccess).toHaveBeenCalled();
+                        it("should execute `onSuccess` callback", function() {
+                            pending();
+
+                            $httpBackend.whenPOST().respond(200);
+                            spyOn(isolated, 'onSuccess');
+
+                            isolated.$apply(function() { isolated.submit(); });
+                            $httpBackend.flush();
+
+                            expect(isolated.onSuccess).toHaveBeenCalled();
+                        });
                     });
                 });
 

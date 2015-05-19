@@ -5,7 +5,7 @@ cmnTraditional.$inject = [];
 function cmnTraditional() {
     return function(input) {
         var reprs = input ? input.representations || input.representations : false;
-        var pinyin = reprs && _.detect(reprs, function(repr) { return repr.script === 'Hant'; });
+        var pinyin = reprs && _.detect(reprs.toArray(), function(repr) { return repr.script === 'Hant'; });
 
         return pinyin ? pinyin.writtenForm : null;
     };

@@ -99,7 +99,7 @@ RSpec.describe LexicalEntry, :type => :model do
             },
             { # Destroy element
               id: traditional.id,
-              _destroy: true
+              _destroy: "1"
             },
             { # Create element
               script: 'Hant',

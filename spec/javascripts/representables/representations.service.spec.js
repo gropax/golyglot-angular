@@ -47,10 +47,22 @@
             });
         });
 
+        describe("#at", function() {
+            it("should return the nth element", function() {
+                expect(reprs.at(1).id).toBe('456');
+            });
+        });
+
         describe("#push", function() {
             it("should append element in #representations", function() {
                 reprs.push('whatever');
                 expect(reprs.toArray().length).toBe(4);
+            });
+        });
+
+        describe("#length", function() {
+            it("should return the length of #representations", function() {
+                expect(reprs.length).toBe(3);
             });
         });
 
@@ -119,6 +131,20 @@
             });
         });
 
+        describe("#findById", function() {
+            describe("when not found", function() {
+                it("should return false", function() {
+                    expect(reprs.findById('007')).toBe(false);
+                });
+            });
+
+            describe("when found", function() {
+                it("should return the Representation", function() {
+                    expect(reprs.findById('456').id).toBe('456');
+                });
+            });
+        });
+
         describe("find", function() {
             describe("when not found", function() {
                 it("should return false", function() {
@@ -153,6 +179,104 @@
                     expect(reprs.findOrCreate(schema)).toEqual(repr);
                     expect(reprs.toArray().length).toBe(3);
                 });
+            });
+        });
+
+        describe("#equal", function() {
+            it("should return false if different from original", function() {
+                var modified = reprs.clone();
+                modified.toArray()[0].writtenForm = "modified";
+                expect(modified.equal(reprs)).toBe(false);
+            });
+
+            it("should return true if identical to original", function() {
+                var notModified = reprs.clone();
+                expect(notModified.equal(reprs)).toBe(true);
+            });
+
+            it("should not care for empty new representations", function() {
+                var notModified = reprs.clone();
+                notModified.push(new Representation());
+                expect(notModified.equal(reprs)).toBe(true);
+            });
+        });
+
+        describe("#rejectNewBlank", function() {
+            it("should return a new Representations without empty blank Representation", function() {
+                var clone = reprs.clone();
+                clone.push(new Representation());
+                expect(clone.rejectNewBlank()).toEqual(reprs);
+            });
+        });
+
+        describe("#diffFrom", function() {
+            var original, modified;
+
+            beforeEach(function() {
+                original = new Representations([
+                    {
+                        id: '111',
+                        script: 'Hans',
+                        orthographyName: 'simplified',
+                        writtenForm: 'xxx',
+                    },
+                    {
+                        id: '222',
+                        script: 'Hant',
+                        orthographyName: 'traditional',
+                        writtenForm: 'XXX',
+                    },
+                    {
+                        id: '333',
+                        script: 'Latn',
+                        orthographyName: 'pinyin',
+                        writtenForm: 'ni3hao3',
+                    }
+                ]);
+
+                modified = new Representations([
+                    {
+                        id: '111',
+                        script: 'Hans',
+                        orthographyName: 'simplified',
+                        writtenForm: 'xxx',
+                    },
+                    {
+                        id: '222',
+                        script: 'Hant',
+                        orthographyName: 'traditional',
+                        writtenForm: 'YYY',
+                    },
+                    {
+                        id: '333',
+                        script: 'Latn',
+                        orthographyName: 'pinyin',
+                        writtenForm: '',
+                    },
+                    {
+                        script: 'Latn',
+                        orthographyName: 'yutping',
+                        writtenForm: 'lei5hou2',
+                    }
+                ]);
+            });
+
+            it("should return a diff array for PUT request", function() {
+                expect(modified.diffFrom(original)).toEqual([
+                    {
+                        id: '222',
+                        writtenForm: 'YYY',
+                    },
+                    {
+                        id: '333',
+                        _destroy: '1',
+                    },
+                    {
+                        script: 'Latn',
+                        orthographyName: 'yutping',
+                        writtenForm: 'lei5hou2',
+                    }
+                ]);
             });
         });
 

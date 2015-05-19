@@ -157,7 +157,7 @@ RSpec.describe LexicalEntry, :type => :request do
           },
           { # Destroy element
             id: traditional.id,
-            _destroy: true
+            _destroy: '1'
           },
           { # Create element
             script: 'Arab',

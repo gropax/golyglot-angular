@@ -18,6 +18,9 @@ function ggLexicalEntryFormModal() {
                 $scope.buttonSuccessCallback = args.onSuccess;
                 // Reset Form
                 $scope.$broadcast('reset:form');
+
+                $scope.$digest();
+
                 // Show modal
                 $('#LexicalEntryFormModal').modal('show');
             };

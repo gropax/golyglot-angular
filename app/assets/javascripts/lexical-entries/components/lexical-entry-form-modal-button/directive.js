@@ -2,12 +2,11 @@ angular.module('golyglot.lexical-entries').directive('ggLexicalEntryFormModalBut
 
 function ggLexicalEntryFormModalButton() {
     return {
-        restrict: 'EA',
+        restrict: 'A',
         scope: {
             model: "=ggModel",
             onSuccess: "&ggSuccess",
         },
-        templateUrl: 'lexical-entries/components/lexical-entry-form-modal-button/template.html',
 
         controller: function($rootScope, $scope) {
             $scope.openModal = function() {
@@ -16,6 +15,12 @@ function ggLexicalEntryFormModalButton() {
                     onSuccess: $scope.onSuccess,
                 });
             };
+        },
+
+        link: function(scope, element, attrs) {
+            element.on('click', function() {
+                scope.openModal();
+            });
         },
 
     };

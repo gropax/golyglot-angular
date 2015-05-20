@@ -2,12 +2,11 @@ angular.module('golyglot.representables').directive('ggRepresentableFormModalBut
 
 function ggRepresentableFormModalButton() {
     return {
-        restrict: 'EA',
+        restrict: 'A',
         scope: {
             model: "=ggModel",
             onSuccess: "&ggSuccess",
         },
-        templateUrl: 'representables/components/representable-form-modal-button/template.html',
 
         controller: function($rootScope, $scope) {
             $scope.openModal = function() {
@@ -16,6 +15,12 @@ function ggRepresentableFormModalButton() {
                     onSuccess: $scope.onSuccess,
                 });
             };
+        },
+
+        link: function(scope, element, attrs) {
+            element.on('click', function() {
+                scope.openModal();
+            });
         },
 
     };

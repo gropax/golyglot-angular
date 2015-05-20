@@ -1,5 +1,7 @@
 <br />
 
+<div gg-lexical-entry-form-modal></div>
+
 <div class="row">
     <div class="col-md-3" gg-language-selector language="language"></div>
 
@@ -23,41 +25,18 @@
     </div>
 
     <div class="col-md-2">
-        <!--
         <button type="button"
                 class="btn btn-success"
-                data-toggle="modal"
-                data-target="#newEntryModal"
+                gg-lexical-entry-form-modal-button
+                gg-model="lexicalEntry"
+                gg-success="onEntryCreated()"
                 aria-expanded="false">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
             New Entry
         </button>
-        -->
-        <div gg-lexical-entry-form-modal-button
-             gg-model="lexicalEntry"
-             gg-success="onEntryCreated()"></div>
-        <div gg-lexical-entry-form-modal></div>
     </div>
 </div>
 
-<!--
-<div id="newEntryModal" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">New {{ language.name }} Entry</h4>
-            </div>
-            <div class="modal-body">
-                <div gg-new-lexical-entry-form
-                     lang-code="language.code"
-                     lexicon-id="lexicon.id"
-                     on-success="onEntryCreated()" ></div>
-            </div>
-        </div>
-    </div>
-</div>
--->
 <hr />
 
 <h4>{{ listTitle }}</h4>

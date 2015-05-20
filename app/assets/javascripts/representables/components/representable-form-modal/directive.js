@@ -18,6 +18,11 @@ function ggRepresentableFormModal() {
                 $scope.buttonSuccessCallback = args.onSuccess;
                 // Reset Form
                 $scope.$broadcast('reset:form');
+                
+                // Need to trigger $digest manually so the model could be
+                // updated and the form correctly displayed in the modal.
+                $scope.$digest();
+
                 // Show modal
                 $('#RepresentableFormModal').modal('show');
             };

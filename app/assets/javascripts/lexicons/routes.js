@@ -59,15 +59,10 @@ function config($stateProvider, USER_ROLES) {
 
         state('lexicon:lexicalEntries', {
             parent: 'lexicon:resources',
-            url: '?:lang',
+            url: '?lang&query',
             templateUrl: 'lexicons/lexical-entries/template.html',
             controller: 'LexiconLexicalEntriesCtrl',
         });
 
-        //state('user.lexicon.resources.sentences', {
-        //    url: '/sentences',
-        //    templateUrl: 'sentences/templates/list.html',
-        //    //controller: 'ListSentencesCtrl',
-        //});
 };
 

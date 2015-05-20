@@ -1,46 +1,55 @@
 angular.module('golyglot.lexicons').controller('LexiconLexicalEntriesCtrl', LexiconLexicalEntriesCtrl);
 
-LexiconLexicalEntriesCtrl.$inject = ['$scope', '$state', '$stateParams', 'lexicon', 'LexicalEntry', 'lang', '$log'];
+LexiconLexicalEntriesCtrl.$inject = ['$scope', '$state', '$stateParams', 'lexicon', 'lang', 'LexicalEntry', '$log'];
 
-function LexiconLexicalEntriesCtrl($scope, $state, $stateParams, lexicon, LexicalEntry, lang, $log) {
+function LexiconLexicalEntriesCtrl($scope, $state, $stateParams, lexicon, lang, LexicalEntry, $log) {
 
-    // Initialize value of language selector
-    //
-    // @todo
-    //     Add a 'main language' attribute in lexicons, which would be the
-    //     default language
-    //
-    $scope.language = lang($stateParams.lang) || lang.all()[0];
+    var language = lang($stateParams.lang) || lang.all()[0];
+    $scope.language = language;
+    $scope.query = $stateParams.query;
+
+
+    $scope.lexicalEntries = [];
+    $scope.searching = true;
+
+    fetchLexicalEntries();
 
     resetLexicalEntry();
 
-    $scope.onLanguageSelected = function(language) {
-        $state.go('lexicon:lexicalEntries', {lang: language.code});
-    };
-
     $scope.onEntryCreated = function() {
-        $('#newEntryModal').modal('hide');
+        //$('#newEntryModal').modal('hide');
         resetLexicalEntry();
-        displayRecentEntries();
+        //displayRecentEntries();
+        if ($stateParams.query)
+            $state.go('lexicon:lexicalEntries', {lang: language.code, query: null});
+        else
+            fetchLexicalEntries();
     };
 
-    $scope.listTitle = 'Added Recently';
-    $scope.lexicalEntries = [];
+    $scope.onLanguageSelected = function(language) {
+        $state.go('lexicon:lexicalEntries', {lang: language.code, query: null});
+    };
 
-    // Display recent entries when the user changes the language
-    //
-    $scope.$watch('language', function() { displayRecentEntries(); });
+    $scope.search = function() {
+        $state.go('lexicon:lexicalEntries', {lang: language.code, query: $scope.query})
+    };
 
-    function resetLexicalEntry() {
-        $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
-    }
 
-    function displayRecentEntries() {
-        $scope.searching = true;
-        LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code}).then(function(result) {
+    function fetchLexicalEntries() {
+        var promise;
+        if ($stateParams.query) {
+            // Display search results
+            $scope.listTitle = 'Results for search: "' + $scope.query + '"';
+            //promise = LexicalEntry.search({lexiconId: lexicon.id}, {query: $scope.search});
+            promise = LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code});
+        } else {
+            // Display recently added
+            $scope.listTitle = 'Recently added';
+            promise = LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code});
+        }
+
+        promise.then(function(result) {
             $scope.lexicalEntries = result;
-            $scope.listTitle = 'Added Recently';
-
             $scope.searching = false;
         }, function(error) {
             $scope.searching = false;
@@ -48,25 +57,8 @@ function LexiconLexicalEntriesCtrl($scope, $state, $stateParams, lexicon, Lexica
         });
     }
 
-    // Send a search request and display the results when the user click on the
-    // search button.
-    //
-    $scope.searchEntries = function() {
-        $log.debug("Search: " + $scope.search);
-
-        $scope.listTitle = 'Results for: ' + $scope.search;
-        $scope.lexicalEntries = [];
-
-        //$scope.searching = true;
-        //LexicalEntry.search({query: $scope.search}).then(function(result) {
-        //    $scope.lexicalEntries = result;
-        //    $scope.listTitle = 'Results for: ' + $scope.search;
-
-        //    $scope.searching = false;
-        //}, function(error) {
-        //    $scope.searching = false;
-        //    // @todo Handle error
-        //});
-    };
+    function resetLexicalEntry() {
+        $scope.lexicalEntry = new LexicalEntry({language: language.code, lexiconId: lexicon.id});
+    }
 
 }

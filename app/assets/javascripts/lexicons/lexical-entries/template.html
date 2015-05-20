@@ -9,11 +9,11 @@
          gg-select="onLanguageSelected"></div>
 
     <div class="col-md-7">
-        <form name="searchForm" ng-submit="searchEntries()" novalidate>
+        <form name="searchForm" ng-submit="search()" novalidate>
             <div class="input-group">
                 <input name="search"
                        class="form-control"
-                       ng-model="search"
+                       ng-model="query"
                        required />
                 <span class="input-group-btn">
                     <button type="submit"

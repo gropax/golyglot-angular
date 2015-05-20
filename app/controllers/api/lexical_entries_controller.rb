@@ -7,11 +7,16 @@ module Api
     before_action :set_user
 
     def index
-      if language = params[:language]
+      language = params[:language]
+      unless language
+        render json: {error: 'language required'}, status: :bad_request
+      end
+
+      if query = params[:query]
+        @lexical_entries = LexicalEntry.search({language: language, query: query})
+      else
         @lexical_entries = LexicalEntry.where({lexicon: @lexicon, language: language})
           .desc(:created_at).limit(10)
-      else
-        render json: {error: 'language required'}, status: :bad_request
       end
     end
 

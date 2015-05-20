@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
     resources "users", only: [:show, :index] do
       resources "lexicons", only: [:index, :create, :show, :update, :destroy]
-      #get "lexicons", to: 'users#lexicons'
-      #post "lexicons", to: 'lexicons#create'
     end
 
     resources "lexicons", only: [] do
@@ -16,8 +14,8 @@ Rails.application.routes.draw do
     end
 
     resources "lexical_entries" do
-      #put "lemma", to: 'lexical_entries#update_lemma'
       resource "lemma", only: [:update]
+      get "search", on: :collection
     end
   end
 

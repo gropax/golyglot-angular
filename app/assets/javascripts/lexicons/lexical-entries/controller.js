@@ -36,19 +36,18 @@ function LexiconLexicalEntriesCtrl($scope, $state, $stateParams, lexicon, lang, 
 
 
     function fetchLexicalEntries() {
-        var promise;
+        var queryParams = {language: $scope.language.code};
+
         if ($stateParams.query) {
             // Display search results
             $scope.listTitle = 'Results for search: "' + $scope.query + '"';
-            //promise = LexicalEntry.search({lexiconId: lexicon.id}, {query: $scope.search});
-            promise = LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code});
+            queryParams.query = $stateParams.query;
         } else {
             // Display recently added
             $scope.listTitle = 'Recently added';
-            promise = LexicalEntry.query({lexiconId: lexicon.id}, {language: $scope.language.code});
         }
 
-        promise.then(function(result) {
+        LexicalEntry.query({lexiconId: lexicon.id}, queryParams).then(function(result) {
             $scope.lexicalEntries = result;
             $scope.searching = false;
         }, function(error) {

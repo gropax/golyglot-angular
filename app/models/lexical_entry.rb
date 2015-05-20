@@ -23,6 +23,18 @@ class LexicalEntry
     super + [:lemma]
   end
 
+  def self.search(hsh = {})
+    regex = Regexp.new(hsh[:query])
+    self.where({
+      'language' => hsh[:language],
+      'lemma.representations' => {
+        '$elemMatch' => {
+          'written_form' => {'$regex' => regex}
+        }
+      }
+    })
+  end
+
   def to_builder
     Jbuilder.new do |json|
       json.id id.to_s

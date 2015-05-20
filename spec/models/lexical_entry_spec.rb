@@ -15,6 +15,30 @@ RSpec.describe LexicalEntry, :type => :model do
     end
   end
 
+  describe "::search" do
+    let(:bob) { FactoryGirl.create(:bob) }
+    let(:lexicon) { FactoryGirl.create(:lexicon, user: bob) }
+
+    context "when not found" do
+      it "should return []"
+    end
+
+    context "when found" do
+      before(:each) do
+        FactoryGirl.create_list(:lexical_entry, 10, lexicon: lexicon, language: 'cmn')
+        eng_lexical_entry(lexicon, 'query')
+        @match1 = cmn_lexical_entry(lexicon, 'query', '...', '...')
+        @match2 = cmn_lexical_entry(lexicon, '...', '...', 'abcquery123')
+
+        @result = LexicalEntry.search(language: 'cmn', query: 'query')
+      end
+
+      it "should return lexical entries of given language that match query" do
+        expect(@result).to match_array([@match1, @match2])
+      end
+    end
+  end
+
   describe "#lexicon" do
     it "should not be blank" do
       lexical_entry.lexicon = nil

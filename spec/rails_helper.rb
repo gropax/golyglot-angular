@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'pry'
 require "database_cleaner"
 
+require 'spec_helpers/model_helpers'
 require 'spec_helpers/request_helpers'
 require 'spec_helpers/auth_macros'
 
@@ -41,6 +42,8 @@ RSpec.configure do |config|
 
   config.infer_spec_type_from_file_location!
 
+  config.include ModelHelpers, type: :model
+  config.include ModelHelpers, type: :request
   config.include RequestHelpers, type: :request
   config.extend AuthMacros, type: :request
 end

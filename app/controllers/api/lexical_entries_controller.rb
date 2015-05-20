@@ -34,6 +34,11 @@ module Api
       render json: @lexical_entry.to_builder.target!
     end
 
+    def destroy
+      @lexical_entry.destroy
+      head :no_content
+    end
+
 
     private
 

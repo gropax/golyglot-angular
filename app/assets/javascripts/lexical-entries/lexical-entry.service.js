@@ -50,6 +50,10 @@ function LexicalEntryFactory($http, Lemma) {
         });
     };
 
+    LexicalEntry.prototype.destroy = function() {
+        return $http.delete("api/lexicons/" + this.lexiconId + "/lexical_entries/" + this.id);
+    };
+
     LexicalEntry.prototype.setAttributes = function(args) {
         var lexicalEntry = this;
         // Overwrite properties

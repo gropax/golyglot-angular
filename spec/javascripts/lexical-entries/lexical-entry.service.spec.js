@@ -136,6 +136,22 @@
             });
         });
 
+        describe("#destroy", function() {
+            describe("when success", function() {
+                it("should send a DELETE request", function() {
+                    $httpBackend.expectDELETE('api/lexicons/007/lexical_entries/456').respond(200);
+
+                    var callback;
+                    lexicalEntry.destroy().then(function(success) { callback = 'called!'; });
+
+                    $httpBackend.flush();
+                    $rootScope.$digest();
+
+                    expect(callback).toEqual('called!');
+                });
+            });
+        });
+
         describe("#lemma", function() {
             it("returns a Lemma resource", function() {
                 expect(lemma.constructor).toEqual(Lemma);

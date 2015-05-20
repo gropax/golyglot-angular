@@ -1,8 +1,8 @@
 angular.module('golyglot.lexicons').controller('LexiconLexicalEntriesCtrl', LexiconLexicalEntriesCtrl);
 
-LexiconLexicalEntriesCtrl.$inject = ['$scope', '$stateParams', 'lexicon', 'LexicalEntry', 'lang', '$log'];
+LexiconLexicalEntriesCtrl.$inject = ['$scope', '$state', '$stateParams', 'lexicon', 'LexicalEntry', 'lang', '$log'];
 
-function LexiconLexicalEntriesCtrl($scope, $stateParams, lexicon, LexicalEntry, lang, $log) {
+function LexiconLexicalEntriesCtrl($scope, $state, $stateParams, lexicon, LexicalEntry, lang, $log) {
 
     // Initialize value of language selector
     //
@@ -12,12 +12,15 @@ function LexiconLexicalEntriesCtrl($scope, $stateParams, lexicon, LexicalEntry, 
     //
     $scope.language = lang($stateParams.lang) || lang.all()[0];
 
-    $scope.$watch('language', function() {
-        $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
-    });
+    resetLexicalEntry();
+
+    $scope.onLanguageSelected = function(language) {
+        $state.go('lexicon:lexicalEntries', {lang: language.code});
+    };
 
     $scope.onEntryCreated = function() {
         $('#newEntryModal').modal('hide');
+        resetLexicalEntry();
         displayRecentEntries();
     };
 
@@ -26,9 +29,11 @@ function LexiconLexicalEntriesCtrl($scope, $stateParams, lexicon, LexicalEntry, 
 
     // Display recent entries when the user changes the language
     //
-    $scope.$watch('language', function() {
-        displayRecentEntries();
-    });
+    $scope.$watch('language', function() { displayRecentEntries(); });
+
+    function resetLexicalEntry() {
+        $scope.lexicalEntry = new LexicalEntry({language: $scope.language.code, lexiconId: lexicon.id});
+    }
 
     function displayRecentEntries() {
         $scope.searching = true;

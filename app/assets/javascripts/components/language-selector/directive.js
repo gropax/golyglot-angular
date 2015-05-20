@@ -4,7 +4,8 @@ function ggLanguageSelector() {
     return {
         restrict: 'EA',
         scope: {
-            language: "=",
+            language: "=ggLanguage",
+            callback: "=ggSelect"
         },
 
         templateUrl: 'components/language-selector/template.html',
@@ -14,6 +15,7 @@ function ggLanguageSelector() {
 
             $scope.selectLanguage = function(language) {
                 $scope.language = language;
+                $scope.callback(language);
             };
         }
     };

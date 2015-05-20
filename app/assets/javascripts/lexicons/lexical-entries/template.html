@@ -3,7 +3,10 @@
 <div gg-lexical-entry-form-modal></div>
 
 <div class="row">
-    <div class="col-md-3" gg-language-selector language="language"></div>
+    <div class="col-md-3"
+         gg-language-selector
+         gg-language="language"
+         gg-select="onLanguageSelected"></div>
 
     <div class="col-md-7">
         <form name="searchForm" ng-submit="searchEntries()" novalidate>

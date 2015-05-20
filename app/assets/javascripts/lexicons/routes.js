@@ -59,7 +59,7 @@ function config($stateProvider, USER_ROLES) {
 
         state('lexicon:lexicalEntries', {
             parent: 'lexicon:resources',
-            url: '',
+            url: '?:lang',
             templateUrl: 'lexicons/lexical-entries/template.html',
             controller: 'LexiconLexicalEntriesCtrl',
         });
